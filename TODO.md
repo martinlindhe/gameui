@@ -35,3 +35,42 @@ xxx
 
 * speed: benchmark time to render 100 frames
 * speed: view tracks dirtiness of components (if they need to be redrawn)
+
+
+
+
+
+# old ebui todo: pre 30 sep 2016:
+# TODO
+
+todo 0 :
+  tests!!!
+  100% coverage
+
+
+[ ] todo: scene manager, se ebiten/example/blocks.go
+    kunna transistera från start menu, till in-game
+    
+[ ] todo: om man trycker ESC in-game så ska main menu öppnas
+
+[x] todo 1: create a main menu using MenuList
+    scrolling background thingy
+    
+[ ] todo: resizable container with icons and interactions with icons,
+    like in wayland
+
+---
+
+
+# TODO: Icon
+  -> clickable button with x,y,w,h, normal and hover icon
+  -> when clicked, shows a MenuList centered on screen
+
+
+# Menu.List
+  -> should be usable as main menu thingy
+  -> ordered list of MenuItem's
+
+# Menu.Item
+  -> single item of a menu
+  -> title (text, render with font)
