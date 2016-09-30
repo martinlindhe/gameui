@@ -6,7 +6,8 @@
 
 
 * test: render component, check result -> output rough ascii img for debug purposes
-    map color brightness to letter A-Z and then render to string, use in tests
+    map color brightness to symbols "space" to # (little-to-much-covered box) A-Z and then render to string, use in tests
+
 
 * font: render all letters in one line to a image.Image ONCE, when printing, just blit from parts
     of this source image

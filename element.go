@@ -1,7 +1,6 @@
 package ui
 
-import "github.com/hajimehoshi/ebiten"
-
+/*
 // Component represents any type of UI component
 type Component interface {
 	Draw(mx, my int) (*ebiten.Image, error) // XXX image.Image
@@ -27,3 +26,4 @@ func (el element) updateHover(mx, my int) {
 		el.IsMouseOver = true
 	}
 }
+*/

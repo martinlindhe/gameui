@@ -1,7 +1,17 @@
 package ui
 
-// XXX unused?
+/*
+// LoadDebugFont ...
+func (w *World) LoadDebugFont(fileName string) error {
 
+	//  TODO check out github.com/hajimehoshi/ebiten/examples/common/font.go
+	var err error
+	w.DebugFont, err = ui.NewFont("_resources/font/topaz-8.ttf", 72, 10)
+	return err
+}
+*/
+
+/*
 import (
 	"image"
 	"image/color"
@@ -73,3 +83,4 @@ func (fnt *Font) Print(text string) (*ebiten.Image, error) {
 
 	return ebiten.NewImageFromImage(fnt.drawer.Dst, ebiten.FilterNearest)
 }
+*/

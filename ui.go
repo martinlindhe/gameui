@@ -2,22 +2,16 @@ package ui
 
 import (
 	"image"
-
-	"github.com/hajimehoshi/ebiten"
 )
-
-// TODO rework so this component only renders a image, no loop code etc...
-// do that in main app
 
 // UI represents an instance of the UI
 type UI struct {
-	Width, Height  int
-	scale          float64
-	WindowTitle    string
-	elements       []Component
-	screen         image.Image
-	buffer         image.Image
-	updateCallback func(*ebiten.Image) error
+	Width, Height int
+	scale         float64
+	WindowTitle   string
+	//elements      []Component
+	screen image.Image
+	buffer image.Image
 }
 
 // New creates a new UI instance
@@ -37,7 +31,9 @@ func (ui *UI) SetWindowTitle(s string) {
 	ui.WindowTitle = s
 }
 
+/*
 // AddElement adds an element to the ui
 func (ui *UI) AddElement(o Component) {
 	ui.elements = append(ui.elements, o)
 }
+*/
