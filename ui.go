@@ -9,8 +9,8 @@ type UI struct {
 	Width, Height int
 	scale         float64
 	WindowTitle   string
-	scene         *image.RGBA
-	//elements      []Component
+	Scene         *image.RGBA // XXX unused now. TODO: should contain last rendered scene
+	components    []Component
 }
 
 // New creates a new UI instance
@@ -20,7 +20,7 @@ func New(width, height int) *UI {
 		Width:       width,
 		Height:      height,
 		WindowTitle: "ui window",
-		scene:       image.NewRGBA(rect),
+		Scene:       image.NewRGBA(rect),
 	}
 }
 
@@ -29,9 +29,7 @@ func (ui *UI) SetWindowTitle(s string) {
 	ui.WindowTitle = s
 }
 
-/*
-// AddElement adds an element to the ui
-func (ui *UI) AddElement(o Component) {
-	ui.elements = append(ui.elements, o)
+// AddComponent adds a component to the ui
+func (ui *UI) AddComponent(o Component) {
+	ui.components = append(ui.components, o)
 }
-*/
