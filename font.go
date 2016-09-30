@@ -1,5 +1,7 @@
 package ui
 
+// XXX unused?
+
 import (
 	"image"
 	"image/color"

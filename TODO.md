@@ -1,14 +1,15 @@
 # TODO
 
-xxx
-* copy stuff from ebui. drop ebui usage atm. later port "ui" to ebui pkg
+* later move "ui" to ebui pkg, overwriting existing project there
 
-* no ebiten dependency ?
+* no ebiten dependency ? only export an image
+
+
+* test: render component, check result -> output rough ascii img for debug purposes
+    map color brightness to letter A-Z and then render to string, use in tests
 
 
 # planning
-
-xxx
 
 * view contains multiple components:
 

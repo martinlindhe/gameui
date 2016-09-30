@@ -1,35 +1,29 @@
 package ui
 
-import (
-	log "github.com/Sirupsen/logrus"
-	"github.com/hajimehoshi/ebiten"
-)
+import "github.com/hajimehoshi/ebiten"
 
 // Component represents any type of UI component
 type Component interface {
-	Draw(mx, my int) (*ebiten.Image, error)
+	Draw(mx, my int) (*ebiten.Image, error) // XXX image.Image
 	GetUpperLeft() (int, int)
 }
 
 type element struct {
-	IsHovering    bool
+	IsMouseOver   bool
 	Width, Height int
 	X, Y          int
 	Image         *ebiten.Image
 }
 
-func (el element) GetUpperLeft() (int, int) {
+func (el element) GetUpperLeft() (int, int) { // XXX replace with GetBounds()
 	return el.X, el.Y
 }
 
-// updateHover toggles IsHovering if cursor is over element
+// updateHover toggles IsMouseOver if cursor is over element
 func (el element) updateHover(mx, my int) {
-
-	el.IsHovering = false
+	el.IsMouseOver = false
 	if mx >= el.X && mx <= el.X+el.Width &&
 		my >= el.Y && my <= el.Y+el.Height {
-		el.IsHovering = true
+		el.IsMouseOver = true
 	}
-
-	log.Debugln("element.updateHover:", el.X, el.Y, el.IsHovering)
 }
