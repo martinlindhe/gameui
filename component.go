@@ -13,6 +13,7 @@ type Component interface {
 // component is the abstract base class for ui components
 type component struct {
 	IsMouseOver   bool
+	IsClean       bool // does component need redraw?
 	Width, Height int
 	X, Y          int
 	Image         *image.RGBA

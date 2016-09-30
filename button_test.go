@@ -9,25 +9,67 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	benchButton = NewButton(30, 8)
+)
+
+// BenchmarkDrawButton-2   	200000000	         6.53 ns/op    (mbp-2010)
+func BenchmarkDrawButton(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		benchButton.Draw()
+	}
+}
+
 func TestButtonOnly(t *testing.T) {
-	w, h := 30, 8
+	w, h := 9, 5
 	btn := NewButton(w, h)
+
+	// make sure same frame is delivered each time
+	for i := 0; i < 10; i++ {
+		im, err := btn.Draw()
+		assert.Equal(t, nil, err)
+		testCompareRender(t, []string{
+			"#########",
+			"#       #",
+			"#       #",
+			"#       #",
+			"#########",
+		}, renderAsText(im))
+	}
+}
+
+func TestButtonImage(t *testing.T) {
+	w, h := 9, 5
+	btn := NewButton(w, h)
+
+	r := image.Rect(0, 0, 3, 3)
+	img := image.NewRGBA(r)
 
 	im, err := btn.Draw()
 	assert.Equal(t, nil, err)
 	testCompareRender(t, []string{
-		"999999999999999999999999999999",
-		"9                            9",
-		"9                            9",
-		"9                            9",
-		"9                            9",
-		"9                            9",
-		"9                            9",
-		"999999999999999999999999999999",
+		"#########",
+		"#       #",
+		"#       #",
+		"#       #",
+		"#########",
 	}, renderAsText(im))
 
-	//ui := New(w, h)
-	// ui.AddComponent(btn)
+	img.Set(0, 0, color.White)
+	img.Set(2, 0, color.White)
+	img.Set(1, 2, color.White)
+
+	btn.SetImage(img)
+
+	im, err = btn.Draw()
+	assert.Equal(t, nil, err)
+	testCompareRender(t, []string{
+		"#########",
+		"#  # #  #",
+		"#       #",
+		"#   #   #",
+		"#########",
+	}, renderAsText(im))
 }
 
 // for testing
