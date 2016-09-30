@@ -1,8 +1,5 @@
 # About
 
-simple lib on top of image.Image to render a game ui
-
-tiny ui framework for the game "farm"
-built on top of https://github.com/hajimehoshi/ebiten
+simple golang lib on top of [image](https://golang.org/pkg/image/) to render a game ui
 
 STATUS: private

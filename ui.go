@@ -9,9 +9,8 @@ type UI struct {
 	Width, Height int
 	scale         float64
 	WindowTitle   string
+	scene         *image.RGBA
 	//elements      []Component
-	screen image.Image
-	buffer image.Image
 }
 
 // New creates a new UI instance
@@ -21,8 +20,7 @@ func New(width, height int) *UI {
 		Width:       width,
 		Height:      height,
 		WindowTitle: "ui window",
-		buffer:      image.NewRGBA(rect),
-		screen:      image.NewRGBA(rect),
+		scene:       image.NewRGBA(rect),
 	}
 }
 
