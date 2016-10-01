@@ -1,31 +1,17 @@
 package ui
 
-/*
-// LoadDebugFont ...
-func (w *World) LoadDebugFont(fileName string) error {
+//  TODO check out github.com/hajimehoshi/ebiten/examples/common/font.go
 
-	//  TODO check out github.com/hajimehoshi/ebiten/examples/common/font.go
-	var err error
-	w.DebugFont, err = ui.NewFont("_resources/font/topaz-8.ttf", 72, 10)
-	return err
-}
-*/
-
-/*
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"io/ioutil"
 
 	"github.com/golang/freetype/truetype"
-	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
-)
-
-var (
-	fontColor = color.RGBA{209, 0, 0, 255}
 )
 
 // Font represents a font resource
@@ -37,7 +23,7 @@ type Font struct {
 }
 
 // NewFont prepares a new font resource for use
-func NewFont(fontName string, size float64, dpi float64) (*Font, error) {
+func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font, error) {
 
 	f, err := ebitenutil.OpenFile(fontName)
 	if err != nil {
@@ -55,7 +41,7 @@ func NewFont(fontName string, size float64, dpi float64) (*Font, error) {
 	fnt.dpi = dpi
 
 	fnt.drawer = &font.Drawer{
-		Src: image.NewUniform(fontColor),
+		Src: image.NewUniform(col),
 		Face: truetype.NewFace(fnt.font, &truetype.Options{
 			Size:    fnt.size,
 			DPI:     fnt.dpi,
@@ -63,24 +49,34 @@ func NewFont(fontName string, size float64, dpi float64) (*Font, error) {
 		}),
 	}
 
+	//lookup :=
+	// XXX create a one-row wide lookup image with all letters rendered
 	return &fnt, err
 }
 
+// StringInPixels ...
+func (fnt *Font) StringInPixels(s string) int {
+	return int(fnt.drawer.MeasureString(s).Ceil())
+}
+
 // Print draws text using the font
-func (fnt *Font) Print(text string) (*ebiten.Image, error) {
+func (fnt *Font) Print(text string) (*image.RGBA, error) {
 
 	if text == "" {
 		panic("empty text!")
 	}
 
-	width := fnt.drawer.MeasureString(text).Ceil()
-	height := int(fnt.size) + 2 // XXX not perfect
+	width := fnt.StringInPixels(text)
+
+	height := int(fnt.size - 1) // int(fnt.size) + 2 // XXX not perfect
 	fnt.drawer.Dst = image.NewRGBA(image.Rect(0, 0, width, height))
 
 	dy := (fnt.size * fnt.dpi) / 72
-	fnt.drawer.Dot = fixed.P(0, int(dy))
+	fnt.drawer.Dot = fixed.P(0, int(dy-2))
 	fnt.drawer.DrawString(text)
 
-	return ebiten.NewImageFromImage(fnt.drawer.Dst, ebiten.FilterNearest)
+	if img, ok := fnt.drawer.Dst.(*image.RGBA); ok {
+		return img, nil
+	}
+	return nil, fmt.Errorf("bad print")
 }
-*/

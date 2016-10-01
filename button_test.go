@@ -72,6 +72,10 @@ func TestButtonImage(t *testing.T) {
 	}, renderAsText(im))
 }
 
+func scale(valueIn, baseMin, baseMax, limitMin, limitMax float64) float64 {
+	return ((limitMax - limitMin) * (valueIn - baseMin) / (baseMax - baseMin)) + limitMin
+}
+
 // for testing
 func renderAsText(img *image.RGBA) []string {
 	b := img.Bounds()
@@ -85,10 +89,6 @@ func renderAsText(img *image.RGBA) []string {
 		res = append(res, row)
 	}
 	return res
-}
-
-func scale(valueIn, baseMin, baseMax, limitMin, limitMax float64) float64 {
-	return ((limitMax - limitMin) * (valueIn - baseMin) / (baseMax - baseMin)) + limitMin
 }
 
 // turn col brightness into ascii
@@ -108,7 +108,7 @@ func colToText(col color.Color) string {
 
 func testCompareRender(t *testing.T, expected, got []string) {
 	if len(expected) != len(got) {
-		t.Error("expected", len(expected), "lines,got", len(got))
+		t.Error("expected", len(expected), "lines, got", len(got))
 	}
 	for i, ex := range expected {
 		if i >= len(got) {

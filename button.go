@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
@@ -39,7 +38,6 @@ func (btn *Button) Draw() (*image.RGBA, error) {
 		return btn.Image, nil
 	}
 
-	fmt.Println("XXX redraw Button")
 	rect := image.Rect(0, 0, btn.Width, btn.Height)
 	im := image.NewRGBA(rect)
 
