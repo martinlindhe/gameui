@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// BenchmarkUI-2           	  300000	      4200 ns/op
+// BenchmarkUI-2   	200000000	         6.07 ns/op
 func BenchmarkUI(b *testing.B) {
 	w, h := 20, 10
 	ui := New(w, h)
