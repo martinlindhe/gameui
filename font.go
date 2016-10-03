@@ -60,8 +60,8 @@ func (fnt *Font) StringInPixels(s string) int {
 
 // Print draws text using the font
 func (fnt *Font) Print(text string) (*image.RGBA, error) {
-	width := fnt.StringInPixels(text)
 
+	width := fnt.StringInPixels(text)
 	if fnt.size == 0 {
 		panic("fnt.size == 0")
 	}
@@ -70,6 +70,7 @@ func (fnt *Font) Print(text string) (*image.RGBA, error) {
 
 	dy := (fnt.size * fnt.dpi) / 72
 	fnt.drawer.Dot = fixed.P(0, int(dy-2))
+
 	fnt.drawer.DrawString(text)
 
 	if img, ok := fnt.drawer.Dst.(*image.RGBA); ok {

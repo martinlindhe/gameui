@@ -13,7 +13,6 @@ var (
 
 // BenchmarkDrawFont-2     	  100000	     14122 ns/op   (mbp-2010)
 func BenchmarkDrawFont(b *testing.B) {
-
 	for n := 0; n < b.N; n++ {
 		benchFont.Print("hello world")
 	}

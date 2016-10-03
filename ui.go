@@ -47,7 +47,7 @@ func (ui *UI) Render(mx, my int) *image.RGBA {
 		return ui.Scene
 	}
 
-	// clear ui.Scene
+	// clear scene
 	whole := image.Rect(0, 0, ui.Width, ui.Height)
 	draw.Draw(ui.Scene, whole, &image.Uniform{color.Black}, image.ZP, draw.Src)
 
@@ -59,7 +59,6 @@ func (ui *UI) Render(mx, my int) *image.RGBA {
 		c.Hover(mx >= x && mx <= x1 && my >= y && my <= y1)
 
 		dr := image.Rect(x, y, x1, y1)
-		//fmt.Println("rendering component w=", w, ",h=", h, " at", x, y)
 		draw.Draw(ui.Scene, dr, img, image.ZP, draw.Over)
 	}
 	ui.IsClean = true
