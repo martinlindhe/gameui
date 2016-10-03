@@ -15,12 +15,14 @@ func TestTextOnly(t *testing.T) {
 	txt := NewText("HEJ", 6)
 
 	// XXX fixme height is too high
-	im := txt.Draw(0, 0)
-	testCompareRender(t, []string{
+	ex := []string{
 		"# # ###   # ",
 		"# # ##    # ",
 		"### #   # # ",
 		"# # ###  #  ",
 		"            ",
-	}, renderAsText(im))
+	}
+	// render 2 frames, the second should reach txt.IsClean code paths
+	testCompareRender(t, ex, renderAsText(txt.Draw(0, 0)))
+	testCompareRender(t, ex, renderAsText(txt.Draw(0, 0)))
 }
