@@ -45,6 +45,7 @@ func (ui *UI) Render() *image.RGBA {
 		img := c.Draw()
 		x, y, w, h := c.GetBounds()
 		dr := image.Rect(x, y, x+w, y+h)
+		//fmt.Println("rendering component w=", w, ",h=", h, " at", x, y)
 		draw.Draw(dst, dr, img, image.ZP, draw.Over)
 	}
 	return dst
