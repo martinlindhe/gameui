@@ -2,6 +2,7 @@ package ui
 
 import (
 	"image"
+	"image/color"
 	"testing"
 )
 
@@ -14,7 +15,7 @@ func BenchmarkUI(b *testing.B) {
 	btn.Position = image.Point{X: 5, Y: 3}
 	ui.AddComponent(btn)
 
-	txt := NewText("HELLO", 6)
+	txt := NewText("HELLO", 6, color.White)
 	txt.Position = image.Point{X: 0, Y: 0}
 	ui.AddComponent(txt)
 
@@ -31,7 +32,7 @@ func TestUI(t *testing.T) {
 	btn.Position = image.Point{X: 5, Y: 3}
 	ui.AddComponent(btn)
 
-	txt := NewText("HELLO", 6)
+	txt := NewText("HELLO", 6, color.White)
 	txt.Position = image.Point{X: 0, Y: 0}
 	ui.AddComponent(txt)
 

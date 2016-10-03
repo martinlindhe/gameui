@@ -29,12 +29,8 @@ func (btn *Button) SetImage(img *image.RGBA) {
 	btn.IsClean = false
 }
 
-// XXX set text + render it
-
 // Draw redraws internal buffer
 func (btn *Button) Draw(mx, my int) *image.RGBA {
-
-	// dont draw if nothing's changed
 	if btn.IsClean {
 		return btn.Image
 	}
@@ -42,18 +38,19 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 	rect := image.Rect(0, 0, btn.Width, btn.Height)
 	im := image.NewRGBA(rect)
 
-	// draw button outline
+	// draw outline
 	game.DrawRect(im, &rect, color.White)
 
-	if btn.image != nil {
-		btn.drawImage(im)
-	}
+	btn.drawImage(im)
 	btn.Image = im
 	btn.IsClean = true
 	return im
 }
 
 func (btn *Button) drawImage(im *image.RGBA) {
+	if btn.image == nil {
+		return
+	}
 	allB := im.Bounds()
 	btnB := btn.image.Bounds()
 	if allB.Max.X > btn.Width || allB.Max.Y > btn.Height {

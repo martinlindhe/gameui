@@ -10,19 +10,25 @@ const (
 	dpi = 72
 )
 
+var (
+	defaultFontName = assetPath("_resources/font/tiny/tiny.ttf")
+)
+
 // Text ...
 type Text struct {
 	component
-	text string
-	size float64
+	text  string
+	size  float64
+	color color.Color
 }
 
 // NewText ...
-func NewText(text string, size float64) *Text {
+func NewText(text string, size float64, color color.Color) *Text {
 
 	txt := &Text{}
 	txt.SetText(text)
 	txt.size = size
+	txt.color = color
 	return txt
 }
 
@@ -40,17 +46,19 @@ func (txt *Text) Draw(mx, my int) *image.RGBA {
 		return txt.Image
 	}
 	if txt.size == 0 {
-		panic("txt.size == 0")
+		log.Fatal("txt.size == 0")
 	}
 	// XXX use font every time. later, dont call NewFont so often!
-	fnt, err := NewFont("../_resources/font/tiny/tiny.ttf", txt.size, dpi, color.White)
+	fnt, err := NewFont(defaultFontName, txt.size, dpi, txt.color)
 	if err != nil {
-		log.Fatal(err)
+		log.Println("NewFont err", err)
+		return nil
 	}
 
 	img, err := fnt.Print(txt.text)
 	if err != nil {
-		log.Fatal(err)
+		log.Println("Print err", err)
+		return nil
 	}
 
 	b := img.Bounds()
