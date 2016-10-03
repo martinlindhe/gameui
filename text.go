@@ -33,7 +33,7 @@ func (txt *Text) SetText(s string) {
 }
 
 // Draw redraws internal buffer
-func (txt *Text) Draw() *image.RGBA {
+func (txt *Text) Draw(mx, my int) *image.RGBA {
 
 	// dont draw if nothing's changed
 	if txt.IsClean {

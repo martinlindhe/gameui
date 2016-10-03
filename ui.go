@@ -36,15 +36,19 @@ func (ui *UI) AddComponent(o Component) {
 }
 
 // Render returns a fresh frame of the GUI
-func (ui *UI) Render() *image.RGBA {
+func (ui *UI) Render(mx, my int) *image.RGBA {
 	// XXX if all components are clean, reuse last drawn frame
 
 	dst := image.NewRGBA(image.Rect(0, 0, ui.Width, ui.Height))
 
 	for _, c := range ui.components {
-		img := c.Draw()
+		img := c.Draw(mx, my)
 		x, y, w, h := c.GetBounds()
-		dr := image.Rect(x, y, x+w, y+h)
+		x1 := x + w
+		y1 := y + h
+		c.Hover(mx >= x && mx <= x1 && my >= y && my <= y1)
+
+		dr := image.Rect(x, y, x1, y1)
 		//fmt.Println("rendering component w=", w, ",h=", h, " at", x, y)
 		draw.Draw(dst, dr, img, image.ZP, draw.Over)
 	}

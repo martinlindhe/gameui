@@ -28,5 +28,5 @@ func TestUI(t *testing.T) {
 		"     #        #     ",
 		"     ##########     ",
 		"                    ",
-	}, renderAsText(ui.Render()))
+	}, renderAsText(ui.Render(0, 0)))
 }

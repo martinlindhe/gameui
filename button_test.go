@@ -10,10 +10,10 @@ var (
 	benchButton = NewButton(30, 8)
 )
 
-// BenchmarkDrawButton-2   	200000000	         6.53 ns/op    (mbp-2010)
+// BenchmarkDrawButton-2   	200000000	         5.58 ns/op    (mbp-2010)
 func BenchmarkDrawButton(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		benchButton.Draw()
+		benchButton.Draw(0, 0)
 	}
 }
 
@@ -23,7 +23,27 @@ func TestButtonOnly(t *testing.T) {
 
 	// make sure same frame is delivered each time
 	for i := 0; i < 10; i++ {
-		im := btn.Draw()
+		im := btn.Draw(0, 0)
+		testCompareRender(t, []string{
+			"#########",
+			"#       #",
+			"#       #",
+			"#       #",
+			"#########",
+		}, renderAsText(im))
+	}
+}
+
+func TestUIWithButtonOnly(t *testing.T) {
+	w, h := 9, 5
+	ui := New(w, h)
+
+	btn := NewButton(w, h)
+	ui.AddComponent(btn)
+
+	// make sure same frame is delivered each time
+	for i := 0; i < 10; i++ {
+		im := ui.Render(0, 0)
 		testCompareRender(t, []string{
 			"#########",
 			"#       #",
@@ -41,7 +61,7 @@ func TestButtonImage(t *testing.T) {
 	r := image.Rect(0, 0, 3, 3)
 	img := image.NewRGBA(r)
 
-	im := btn.Draw()
+	im := btn.Draw(0, 0)
 	testCompareRender(t, []string{
 		"#########",
 		"#       #",
@@ -56,7 +76,7 @@ func TestButtonImage(t *testing.T) {
 
 	btn.SetImage(img)
 
-	im = btn.Draw()
+	im = btn.Draw(0, 0)
 	testCompareRender(t, []string{
 		"#########",
 		"#  # #  #",
