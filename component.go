@@ -25,6 +25,7 @@ func (c component) Draw() *image.RGBA {
 	return nil
 }
 
+// GetBounds returns x, y, width, height
 func (c component) GetBounds() (int, int, int, int) {
 	return c.Position.X, c.Position.Y, c.Width, c.Height
 }

@@ -3,8 +3,6 @@ package ui
 import (
 	"image"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestUI(t *testing.T) {
@@ -15,15 +13,21 @@ func TestUI(t *testing.T) {
 	btn.Position = image.Point{X: 5, Y: 4}
 	ui.AddComponent(btn)
 
-	txt := NewText("hello", 6)
+	txt := NewText("HELLO", 6)
 	txt.Position = image.Point{X: 0, Y: 0}
 	ui.AddComponent(txt)
 
-	assert.Equal(t, 2, len(ui.components))
-
-	// XXX render all components
+	// XXX with btn.Y = 4, it should overlap text!!!
 	testCompareRender(t, []string{
-		" XXX    ",
-		"        ",
+		"# # ### #   #    ## ",
+		"# # ##  #   #   #  #",
+		"### #   #   #   #  #",
+		"# # ### ### ###  ## ",
+		"     ##########     ",
+		"     #        #     ",
+		"     #        #     ",
+		"     #        #     ",
+		"     #        #     ",
+		"     ##########     ",
 	}, renderAsText(ui.Render()))
 }

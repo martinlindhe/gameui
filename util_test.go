@@ -57,7 +57,7 @@ func testCompareRender(t *testing.T, expected, got []string) {
 			continue
 		}
 		if ex != got[i] {
-			t.Error("line", i+1, "expected", ex, "got", got[i])
+			t.Error("line", i+1, "expected", ex, "got", got[i], ".")
 		}
 	}
 }

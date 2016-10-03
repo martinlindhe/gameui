@@ -42,9 +42,10 @@ func (ui *UI) Render() *image.RGBA {
 	dst := image.NewRGBA(image.Rect(0, 0, ui.Width, ui.Height))
 
 	for _, c := range ui.components {
+		img := c.Draw()
 		x, y, w, h := c.GetBounds()
 		dr := image.Rect(x, y, x+w, y+h)
-		draw.Draw(dst, dr, c.Draw(), image.ZP, draw.Over)
+		draw.Draw(dst, dr, img, image.ZP, draw.Over)
 	}
 	return dst
 }
