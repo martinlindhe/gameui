@@ -24,7 +24,6 @@ type Font struct {
 
 // NewFont prepares a new font resource for use
 func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font, error) {
-
 	f, err := ebitenutil.OpenFile(fontName)
 	if err != nil {
 		return nil, err
@@ -61,14 +60,12 @@ func (fnt *Font) StringInPixels(s string) int {
 
 // Print draws text using the font
 func (fnt *Font) Print(text string) (*image.RGBA, error) {
-
-	if text == "" {
-		panic("empty text!")
-	}
-
 	width := fnt.StringInPixels(text)
 
-	height := int(fnt.size - 1) // int(fnt.size) + 2 // XXX not perfect
+	if fnt.size == 0 {
+		panic("fnt.size == 0")
+	}
+	height := int(fnt.size - 1) // XXX not perfect
 	fnt.drawer.Dst = image.NewRGBA(image.Rect(0, 0, width, height))
 
 	dy := (fnt.size * fnt.dpi) / 72

@@ -7,8 +7,8 @@ import (
 
 // Component represents any type of UI component
 type Component interface {
-	Draw() (*image.RGBA, error)
-	GetUpperLeft() (int, int)
+	Draw() *image.RGBA
+	GetBounds() (int, int, int, int)
 }
 
 // component is the abstract base class for ui components, implementing Component interface
@@ -16,22 +16,21 @@ type component struct {
 	IsMouseOver   bool
 	IsClean       bool // does component need redraw?
 	Width, Height int
-	X, Y          int
+	Position      image.Point
 	Image         *image.RGBA
-	Position      Position
 }
 
-func (c *component) Draw() (*image.RGBA, error) {
+func (c component) Draw() *image.RGBA {
 	fmt.Println("STUB Draw() - bug: child component must implement me!")
-	return nil, nil
+	return nil
 }
 
-func (c component) GetUpperLeft() (int, int) { // XXX replace with GetBounds()
-	return c.X, c.Y
+func (c component) GetBounds() (int, int, int, int) {
+	return c.Position.X, c.Position.Y, c.Width, c.Height
 }
 
 // updateHover toggles IsMouseOver if cursor is over element
 func (c component) updateHover(mx, my int) {
-	c.IsMouseOver = mx >= c.X && mx <= c.X+c.Width &&
-		my >= c.Y && my <= c.Y+c.Height
+	c.IsMouseOver = mx >= c.Position.X && mx <= c.Position.X+c.Width &&
+		my >= c.Position.Y && my <= c.Position.Y+c.Height
 }

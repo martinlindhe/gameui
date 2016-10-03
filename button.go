@@ -31,11 +31,11 @@ func (btn *Button) SetImage(img *image.RGBA) {
 // XXX set text + render it
 
 // Draw redraws internal buffer
-func (btn *Button) Draw() (*image.RGBA, error) {
+func (btn *Button) Draw() *image.RGBA {
 
 	// dont draw if nothing's changed
 	if btn.IsClean {
-		return btn.Image, nil
+		return btn.Image
 	}
 
 	rect := image.Rect(0, 0, btn.Width, btn.Height)
@@ -61,5 +61,5 @@ func (btn *Button) Draw() (*image.RGBA, error) {
 	}
 	btn.Image = im
 	btn.IsClean = true
-	return im, nil
+	return im
 }

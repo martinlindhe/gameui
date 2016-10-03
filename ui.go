@@ -1,6 +1,9 @@
 package ui
 
-import "image"
+import (
+	"image"
+	"image/draw"
+)
 
 // UI represents an instance of the UI
 type UI struct {
@@ -30,4 +33,18 @@ func (ui *UI) SetWindowTitle(s string) {
 // AddComponent adds a component to the ui
 func (ui *UI) AddComponent(o Component) {
 	ui.components = append(ui.components, o)
+}
+
+// Render returns a fresh frame of the GUI
+func (ui *UI) Render() *image.RGBA {
+	// XXX if all components are clean, reuse last drawn frame
+
+	dst := image.NewRGBA(image.Rect(0, 0, ui.Width, ui.Height))
+
+	for _, c := range ui.components {
+		x, y, w, h := c.GetBounds()
+		dr := image.Rect(x, y, x+w, y+h)
+		draw.Draw(dst, dr, c.Draw(), image.ZP, draw.Over)
+	}
+	return dst
 }
