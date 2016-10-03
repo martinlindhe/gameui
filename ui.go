@@ -49,7 +49,7 @@ func (ui *UI) Render(mx, my int) *image.RGBA {
 
 	// clear scene
 	whole := image.Rect(0, 0, ui.Width, ui.Height)
-	draw.Draw(ui.Scene, whole, &image.Uniform{color.Black}, image.ZP, draw.Src)
+	draw.Draw(ui.Scene, whole, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
 
 	for _, c := range ui.components {
 		img := c.Draw(mx, my)
