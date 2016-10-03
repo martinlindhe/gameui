@@ -1,8 +1,6 @@
 package ui
 
-import (
-	"image"
-)
+import "image"
 
 // UI represents an instance of the UI
 type UI struct {

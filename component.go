@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"fmt"
 	"image"
 )
 
@@ -10,13 +11,19 @@ type Component interface {
 	GetUpperLeft() (int, int)
 }
 
-// component is the abstract base class for ui components
+// component is the abstract base class for ui components, implementing Component interface
 type component struct {
 	IsMouseOver   bool
 	IsClean       bool // does component need redraw?
 	Width, Height int
 	X, Y          int
 	Image         *image.RGBA
+	Position      Position
+}
+
+func (c *component) Draw() (*image.RGBA, error) {
+	fmt.Println("STUB Draw() - bug: child component must implement me!")
+	return nil, nil
 }
 
 func (c component) GetUpperLeft() (int, int) { // XXX replace with GetBounds()
