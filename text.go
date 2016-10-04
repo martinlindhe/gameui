@@ -49,9 +49,6 @@ func NewText(text string, size float64, color color.Color) *Text {
 func (txt *Text) SetText(s string) {
 	txt.text = s
 	txt.IsClean = false
-	if txt.parent != nil {
-		txt.parent.IsClean = false
-	}
 }
 
 // Draw redraws internal buffer

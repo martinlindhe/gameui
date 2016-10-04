@@ -9,7 +9,6 @@ import (
 // UI represents an instance of the UI
 type UI struct {
 	Width, Height int
-	IsClean       bool // does screen need redraw?
 	scale         float64
 	WindowTitle   string
 	Scene         *image.RGBA
@@ -34,16 +33,21 @@ func (ui *UI) SetWindowTitle(s string) {
 
 // AddComponent adds a component to the ui
 func (ui *UI) AddComponent(o Component) {
-	o.SetParent(ui)
 	ui.components = append(ui.components, o)
-	// XXX how can child components tell ui it is dirty?
-	// XXX with pointer to ui instance
-	ui.IsClean = false
 }
 
 // Render returns a fresh frame of the GUI
 func (ui *UI) Render(mx, my int) *image.RGBA {
-	if ui.IsClean {
+
+	// do any component need to be redrawn?
+	dirty := false
+	for _, c := range ui.components {
+		if !c.IsClean() {
+			dirty = true
+			break
+		}
+	}
+	if !dirty {
 		return ui.Scene
 	}
 
@@ -61,6 +65,5 @@ func (ui *UI) Render(mx, my int) *image.RGBA {
 		dr := image.Rect(x, y, x1, y1)
 		draw.Draw(ui.Scene, dr, img, image.ZP, draw.Over)
 	}
-	ui.IsClean = true
 	return ui.Scene
 }

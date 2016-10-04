@@ -5,9 +5,9 @@ import "image"
 // Component represents any type of UI component
 type Component interface {
 	Draw(mx, my int) *image.RGBA
-	SetParent(ui *UI)
 	GetBounds() (int, int, int, int)
 	Hover(bool)
+	IsClean() bool
 }
 
 // component is the abstract base class for ui components
@@ -17,11 +17,10 @@ type component struct {
 	Width, Height int
 	Position      image.Point
 	Image         *image.RGBA
-	parent        *UI
 }
 
-func (c *component) SetParent(ui *UI) {
-	c.parent = ui
+func (c *component) IsClean() bool {
+	return c.IsClean
 }
 
 // GetBounds returns x, y, width, height
