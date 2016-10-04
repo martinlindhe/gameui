@@ -16,11 +16,16 @@ import (
 
 // Font represents a font resource
 type Font struct {
-	dpi    float64
-	size   float64
-	font   *truetype.Font
-	drawer *font.Drawer
+	dpi          float64
+	size         float64
+	font         *truetype.Font
+	drawer       *font.Drawer
+	cachedPrints map[string]*image.RGBA
 }
+
+const (
+	fontRenderCache = 10
+)
 
 // NewFont prepares a new font resource for use
 func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font, error) {
@@ -38,6 +43,7 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 	fnt.font, err = truetype.Parse(b)
 	fnt.size = size
 	fnt.dpi = dpi
+	fnt.cachedPrints = make(map[string]*image.RGBA)
 
 	fnt.drawer = &font.Drawer{
 		Src: image.NewUniform(col),
@@ -48,7 +54,6 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 		}),
 	}
 
-	//lookup :=
 	// XXX create a one-row wide lookup image with all letters rendered
 	return &fnt, err
 }
@@ -61,6 +66,11 @@ func (fnt *Font) StringInPixels(s string) int {
 // Print draws text using the font
 func (fnt *Font) Print(text string) (*image.RGBA, error) {
 
+	// keep cache of last 10 rendered strings
+	if val, ok := fnt.cachedPrints[text]; ok {
+		return val, nil
+	}
+
 	width := fnt.StringInPixels(text)
 	if fnt.size == 0 {
 		panic("fnt.size == 0")
@@ -70,11 +80,25 @@ func (fnt *Font) Print(text string) (*image.RGBA, error) {
 
 	dy := (fnt.size * fnt.dpi) / 72
 	fnt.drawer.Dot = fixed.P(0, int(dy-2))
-
 	fnt.drawer.DrawString(text)
+
+	// trim cache
+	if len(fnt.cachedPrints) > fontRenderCache {
+		randKey := getRandomKey(fnt.cachedPrints)
+		delete(fnt.cachedPrints, randKey)
+	}
+
+	fnt.cachedPrints[text] = fnt.drawer.Dst.(*image.RGBA)
 
 	if img, ok := fnt.drawer.Dst.(*image.RGBA); ok {
 		return img, nil
 	}
 	return nil, fmt.Errorf("bad print")
+}
+
+func getRandomKey(m map[string]*image.RGBA) string {
+	for k := range m {
+		return k
+	}
+	return ""
 }

@@ -8,19 +8,18 @@ import (
 
 // BenchmarkDrawText-2     	200000000	         7.36 ns/op   (mbp-2010)
 func BenchmarkDrawText(b *testing.B) {
-
 	txt := NewText("HEJ", 6, color.White)
 	for n := 0; n < b.N; n++ {
 		txt.Draw(0, 0)
 	}
 }
 
-// BenchmarkDrawChangingText-4       200000              6715 ns/op (elitebook)
+// BenchmarkDrawChangingText-4     10000000               262 ns/op (elitebook)
 func BenchmarkDrawChangingText(b *testing.B) {
-
 	txt := NewText("HEJ", 6, color.White)
 	for n := 0; n < b.N; n++ {
-		txt.SetText(fmt.Sprintf("hej %d", n))
+		s := fmt.Sprintf("hej %d", n%8)
+		txt.SetText(s)
 		txt.Draw(0, 0)
 	}
 }
@@ -28,7 +27,6 @@ func BenchmarkDrawChangingText(b *testing.B) {
 func TestTextOnly(t *testing.T) {
 	txt := NewText("HEJ", 6, color.White)
 
-	// XXX fixme height is too high
 	ex := []string{
 		"# # ###   # ",
 		"# # ##    # ",
@@ -40,6 +38,7 @@ func TestTextOnly(t *testing.T) {
 	testCompareRender(t, ex, renderAsText(txt.Draw(0, 0)))
 	testCompareRender(t, ex, renderAsText(txt.Draw(0, 0)))
 
+	// change text, make sure the change is rendered
 	txt.SetText("HOPP")
 	ex2 := []string{
 		"# #  ##  ##  ##  ",
@@ -48,5 +47,5 @@ func TestTextOnly(t *testing.T) {
 		"# #  ##  #   #   ",
 		"                 ",
 	}
-	testCompareRender(t, ex2, renderAsText(txt.Draw(0, 0))) // XXX
+	testCompareRender(t, ex2, renderAsText(txt.Draw(0, 0)))
 }
