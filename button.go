@@ -52,10 +52,9 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 
 	btn.drawIcon()
 
-	// XXX draw text
 	txt := btn.text.Draw(mx, my)
 
-	// XXX center text
+	// XXX center text ?
 	b := txt.Bounds()
 	x0 := 2
 	y0 := 1
