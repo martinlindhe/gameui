@@ -59,8 +59,6 @@ func TestButtonImage(t *testing.T) {
 	btn := NewButton(w, h)
 
 	r := image.Rect(0, 0, 3, 3)
-	img := image.NewRGBA(r)
-
 	im := btn.Draw(0, 0)
 	testCompareRender(t, []string{
 		"#########",
@@ -70,11 +68,11 @@ func TestButtonImage(t *testing.T) {
 		"#########",
 	}, renderAsText(im))
 
-	img.Set(0, 0, color.White)
-	img.Set(2, 0, color.White)
-	img.Set(1, 2, color.White)
-
-	btn.SetImage(img)
+	icon := image.NewRGBA(r)
+	icon.Set(0, 0, color.White)
+	icon.Set(2, 0, color.White)
+	icon.Set(1, 2, color.White)
+	btn.SetIcon(icon)
 
 	im = btn.Draw(0, 0)
 	testCompareRender(t, []string{
@@ -82,6 +80,22 @@ func TestButtonImage(t *testing.T) {
 		"#  # #  #",
 		"#       #",
 		"#   #   #",
+		"#########",
+	}, renderAsText(im))
+
+	icon2 := image.NewRGBA(r)
+	icon2.Set(0, 0, color.White)
+	icon2.Set(1, 0, color.White)
+	icon2.Set(2, 0, color.White)
+	btn.SetIcon(icon2)
+
+	// test render after changed icon
+	im = btn.Draw(0, 0)
+	testCompareRender(t, []string{
+		"#########",
+		"#  ###  #",
+		"#       #",
+		"#       #",
 		"#########",
 	}, renderAsText(im))
 }

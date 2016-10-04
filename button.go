@@ -12,7 +12,7 @@ import (
 // Button ...
 type Button struct {
 	component
-	image *image.RGBA
+	icon *image.RGBA
 }
 
 // NewButton ...
@@ -23,9 +23,9 @@ func NewButton(width, height int) *Button {
 	return btn
 }
 
-// SetImage a image to show on button, instead of text
-func (btn *Button) SetImage(img *image.RGBA) {
-	btn.image = img
+// SetIcon a image to show on button, instead of text
+func (btn *Button) SetIcon(img *image.RGBA) {
+	btn.icon = img
 	btn.isClean = false
 }
 
@@ -36,23 +36,26 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 	}
 
 	rect := image.Rect(0, 0, btn.Width, btn.Height)
-	im := image.NewRGBA(rect)
+	if btn.Image == nil {
+		btn.Image = image.NewRGBA(rect)
+	} else {
+		draw.Draw(btn.Image, rect, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
+	}
 
 	// draw outline
-	game.DrawRect(im, &rect, color.White)
+	game.DrawRect(btn.Image, &rect, color.White)
 
-	btn.drawImage(im)
-	btn.Image = im
+	btn.drawIcon()
 	btn.isClean = true
-	return im
+	return btn.Image
 }
 
-func (btn *Button) drawImage(im *image.RGBA) {
-	if btn.image == nil {
+func (btn *Button) drawIcon() {
+	if btn.icon == nil {
 		return
 	}
-	allB := im.Bounds()
-	btnB := btn.image.Bounds()
+	allB := btn.Image.Bounds()
+	btnB := btn.icon.Bounds()
 	if allB.Max.X > btn.Width || allB.Max.Y > btn.Height {
 		log.Println("button.drawImage: image is bigger than container button")
 	}
@@ -64,5 +67,5 @@ func (btn *Button) drawImage(im *image.RGBA) {
 	y1 := y0 + btnB.Max.Y
 
 	rect := image.Rect(x0, y0, x1, y1)
-	draw.Draw(im, rect, btn.image, allB.Min, draw.Over)
+	draw.Draw(btn.Image, rect, btn.icon, image.ZP, draw.Over)
 }
