@@ -5,8 +5,6 @@ import (
 	"image/color"
 	"image/draw"
 	"log"
-
-	"github.com/martinlindhe/farm/game"
 )
 
 // Button ...
@@ -43,7 +41,7 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 	}
 
 	// draw outline
-	game.DrawRect(btn.Image, &rect, color.White)
+	DrawRect(btn.Image, &rect, color.White)
 
 	btn.drawIcon()
 	btn.isClean = true

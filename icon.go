@@ -10,12 +10,11 @@ type Icon struct {
 
 // NewIcon ...
 func NewIcon(image *image.RGBA) *Icon {
-	ico := &Icon{}
-	ico.Image = image
-	return ico
+	ico := Icon{Image: image}
+	return &ico
 }
 
-// Draw redraws internal buffer
+// Draw ...
 func (ico *Icon) Draw(mx, my int) *image.RGBA {
 	return ico.Image
 }
