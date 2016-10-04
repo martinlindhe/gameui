@@ -4,6 +4,7 @@ import "image"
 
 // Component represents any type of UI component
 type Component interface {
+	// Draw return nil if no image is drawn
 	Draw(mx, my int) *image.RGBA
 	GetBounds() (int, int, int, int)
 	Hover(bool)

@@ -24,24 +24,21 @@ type Text struct {
 }
 
 // NewText ...
-func NewText(text string, size float64, color color.Color) *Text {
+func NewText(size float64, color color.Color) *Text {
+	if size < 3 {
+		log.Fatal("txt.size too small:", size)
+	}
 
 	txt := &Text{}
-	txt.SetText(text)
 	txt.size = size
 	txt.color = color
 
-	if txt.size == 0 {
-		log.Fatal("txt.size == 0")
-	}
 	var err error
-
 	txt.font, err = NewFont(defaultFontName, txt.size, dpi, txt.color)
 	if err != nil {
 		log.Println("NewFont err", err)
 		return nil
 	}
-
 	return txt
 }
 
@@ -49,6 +46,14 @@ func NewText(text string, size float64, color color.Color) *Text {
 func (txt *Text) SetText(s string) {
 	txt.text = s
 	txt.isClean = false
+}
+
+// GetWidth returns the rendered width in pixel
+func (txt *Text) GetWidth() int {
+	if txt.Image == nil {
+		txt.Draw(-1, -1)
+	}
+	return txt.Width
 }
 
 // Draw redraws internal buffer
