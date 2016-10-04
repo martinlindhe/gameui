@@ -69,9 +69,9 @@ func (txt *Text) Draw(mx, my int) *image.RGBA {
 	}
 
 	b := img.Bounds()
+	txt.Image = img
 	txt.Width = b.Max.X
 	txt.Height = b.Max.Y
-	txt.Image = img
 	txt.isClean = true
 	return img
 }
