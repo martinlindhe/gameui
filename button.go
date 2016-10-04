@@ -11,6 +11,7 @@ import (
 type Button struct {
 	component
 	icon *image.RGBA
+	text *Text
 }
 
 // NewButton ...
@@ -18,6 +19,7 @@ func NewButton(width, height int) *Button {
 	btn := &Button{}
 	btn.Width = width
 	btn.Height = height
+	btn.text = NewText(8, color.White)
 	return btn
 }
 
@@ -25,6 +27,11 @@ func NewButton(width, height int) *Button {
 func (btn *Button) SetIcon(img *image.RGBA) {
 	btn.icon = img
 	btn.isClean = false
+}
+
+// SetText ...
+func (btn *Button) SetText(s string) {
+	btn.text.SetText(s)
 }
 
 // Draw redraws internal buffer
@@ -44,6 +51,18 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 	DrawRect(btn.Image, &rect, color.White)
 
 	btn.drawIcon()
+
+	// XXX draw text
+	txt := btn.text.Draw(mx, my)
+
+	// XXX center text
+	b := txt.Bounds()
+	x0 := 2
+	y0 := 1
+	x1 := x0 + b.Max.X
+	y1 := y0 + b.Max.Y
+	textRect := image.Rect(x0, y0, x1, y1)
+	draw.Draw(btn.Image, textRect, txt, image.ZP, draw.Over)
 	btn.isClean = true
 	return btn.Image
 }
