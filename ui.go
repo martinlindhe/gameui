@@ -34,10 +34,10 @@ func (ui *UI) SetWindowTitle(s string) {
 
 // AddComponent adds a component to the ui
 func (ui *UI) AddComponent(o Component) {
+	o.SetParent(ui)
 	ui.components = append(ui.components, o)
 	// XXX how can child components tell ui it is dirty?
 	// XXX with pointer to ui instance
-	// XXX OR just set ui.IsClean = false when mouse is moved?
 	ui.IsClean = false
 }
 

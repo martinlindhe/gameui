@@ -20,6 +20,7 @@ type Text struct {
 	text  string
 	size  float64
 	color color.Color
+	font  *Font
 }
 
 // NewText ...
@@ -29,6 +30,18 @@ func NewText(text string, size float64, color color.Color) *Text {
 	txt.SetText(text)
 	txt.size = size
 	txt.color = color
+
+	if txt.size == 0 {
+		log.Fatal("txt.size == 0")
+	}
+	var err error
+
+	txt.font, err = NewFont(defaultFontName, txt.size, dpi, txt.color)
+	if err != nil {
+		log.Println("NewFont err", err)
+		return nil
+	}
+
 	return txt
 }
 
@@ -36,26 +49,18 @@ func NewText(text string, size float64, color color.Color) *Text {
 func (txt *Text) SetText(s string) {
 	txt.text = s
 	txt.IsClean = false
+	if txt.parent != nil {
+		txt.parent.IsClean = false
+	}
 }
 
 // Draw redraws internal buffer
 func (txt *Text) Draw(mx, my int) *image.RGBA {
-
-	// dont draw if nothing's changed
 	if txt.IsClean {
 		return txt.Image
 	}
-	if txt.size == 0 {
-		log.Fatal("txt.size == 0")
-	}
-	// XXX use font every time. later, dont call NewFont so often!
-	fnt, err := NewFont(defaultFontName, txt.size, dpi, txt.color)
-	if err != nil {
-		log.Println("NewFont err", err)
-		return nil
-	}
 
-	img, err := fnt.Print(txt.text)
+	img, err := txt.font.Print(txt.text)
 	if err != nil {
 		log.Println("Print err", err)
 		return nil

@@ -15,7 +15,7 @@ func BenchmarkDrawText(b *testing.B) {
 	}
 }
 
-// BenchmarkDrawChangingText-2   	   10000	    127473 ns/op
+// BenchmarkDrawChangingText-4       200000              6715 ns/op (elitebook)
 func BenchmarkDrawChangingText(b *testing.B) {
 
 	txt := NewText("HEJ", 6, color.White)
