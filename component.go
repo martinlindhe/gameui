@@ -13,14 +13,14 @@ type Component interface {
 // component is the abstract base class for ui components
 type component struct {
 	IsMouseOver   bool
-	IsClean       bool // does component need redraw?
+	isClean       bool // does component need redraw?
 	Width, Height int
 	Position      image.Point
 	Image         *image.RGBA
 }
 
 func (c *component) IsClean() bool {
-	return c.IsClean
+	return c.isClean
 }
 
 // GetBounds returns x, y, width, height

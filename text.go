@@ -48,12 +48,12 @@ func NewText(text string, size float64, color color.Color) *Text {
 // SetText ...
 func (txt *Text) SetText(s string) {
 	txt.text = s
-	txt.IsClean = false
+	txt.isClean = false
 }
 
 // Draw redraws internal buffer
 func (txt *Text) Draw(mx, my int) *image.RGBA {
-	if txt.IsClean {
+	if txt.isClean {
 		return txt.Image
 	}
 
@@ -67,6 +67,6 @@ func (txt *Text) Draw(mx, my int) *image.RGBA {
 	txt.Width = b.Max.X
 	txt.Height = b.Max.Y
 	txt.Image = img
-	txt.IsClean = true
+	txt.isClean = true
 	return img
 }

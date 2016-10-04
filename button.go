@@ -26,12 +26,12 @@ func NewButton(width, height int) *Button {
 // SetImage a image to show on button, instead of text
 func (btn *Button) SetImage(img *image.RGBA) {
 	btn.image = img
-	btn.IsClean = false
+	btn.isClean = false
 }
 
 // Draw redraws internal buffer
 func (btn *Button) Draw(mx, my int) *image.RGBA {
-	if btn.IsClean {
+	if btn.isClean {
 		return btn.Image
 	}
 
@@ -43,7 +43,7 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 
 	btn.drawImage(im)
 	btn.Image = im
-	btn.IsClean = true
+	btn.isClean = true
 	return im
 }
 
