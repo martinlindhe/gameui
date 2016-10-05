@@ -10,6 +10,7 @@ import "github.com/hajimehoshi/ebiten"
 type Input struct {
 	keyStates   [256]int
 	mouseStates [3]int
+	X, Y        int
 }
 
 // StateForKey ...
@@ -49,4 +50,8 @@ func (i *Input) UpdateMouse() {
 		}
 		i.mouseStates[mouse]++
 	}
+
+	mx, my := ebiten.CursorPosition()
+	i.X = mx
+	i.Y = my
 }
