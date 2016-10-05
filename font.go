@@ -1,13 +1,12 @@
 package ui
 
 //  TODO check out https://github.com/hajimehoshi/ebiten/blob/master/examples/common/font.go
-
+// XXX 2, google/freetype is very slow, have a look at https://github.com/google/font-go
 import (
 	"fmt"
 	"image"
 	"image/color"
 	"io/ioutil"
-	"os"
 
 	"github.com/golang/freetype/truetype"
 	"golang.org/x/image/font"
@@ -29,12 +28,7 @@ const (
 
 // NewFont prepares a new font resource for use
 func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font, error) {
-	f, err := os.Open(fontName)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-	b, err := ioutil.ReadAll(f)
+	b, err := ioutil.ReadFile(fontName)
 	if err != nil {
 		return nil, err
 	}

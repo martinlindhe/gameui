@@ -24,6 +24,8 @@ func TestFontOnly(t *testing.T) {
 
 	im, err := fnt.Print("HEJ")
 
+	// imaging.Save(im, "font-only.png")
+
 	assert.Equal(t, nil, err)
 	testCompareRender(t, []string{
 		"# # ###   # ",
