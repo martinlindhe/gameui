@@ -23,6 +23,7 @@ func TestFontOnly(t *testing.T) {
 	assert.Equal(t, nil, err)
 
 	im, err := fnt.Print("HEJ")
+
 	assert.Equal(t, nil, err)
 	testCompareRender(t, []string{
 		"# # ###   # ",

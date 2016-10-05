@@ -1,15 +1,15 @@
 package ui
 
-//  TODO check out github.com/hajimehoshi/ebiten/examples/common/font.go
+//  TODO check out https://github.com/hajimehoshi/ebiten/blob/master/examples/common/font.go
 
 import (
 	"fmt"
 	"image"
 	"image/color"
 	"io/ioutil"
+	"os"
 
 	"github.com/golang/freetype/truetype"
-	"github.com/hajimehoshi/ebiten/ebitenutil"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 )
@@ -29,7 +29,7 @@ const (
 
 // NewFont prepares a new font resource for use
 func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font, error) {
-	f, err := ebitenutil.OpenFile(fontName)
+	f, err := os.Open(fontName)
 	if err != nil {
 		return nil, err
 	}
