@@ -1,5 +1,7 @@
 package ui
 
+// XXX tests!!!
+
 import (
 	"image"
 	"image/color"
