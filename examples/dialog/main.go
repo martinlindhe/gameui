@@ -50,8 +50,8 @@ func main() {
 }
 
 func update(screen *ebiten.Image) error {
-	mouse := getMouse()
-	gui.Click(mouse)
+	gui.Click()
+
 	fps.SetText(fmt.Sprintf("%.1f", ebiten.CurrentFPS()))
 	frame, err := ebiten.NewImageFromImage(gui.Render(0, 0), ebiten.FilterNearest)
 	if err != nil {
@@ -61,9 +61,4 @@ func update(screen *ebiten.Image) error {
 		return err
 	}
 	return nil
-}
-
-func getMouse() *ui.Point {
-	mx, my := ebiten.CursorPosition()
-	return &ui.Point{X: mx, Y: my}
 }

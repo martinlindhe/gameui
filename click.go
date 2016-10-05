@@ -7,14 +7,15 @@ import (
 )
 
 // Click handles click events for all components
-func (ui *UI) Click(mouse *Point) {
+func (ui *UI) Click() {
 	ui.Input.UpdateMouse()
 	if !ui.Input.StateForMouse(ebiten.MouseButtonLeft) {
 		return
 	}
 
+	mouse := image.Point{X: ui.Input.X, Y: ui.Input.Y}
 	for _, c := range ui.components {
-		if image.Point(*mouse).In(c.GetRect()) {
+		if mouse.In(c.GetRect()) {
 			c.Click()
 			return
 		}
