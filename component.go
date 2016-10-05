@@ -1,6 +1,9 @@
 package ui
 
-import "image"
+import (
+	"image"
+	"log"
+)
 
 // Component represents any type of UI component
 type Component interface {
@@ -24,6 +27,11 @@ type component struct {
 }
 
 func (c *component) Click() {
+	// XXX how see if unset?
+	if c.OnClick == nil {
+		log.Println("error: OnClick == nil")
+		return
+	}
 	c.OnClick()
 }
 
