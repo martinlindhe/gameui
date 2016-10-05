@@ -35,7 +35,7 @@ func TestButtonOnly(t *testing.T) {
 }
 
 func TestButtonWithText(t *testing.T) {
-	w, h := 20, 8
+	w, h := 16, 7
 	btn := NewButton(w, h)
 	btn.SetText("HEJ")
 
@@ -43,14 +43,13 @@ func TestButtonWithText(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		im := btn.Draw(0, 0)
 		testCompareRender(t, []string{
-			"####################",
-			"# ,  , ,,,,    ,   #",
-			"# #,,# ####   ,#   #",
-			"# #,,# ##6    ,#   #",
-			"# #OO# #o.  6.,#   #",
-			"# #OO# #o,, 6++6   #",
-			"# #,,# ####  66    #",
-			"####################",
+			"################",
+			"# # # ###   #  #",
+			"# # # ##    #  #",
+			"# ### #   # #  #",
+			"# # # ###  #   #",
+			"#              #",
+			"################",
 		}, renderAsText(im))
 	}
 }

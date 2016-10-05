@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"image"
 	"image/color"
 	"testing"
 )
@@ -12,12 +11,12 @@ func BenchmarkUI(b *testing.B) {
 	ui := New(w, h)
 
 	btn := NewButton(w-10, h-4)
-	btn.Position = image.Point{X: 5, Y: 3}
+	btn.Position = Point{X: 5, Y: 3}
 	ui.AddComponent(btn)
 
 	txt := NewText(6, color.White)
 	txt.SetText("HELLO")
-	txt.Position = image.Point{X: 0, Y: 0}
+	txt.Position = Point{X: 0, Y: 0}
 	ui.AddComponent(txt)
 
 	for n := 0; n < b.N; n++ {
@@ -30,12 +29,12 @@ func TestUI(t *testing.T) {
 	ui := New(w, h)
 
 	btn := NewButton(w-10, h-4)
-	btn.Position = image.Point{X: 5, Y: 3}
+	btn.Position = Point{X: 5, Y: 3}
 	ui.AddComponent(btn)
 
 	txt := NewText(6, color.White)
 	txt.SetText("HELLO")
-	txt.Position = image.Point{X: 0, Y: 0}
+	txt.Position = Point{X: 0, Y: 0}
 	ui.AddComponent(txt)
 
 	ex := []string{

@@ -3,6 +3,7 @@
 * later move "ui" to ebui pkg, overwriting existing project there
 
 * no ebiten dependency! only export an image
+    !!! currently the input.go binds to ebiten input reading
 
 * DEMO: rework the ebui menu scroll thingy
     vert list of buttons with text

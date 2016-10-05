@@ -11,7 +11,7 @@ import (
 type Button struct {
 	component
 	icon *image.RGBA
-	text *Text
+	Text *Text
 }
 
 // NewButton ...
@@ -19,7 +19,7 @@ func NewButton(width, height int) *Button {
 	btn := &Button{}
 	btn.Width = width
 	btn.Height = height
-	btn.text = NewText(8, color.White)
+	btn.Text = NewText(float64(height-1), color.White)
 	return btn
 }
 
@@ -30,8 +30,9 @@ func (btn *Button) SetIcon(img *image.RGBA) {
 }
 
 // SetText ...
-func (btn *Button) SetText(s string) {
-	btn.text.SetText(s)
+func (btn *Button) SetText(s string) *Button {
+	btn.Text.SetText(s)
+	return btn
 }
 
 // Draw redraws internal buffer
@@ -52,7 +53,7 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 
 	btn.drawIcon()
 
-	txt := btn.text.Draw(mx, my)
+	txt := btn.Text.Draw(mx, my)
 
 	// XXX center text ?
 	b := txt.Bounds()
@@ -73,7 +74,7 @@ func (btn *Button) drawIcon() {
 	allB := btn.Image.Bounds()
 	btnB := btn.icon.Bounds()
 	if allB.Max.X > btn.Width || allB.Max.Y > btn.Height {
-		log.Println("button.drawImage: image is bigger than container button")
+		log.Println("UI WARNING: button.drawImage image is bigger than container button")
 	}
 
 	// centered

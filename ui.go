@@ -13,6 +13,7 @@ type UI struct {
 	WindowTitle   string
 	Scene         *image.RGBA
 	components    []Component
+	Input         Input
 }
 
 // New creates a new UI instance

@@ -43,9 +43,15 @@ func NewText(size float64, color color.Color) *Text {
 }
 
 // SetText ...
-func (txt *Text) SetText(s string) {
+func (txt *Text) SetText(s string) *Text {
 	txt.text = s
 	txt.isClean = false
+	return txt
+}
+
+// GetText ...
+func (txt *Text) GetText() string {
+	return txt.text
 }
 
 // GetWidth returns the rendered width in pixel
