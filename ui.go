@@ -80,6 +80,9 @@ func (ui *UI) Render(mx, my int) *image.RGBA {
 
 	for _, c := range ui.components {
 		img := c.Draw(mx, my)
+		if img == nil {
+			continue
+		}
 		x, y, w, h := c.GetBounds()
 		x1 := x + w
 		y1 := y + h

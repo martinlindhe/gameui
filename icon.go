@@ -5,7 +5,8 @@ import "image"
 // Icon ...
 type Icon struct {
 	component
-	Image *image.RGBA
+	Image  *image.RGBA
+	Hidden bool
 }
 
 // NewIcon ...
@@ -19,5 +20,8 @@ func NewIcon(image *image.RGBA) *Icon {
 
 // Draw ...
 func (ico *Icon) Draw(mx, my int) *image.RGBA {
+	if ico.Hidden {
+		return nil
+	}
 	return ico.Image
 }
