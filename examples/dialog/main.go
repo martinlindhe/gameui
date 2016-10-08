@@ -44,13 +44,20 @@ func main() {
 
 	gui.AddComponent(fps)
 
+	gui.AddKeyFunc(ui.KeyQ, func() error {
+		fmt.Println("q - QUITTING")
+		return ui.GracefulExitError{}
+	})
+
 	if err := ebiten.Run(update, width, height, 1, "Dialog (UI Demo)"); err != nil {
 		log.Fatal(err)
 	}
 }
 
 func update(screen *ebiten.Image) error {
-	gui.Click()
+	if err := gui.Update(); err != nil {
+		return err
+	}
 
 	fps.SetText(fmt.Sprintf("%.1f", ebiten.CurrentFPS()))
 	frame, err := ebiten.NewImageFromImage(gui.Render(0, 0), ebiten.FilterNearest)

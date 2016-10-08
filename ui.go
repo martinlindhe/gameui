@@ -14,17 +14,48 @@ type UI struct {
 	Scene         *image.RGBA
 	components    []Component
 	Input         Input
+	keyFuncs      map[Key]func() error
 }
 
 // New creates a new UI instance
 func New(width, height int) *UI {
 	rect := image.Rect(0, 0, width, height)
-	return &UI{
+	ui := UI{
 		Width:       width,
 		Height:      height,
 		WindowTitle: "ui window",
 		Scene:       image.NewRGBA(rect),
 	}
+	ui.keyFuncs = make(map[Key]func() error)
+	return &ui
+}
+
+// AddKeyFunc registers a function to run on key press
+func (ui *UI) AddKeyFunc(key Key, fnc func() error) {
+	ui.keyFuncs[key] = fnc
+}
+
+// Update is called on every frame from the ebiten.Run update callback
+func (ui *UI) Update() error {
+	ui.Input.updateMouse()
+	ui.click()
+	if err := ui.handleKeypress(); err != nil {
+		return err
+	}
+	return nil
+}
+
+// handleKeypress runs corresponding function for key press
+func (ui *UI) handleKeypress() error {
+	ui.Input.updateKeyboard()
+	for key, fnc := range ui.keyFuncs {
+		if ui.Input.StateForKey(key) {
+			if err := fnc(); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }
 
 // SetWindowTitle sets the title of the application window
@@ -39,16 +70,7 @@ func (ui *UI) AddComponent(o Component) {
 
 // Render returns a fresh frame of the GUI
 func (ui *UI) Render(mx, my int) *image.RGBA {
-
-	// do any component need to be redrawn?
-	dirty := false
-	for _, c := range ui.components {
-		if !c.IsClean() {
-			dirty = true
-			break
-		}
-	}
-	if !dirty {
+	if ui.isAllClean() {
 		return ui.Scene
 	}
 
@@ -67,4 +89,13 @@ func (ui *UI) Render(mx, my int) *image.RGBA {
 		draw.Draw(ui.Scene, dr, img, image.ZP, draw.Over)
 	}
 	return ui.Scene
+}
+
+func (ui *UI) isAllClean() bool {
+	for _, c := range ui.components {
+		if !c.IsClean() {
+			return false
+		}
+	}
+	return true
 }

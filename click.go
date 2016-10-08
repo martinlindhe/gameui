@@ -1,15 +1,10 @@
 package ui
 
-import (
-	"image"
+import "image"
 
-	"github.com/hajimehoshi/ebiten"
-)
-
-// Click handles click events for all components
-func (ui *UI) Click() {
-	ui.Input.UpdateMouse()
-	if !ui.Input.StateForMouse(ebiten.MouseButtonLeft) {
+// click handles click events for all components
+func (ui *UI) click() {
+	if !ui.Input.StateForMouse(MouseButtonLeft) {
 		return
 	}
 

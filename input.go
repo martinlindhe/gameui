@@ -1,10 +1,8 @@
+// parts from ebiten/examples/blocks/blocks/input.go
+
 package ui
 
-// XXX can this be done without ebiten?
-
 import "github.com/hajimehoshi/ebiten"
-
-// parts from ebiten/examples/blocks/blocks/input.go
 
 // Input ...
 type Input struct {
@@ -14,12 +12,12 @@ type Input struct {
 }
 
 // StateForKey ...
-func (i *Input) StateForKey(key ebiten.Key) bool {
+func (i *Input) StateForKey(key Key) bool {
 	return i.keyStates[key] == 1
 }
 
 // StateForMouse ...
-func (i *Input) StateForMouse(mouse ebiten.MouseButton) bool {
+func (i *Input) StateForMouse(mouse MouseButton) bool {
 	return i.mouseStates[mouse] == 1
 }
 
@@ -30,8 +28,8 @@ func (i *Input) ClearMouse() {
 	}
 }
 
-// UpdateKeyboard ...
-func (i *Input) UpdateKeyboard() {
+// updateKeyboard ...
+func (i *Input) updateKeyboard() {
 	for key := range i.keyStates {
 		if !ebiten.IsKeyPressed(ebiten.Key(key)) {
 			i.keyStates[key] = 0
@@ -41,8 +39,8 @@ func (i *Input) UpdateKeyboard() {
 	}
 }
 
-// UpdateMouse ...
-func (i *Input) UpdateMouse() {
+// updateMouse ...
+func (i *Input) updateMouse() {
 	for mouse := range i.mouseStates {
 		if !ebiten.IsMouseButtonPressed(ebiten.MouseButton(mouse)) {
 			i.mouseStates[mouse] = 0
@@ -50,7 +48,6 @@ func (i *Input) UpdateMouse() {
 		}
 		i.mouseStates[mouse]++
 	}
-
 	mx, my := ebiten.CursorPosition()
 	i.X = mx
 	i.Y = my
