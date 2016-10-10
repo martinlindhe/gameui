@@ -2,6 +2,7 @@ package ui
 
 import (
 	"image"
+	"image/draw"
 	"log"
 )
 
@@ -24,6 +25,12 @@ type component struct {
 	Position      Point
 	Image         *image.RGBA
 	OnClick       func()
+	children      []Component
+}
+
+// AddChild ...
+func (wnd *Window) AddChild(c Component) {
+	wnd.children = append(wnd.children, c)
 }
 
 func (c *component) Click() {
@@ -53,4 +60,20 @@ func (c component) GetRect() image.Rectangle {
 // set to true when mouse is hovering component
 func (c component) Hover(b bool) {
 	c.IsMouseOver = b
+}
+
+func (c *component) drawChildren(mx, my int) {
+	for _, child := range c.children {
+		img := child.Draw(mx, my)
+		if img == nil {
+			continue
+		}
+		x, y, w, h := child.GetBounds()
+		x1 := x + w
+		y1 := y + h
+		child.Hover(mx >= x && mx <= x1 && my >= y && my <= y1)
+
+		dr := image.Rect(x, y, x1, y1)
+		draw.Draw(c.Image, dr, img, image.ZP, draw.Over)
+	}
 }
