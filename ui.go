@@ -9,7 +9,6 @@ import (
 // UI represents an instance of the UI
 type UI struct {
 	Width, Height int
-	scale         float64
 	WindowTitle   string
 	Scene         *image.RGBA
 	components    []Component

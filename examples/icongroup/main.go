@@ -1,8 +1,4 @@
-// XXX TODO window containing multiple objects of loose interface with just "Name() string" identifier
-
-// XXX TODO later: resizable window
-// XXX TODO later: minimize _ icon on window
-// XXX TODO window title
+// window containing multiple objects, click "ADD" to add more
 
 package main
 
@@ -19,6 +15,7 @@ import (
 
 const (
 	width, height = 320, 200
+	scale         = 2.
 )
 
 var (
@@ -46,7 +43,7 @@ func main() {
 
 	gui.AddComponent(fps)
 
-	if err := ebiten.Run(update, width, height, 1, "Dialog (UI Demo)"); err != nil {
+	if err := ebiten.Run(update, width, height, scale, "Dialog (UI Demo)"); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -68,7 +65,7 @@ func update(screen *ebiten.Image) error {
 }
 
 func makeWindow() *ui.Window {
-	wnd := ui.NewWindow(200, 100).
+	wnd := ui.NewWindow(width-30, height-30).
 		SetTitle("icon group")
 	wnd.Position = ui.Point{X: 15, Y: 25}
 
@@ -89,13 +86,12 @@ func makeWindow() *ui.Window {
 		SetText("ADD")
 	btnAdd.Position = ui.Point{X: wnd.Width / 2, Y: wnd.Height - 20}
 	btnAdd.OnClick = func() {
+		fmt.Println("adding obj")
 		im1 := image.NewRGBA(image.Rect(0, 0, 3, 3))
 		im1.Set(0, 0, color.White)
 		im1.Set(2, 0, color.White)
 		im1.Set(1, 2, color.White)
 		grp.AddObject(obj{name: "icon", icon: im1})
-
-		fmt.Println("adding", grp)
 	}
 	wnd.AddChild(btnAdd)
 	return wnd

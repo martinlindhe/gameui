@@ -3,7 +3,6 @@ package ui
 // XXX tests!!!
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
@@ -69,15 +68,15 @@ func (grp *IconGroup) AddObject(o IconGroupObject) {
 }
 
 func (grp *IconGroup) drawIcons(mx, my int) {
-	fmt.Println("drawIcons")
 	pad := 1
 	x := pad + 1
 	y := pad + 1
 	col := 0
+	row := 0
 
 	for _, o := range grp.objects {
 		// TODO show o.Name() if mouse is hover without click
-		fmt.Println("drawing", o.Name())
+		//fmt.Println("drawing", o.Name())
 
 		img := o.Icon()
 		b := img.Bounds()
@@ -94,8 +93,13 @@ func (grp *IconGroup) drawIcons(mx, my int) {
 		x += w
 		col++
 		if col >= grp.columns {
+			col = 0
 			x = pad + 1
 			y += h
+			row++
+		}
+		if row >= grp.rows {
+			break
 		}
 	}
 }

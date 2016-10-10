@@ -14,6 +14,7 @@ import (
 
 const (
 	width, height = 320, 200
+	scale         = 2.
 )
 
 var (
@@ -49,7 +50,7 @@ func main() {
 		return ui.GracefulExitError{}
 	})
 
-	if err := ebiten.Run(update, width, height, 1, "Dialog (UI Demo)"); err != nil {
+	if err := ebiten.Run(update, width, height, scale, "Dialog (UI Demo)"); err != nil {
 		log.Fatal(err)
 	}
 }
