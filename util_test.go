@@ -44,12 +44,11 @@ func colToText(col color.Color) string {
 func testCompareRender(t *testing.T, expected, got []string) {
 	if len(expected) != len(got) {
 		t.Error("expected", len(expected), "lines, got", len(got))
-		if len(got) > len(expected) {
-			for _, g := range got {
-				t.Log(g)
-			}
-			return
+		for _, g := range got {
+			t.Log(g)
 		}
+		t.FailNow()
+		return
 	}
 	for i, ex := range expected {
 		if i >= len(got) {
