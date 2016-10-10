@@ -13,7 +13,6 @@ import (
 	"os"
 
 	"github.com/hajimehoshi/ebiten"
-	"github.com/martinlindhe/farm/game"
 	"github.com/martinlindhe/farm/ui"
 )
 
@@ -58,15 +57,15 @@ func makeWindow() *ui.Window {
 	wnd := ui.NewWindow(200, 100).
 		SetTitle("icon group")
 	wnd.Position = ui.Point{X: 10, Y: 10}
-
-	// XXX each icon of interface type to get Name() and Icon()
-	exit := ui.NewIconGroup(16, 16, game.ItemTileW, game.ItemTileH)
-	exit.Position = ui.Point{X: width / 3, Y: height / 3}
-	wnd.AddChild(exit)
-
+	/*
+		// XXX each icon of interface type to get Name() and Icon()
+		exit := ui.NewIconGroup(16, 16, game.ItemTileW, game.ItemTileH)
+		exit.Position = ui.Point{X: width / 3, Y: height / 3}
+		wnd.AddChild(exit)
+	*/
 	btnYes := ui.NewButton(60, 20).
 		SetText("YES")
-	btnYes.Position = ui.Point{X: 0, Y: height / 2}
+	btnYes.Position = ui.Point{X: 0, Y: wnd.Height / 2}
 	btnYes.OnClick = func() {
 		fmt.Println("clicked", btnYes.Text.GetText())
 		os.Exit(0)
@@ -75,7 +74,7 @@ func makeWindow() *ui.Window {
 
 	btnNo := ui.NewButton(60, 20).
 		SetText("NO")
-	btnNo.Position = ui.Point{X: width / 2, Y: height / 2}
+	btnNo.Position = ui.Point{X: wnd.Width / 2, Y: wnd.Height / 2}
 	btnNo.OnClick = func() {
 		fmt.Println("clicked", btnNo.Text.GetText())
 	}

@@ -48,6 +48,21 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	// draw outline
 	DrawRect(wnd.Image, &rect, color.White)
 
+	// XXX draw children
+	for _, c := range wnd.children {
+		img := c.Draw(mx, my)
+		if img == nil {
+			continue
+		}
+		x, y, w, h := c.GetBounds()
+		x1 := x + w
+		y1 := y + h
+		c.Hover(mx >= x && mx <= x1 && my >= y && my <= y1)
+
+		dr := image.Rect(x, y, x1, y1)
+		draw.Draw(wnd.Image, dr, img, image.ZP, draw.Over)
+	}
+
 	wnd.isClean = true
 	return wnd.Image
 }
