@@ -41,22 +41,22 @@ func colToText(col color.Color) string {
 	return vals[n]
 }
 
+// asserts that expected == got, or fails test
 func testCompareRender(t *testing.T, expected, got []string) {
+	fail := false
 	if len(expected) != len(got) {
 		t.Error("expected", len(expected), "lines, got", len(got))
+		fail = true
+	}
+	for i, ex := range expected {
+		if i >= len(got) || ex != got[i] {
+			fail = true
+		}
+	}
+	if fail {
 		for _, g := range got {
 			t.Log(g)
 		}
 		t.FailNow()
-		return
-	}
-	for i, ex := range expected {
-		if i >= len(got) {
-			t.Error("line", i+1, "expected", ex, "GOT NOTHING")
-			continue
-		}
-		if ex != got[i] {
-			t.Error("line", i+1, "expected", ex, "got", got[i], ".")
-		}
 	}
 }

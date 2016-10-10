@@ -21,16 +21,11 @@ type Component interface {
 type component struct {
 	IsMouseOver   bool
 	isClean       bool // does component need redraw?
-	Width, Height int
+	Width, Height int  // size of component
 	Position      Point
 	Image         *image.RGBA
 	OnClick       func()
 	children      []Component
-}
-
-// AddChild ...
-func (wnd *Window) AddChild(c Component) {
-	wnd.children = append(wnd.children, c)
 }
 
 func (c *component) Click(mouse Point) {
@@ -59,6 +54,15 @@ func (c component) GetRect() image.Rectangle {
 // set to true when mouse is hovering component
 func (c component) Hover(b bool) {
 	c.IsMouseOver = b
+}
+
+func (c *component) isChildrenClean() bool {
+	for _, child := range c.children {
+		if !child.IsClean() {
+			return false
+		}
+	}
+	return true
 }
 
 func (c *component) drawChildren(mx, my int) {

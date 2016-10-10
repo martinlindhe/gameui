@@ -8,6 +8,7 @@ package main
 
 import (
 	"fmt"
+	"image"
 	"image/color"
 	"log"
 	"os"
@@ -24,6 +25,19 @@ var (
 	gui = ui.New(width, height)
 	fps = ui.NewText(30, color.White)
 )
+
+// obj implements IconGroupObject interface
+type obj struct {
+	name string
+	icon *image.RGBA
+}
+
+func (o obj) Name() string {
+	return o.name
+}
+func (o obj) Icon() *image.RGBA {
+	return o.icon
+}
 
 func main() {
 
@@ -56,28 +70,33 @@ func update(screen *ebiten.Image) error {
 func makeWindow() *ui.Window {
 	wnd := ui.NewWindow(200, 100).
 		SetTitle("icon group")
-	wnd.Position = ui.Point{X: 10, Y: 10}
-	/*
-		// XXX each icon of interface type to get Name() and Icon()
-		exit := ui.NewIconGroup(16, 16, game.ItemTileW, game.ItemTileH)
-		exit.Position = ui.Point{X: width / 3, Y: height / 3}
-		wnd.AddChild(exit)
-	*/
-	btnYes := ui.NewButton(60, 20).
-		SetText("YES")
-	btnYes.Position = ui.Point{X: 0, Y: wnd.Height / 2}
-	btnYes.OnClick = func() {
-		fmt.Println("clicked", btnYes.Text.GetText())
+	wnd.Position = ui.Point{X: 15, Y: 25}
+
+	grp := ui.NewIconGroup(5, 5, 3, 3)
+	grp.Position = ui.Point{X: 0, Y: 0}
+	wnd.AddChild(grp)
+
+	btnBye := ui.NewButton(60, 20).
+		SetText("BYE")
+	btnBye.Position = ui.Point{X: 0, Y: wnd.Height - 20}
+	btnBye.OnClick = func() {
+		fmt.Println("exiting")
 		os.Exit(0)
 	}
-	wnd.AddChild(btnYes)
+	wnd.AddChild(btnBye)
 
-	btnNo := ui.NewButton(60, 20).
-		SetText("NO")
-	btnNo.Position = ui.Point{X: wnd.Width / 2, Y: wnd.Height / 2}
-	btnNo.OnClick = func() {
-		fmt.Println("clicked", btnNo.Text.GetText())
+	btnAdd := ui.NewButton(60, 20).
+		SetText("ADD")
+	btnAdd.Position = ui.Point{X: wnd.Width / 2, Y: wnd.Height - 20}
+	btnAdd.OnClick = func() {
+		im1 := image.NewRGBA(image.Rect(0, 0, 3, 3))
+		im1.Set(0, 0, color.White)
+		im1.Set(2, 0, color.White)
+		im1.Set(1, 2, color.White)
+		grp.AddObject(obj{name: "icon", icon: im1})
+
+		fmt.Println("adding", grp)
 	}
-	wnd.AddChild(btnNo)
+	wnd.AddChild(btnAdd)
 	return wnd
 }

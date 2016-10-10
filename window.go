@@ -20,6 +20,11 @@ func NewWindow(width, height int) *Window {
 	return &wnd
 }
 
+// AddChild ...
+func (wnd *Window) AddChild(c Component) {
+	wnd.children = append(wnd.children, c)
+}
+
 // SetTitle ...
 func (wnd *Window) SetTitle(s string) *Window {
 	wnd.title = s
@@ -29,7 +34,11 @@ func (wnd *Window) SetTitle(s string) *Window {
 // Draw redraws internal buffer
 func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	if wnd.isClean {
-		return wnd.Image
+		if !wnd.isChildrenClean() {
+			wnd.isClean = false
+		} else {
+			return wnd.Image
+		}
 	}
 
 	rect := image.Rect(0, 0, wnd.Width, wnd.Height)
