@@ -21,7 +21,8 @@ type Component interface {
 type component struct {
 	IsMouseOver   bool
 	isClean       bool // does component need redraw?
-	Width, Height int  // size of component
+	Hidden        bool
+	Width, Height int // size of component
 	Position      Point
 	Image         *image.RGBA
 	OnClick       func()

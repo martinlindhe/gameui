@@ -33,6 +33,9 @@ func (wnd *Window) SetTitle(s string) *Window {
 
 // Draw redraws internal buffer
 func (wnd *Window) Draw(mx, my int) *image.RGBA {
+	if wnd.Hidden {
+		return nil
+	}
 	if wnd.isClean {
 		if !wnd.isChildrenClean() {
 			wnd.isClean = false

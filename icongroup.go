@@ -68,6 +68,12 @@ func (grp *IconGroup) AddObject(o IconGroupObject) {
 	grp.isClean = false
 }
 
+// ClearObjects removes all displayed content
+func (grp *IconGroup) ClearObjects() {
+	grp.objects = nil
+	grp.isClean = false
+}
+
 func (grp *IconGroup) drawIcons(mx, my int) {
 	pad := 1
 	x := pad + 1
