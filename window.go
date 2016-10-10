@@ -47,3 +47,13 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	wnd.isClean = true
 	return wnd.Image
 }
+
+// Click pass click to window child components
+func (wnd *Window) Click(mouse Point) {
+	for _, c := range wnd.children {
+		if mouse.In(c.GetRect()) {
+			c.Click(mouse)
+			return
+		}
+	}
+}

@@ -14,7 +14,7 @@ type Component interface {
 	GetRect() image.Rectangle
 	Hover(bool)
 	IsClean() bool
-	Click()
+	Click(Point)
 }
 
 // component is the abstract base class for ui components
@@ -33,8 +33,7 @@ func (wnd *Window) AddChild(c Component) {
 	wnd.children = append(wnd.children, c)
 }
 
-func (c *component) Click() {
-	// XXX how see if unset?
+func (c *component) Click(mouse Point) {
 	if c.OnClick == nil {
 		log.Println("error: OnClick == nil")
 		return
