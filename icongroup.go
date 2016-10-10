@@ -3,6 +3,7 @@ package ui
 // XXX tests!!!
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
@@ -79,6 +80,10 @@ func (grp *IconGroup) drawIcons(mx, my int) {
 		//fmt.Println("drawing", o.Name())
 
 		img := o.Icon()
+		if img == nil {
+			fmt.Println("XXX obj", o.Name(), "lacks icon")
+			continue
+		}
 		b := img.Bounds()
 		w := b.Max.X
 		h := b.Max.Y
