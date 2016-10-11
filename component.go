@@ -18,14 +18,14 @@ type Component interface {
 
 // component is the abstract base class for ui components (doesn't implement Draw())
 type component struct {
-	IsMouseOver   bool
-	isClean       bool // does component need redraw?
-	Hidden        bool
-	Width, Height int // size of component
-	Position      Point
-	Image         *image.RGBA
-	OnClick       func()
-	children      []Component
+	IsMouseOver bool
+	isClean     bool // does component need redraw?
+	Hidden      bool
+	Dimension   Dimension
+	Position    Point
+	Image       *image.RGBA
+	OnClick     func()
+	children    []Component
 }
 
 func (c *component) Click(mouse Point) {
@@ -42,7 +42,7 @@ func (c *component) IsClean() bool {
 
 func (c component) GetBounds() image.Rectangle {
 	min := image.Point{c.Position.X, c.Position.Y}
-	max := image.Point{c.Position.X + c.Width, c.Position.Y + c.Height}
+	max := image.Point{c.Position.X + c.Dimension.Width, c.Position.Y + c.Dimension.Height}
 	return image.Rectangle{min, max}
 }
 

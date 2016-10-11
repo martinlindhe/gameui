@@ -17,8 +17,8 @@ type Button struct {
 // NewButton ...
 func NewButton(width, height int) *Button {
 	btn := &Button{}
-	btn.Width = width
-	btn.Height = height
+	btn.Dimension.Width = width
+	btn.Dimension.Height = height
 	btn.Text = NewText(float64(height-1), color.White)
 	return btn
 }
@@ -44,7 +44,7 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 		return btn.Image
 	}
 
-	rect := image.Rect(0, 0, btn.Width, btn.Height)
+	rect := image.Rect(0, 0, btn.Dimension.Width, btn.Dimension.Height)
 	if btn.Image == nil {
 		btn.Image = image.NewRGBA(rect)
 	} else {
@@ -76,7 +76,7 @@ func (btn *Button) drawIcon() {
 	}
 	allB := btn.Image.Bounds()
 	btnB := btn.icon.Bounds()
-	if allB.Max.X > btn.Width || allB.Max.Y > btn.Height {
+	if allB.Max.X > btn.Dimension.Width || allB.Max.Y > btn.Dimension.Height {
 		log.Println("UI WARNING: button.drawImage image is bigger than container button")
 	}
 

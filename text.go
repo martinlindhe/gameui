@@ -59,7 +59,7 @@ func (txt *Text) GetWidth() int {
 	if txt.Image == nil {
 		txt.Draw(-1, -1)
 	}
-	return txt.Width
+	return txt.Dimension.Width
 }
 
 // Draw redraws internal buffer
@@ -79,8 +79,8 @@ func (txt *Text) Draw(mx, my int) *image.RGBA {
 
 	b := img.Bounds()
 	txt.Image = img
-	txt.Width = b.Max.X
-	txt.Height = b.Max.Y
+	txt.Dimension.Width = b.Max.X
+	txt.Dimension.Height = b.Max.Y
 	txt.isClean = true
 	return img
 }

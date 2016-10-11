@@ -38,8 +38,8 @@ func NewIconGroup(columns, rows, iconWidth, iconHeight int) *IconGroup {
 	igrp := IconGroup{}
 	igrp.columns = columns
 	igrp.rows = rows
-	igrp.Width = componentWidth
-	igrp.Height = componentHeight
+	igrp.Dimension.Width = componentWidth
+	igrp.Dimension.Height = componentHeight
 	igrp.iconWidth = iconWidth
 	igrp.iconHeight = iconHeight
 	return &igrp
@@ -54,7 +54,7 @@ func (grp *IconGroup) Draw(mx, my int) *image.RGBA {
 		return grp.Image
 	}
 
-	rect := image.Rect(0, 0, grp.Width, grp.Height)
+	rect := image.Rect(0, 0, grp.Dimension.Width, grp.Dimension.Height)
 	if grp.Image == nil {
 		grp.Image = image.NewRGBA(rect)
 	} else {

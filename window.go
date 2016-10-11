@@ -15,8 +15,8 @@ type Window struct {
 // NewWindow ...
 func NewWindow(width, height int) *Window {
 	wnd := Window{title: "new window"}
-	wnd.Width = width
-	wnd.Height = height
+	wnd.Dimension.Width = width
+	wnd.Dimension.Height = height
 	return &wnd
 }
 
@@ -44,7 +44,7 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 		}
 	}
 
-	rect := image.Rect(0, 0, wnd.Width, wnd.Height)
+	rect := image.Rect(0, 0, wnd.Dimension.Width, wnd.Dimension.Height)
 	if wnd.Image == nil {
 		wnd.Image = image.NewRGBA(rect)
 	} else {

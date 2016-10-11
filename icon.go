@@ -12,8 +12,8 @@ type Icon struct {
 func NewIcon(image *image.RGBA) *Icon {
 	ico := Icon{Image: image}
 	b := ico.Image.Bounds()
-	ico.Width = b.Max.X
-	ico.Height = b.Max.Y
+	ico.Dimension.Width = b.Max.X
+	ico.Dimension.Height = b.Max.Y
 	return &ico
 }
 
