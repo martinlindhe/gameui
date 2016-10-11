@@ -61,6 +61,10 @@ func (c *component) isChildrenClean() bool {
 	return true
 }
 
+func (c *component) RemoveAllChildren() {
+	c.children = nil
+}
+
 func (c *component) drawChildren(mx, my int) {
 	for _, child := range c.children {
 		fmt.Println("draw child", child.GetBounds())

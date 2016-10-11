@@ -38,6 +38,7 @@ func NewWindow(width, height int) *Window {
 // AddChild ...
 func (wnd *Window) AddChild(c Component) {
 	wnd.children = append(wnd.children, c)
+	wnd.isClean = false
 }
 
 // SetTitle ...
