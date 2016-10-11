@@ -9,14 +9,23 @@ import (
 // Window ...
 type Window struct {
 	component
-	title string
+	title           string
+	titleColor      color.Color
+	backgroundColor color.Color
 }
+
+var (
+	windowTitleColor = color.RGBA{0x50, 0x50, 0x50, 255} //gray
+	windowBgColor    = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
+)
 
 // NewWindow ...
 func NewWindow(width, height int) *Window {
 	wnd := Window{title: "new window"}
 	wnd.Dimension.Width = width
 	wnd.Dimension.Height = height
+	wnd.titleColor = windowTitleColor
+	wnd.backgroundColor = windowBgColor
 	return &wnd
 }
 
@@ -29,6 +38,16 @@ func (wnd *Window) AddChild(c Component) {
 func (wnd *Window) SetTitle(s string) *Window {
 	wnd.title = s
 	return wnd
+}
+
+// SetTitleColor ...
+func (wnd *Window) SetTitleColor(col color.Color) {
+	wnd.titleColor = col
+}
+
+// SetBackgroundColor ...
+func (wnd *Window) SetBackgroundColor(col color.Color) {
+	wnd.backgroundColor = col
 }
 
 // Draw redraws internal buffer
@@ -50,6 +69,22 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	} else {
 		draw.Draw(wnd.Image, rect, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
 	}
+
+	// draw background color
+	draw.Draw(wnd.Image, rect, &image.Uniform{wnd.backgroundColor}, image.ZP, draw.Over)
+
+	textH := 10 // XXX
+	titlebarH := textH + 1
+	// draw titlebar rect
+	titleRect := image.Rect(0, 0, wnd.Dimension.Width, titlebarH)
+	draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
+
+	/* XXX add a child font object for this:
+	title := "BLUEPRINTS"
+	if err := common.ArcadeFont.DrawTextOnImage(wnd.Image, title, x0+1, y0+1); err != nil {
+		panic(err)
+	}
+	*/
 
 	// draw outline
 	DrawRect(wnd.Image, &rect, color.White)
