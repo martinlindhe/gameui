@@ -33,9 +33,8 @@ const (
 func NewIconGroup(columns, rows, iconWidth, iconHeight int) *IconGroup {
 
 	pad := 2 // 1 px border, + 1 px cell padding
-	componentWidth := columns*iconWidth + pad*2
-	componentHeight := rows*iconHeight + pad*2
-
+	componentWidth := (columns * iconWidth) + (pad * 2)
+	componentHeight := (rows * iconHeight) + (pad * 2)
 	igrp := IconGroup{}
 	igrp.columns = columns
 	igrp.rows = rows
@@ -116,9 +115,6 @@ func (grp *IconGroup) drawIcons(mx, my int) {
 		h := b.Max.Y
 		x1 := x + w
 		y1 := y + h
-
-		// XXX handle click within bounds
-		// XXX child.Hover(mx >= x && mx <= x1 && my >= y && my <= y1)
 
 		dr := image.Rect(x, y, x1, y1)
 		draw.Draw(grp.Image, dr, img, image.ZP, draw.Over)
