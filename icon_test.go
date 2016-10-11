@@ -2,16 +2,15 @@ package ui
 
 import (
 	"image"
-	"image/color"
 	"testing"
 )
 
 func TestIconOnly(t *testing.T) {
 
 	img := image.NewRGBA(image.Rect(0, 0, 3, 3))
-	img.Set(0, 0, color.White)
-	img.Set(2, 0, color.White)
-	img.Set(1, 2, color.White)
+	img.Set(0, 0, White)
+	img.Set(2, 0, White)
+	img.Set(1, 2, White)
 
 	ico := NewIcon(img)
 
@@ -32,9 +31,9 @@ func TestUIWithIconOnly(t *testing.T) {
 	ui := New(w, h)
 
 	img := image.NewRGBA(image.Rect(0, 0, 3, 3))
-	img.Set(0, 0, color.White)
-	img.Set(2, 0, color.White)
-	img.Set(1, 2, color.White)
+	img.Set(0, 0, White)
+	img.Set(2, 0, White)
+	img.Set(1, 2, White)
 
 	ico := NewIcon(img)
 	ui.AddComponent(ico)

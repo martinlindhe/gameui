@@ -1,9 +1,6 @@
 package ui
 
-import (
-	"image/color"
-	"testing"
-)
+import "testing"
 
 // BenchmarkUI-4                   500000000                3.52 ns/op (elitebook)
 func BenchmarkUI(b *testing.B) {
@@ -14,7 +11,7 @@ func BenchmarkUI(b *testing.B) {
 	btn.Position = Point{X: 5, Y: 3}
 	ui.AddComponent(btn)
 
-	txt := NewText(6, color.White)
+	txt := NewText(6, White)
 	txt.SetText("HELLO")
 	txt.Position = Point{X: 0, Y: 0}
 	ui.AddComponent(txt)
@@ -32,7 +29,7 @@ func TestUI(t *testing.T) {
 	btn.Position = Point{X: 5, Y: 3}
 	ui.AddComponent(btn)
 
-	txt := NewText(6, color.White)
+	txt := NewText(6, White)
 	txt.SetText("HELLO")
 	txt.Position = Point{X: 0, Y: 0}
 	ui.AddComponent(txt)

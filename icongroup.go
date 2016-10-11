@@ -62,7 +62,7 @@ func (grp *IconGroup) Draw(mx, my int) *image.RGBA {
 	}
 
 	// draw outline
-	DrawRect(grp.Image, &rect, color.White)
+	DrawRect(grp.Image, &rect, White)
 
 	grp.drawIcons(mx, my)
 

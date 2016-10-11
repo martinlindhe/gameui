@@ -18,14 +18,14 @@ type Window struct {
 
 var (
 	windowBgColor     = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
-	windowBorderColor = color.White
+	windowBorderColor = White
 	windowTitleColor  = color.RGBA{0x50, 0x50, 0x50, 255} //gray
 )
 
 // NewWindow ...
 func NewWindow(width, height int) *Window {
 	wnd := Window{}
-	wnd.title = NewText(12, color.White)
+	wnd.title = NewText(12, White)
 	wnd.close = NewButton(10, 10)
 	wnd.Dimension.Width = width
 	wnd.Dimension.Height = height

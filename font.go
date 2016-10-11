@@ -59,6 +59,9 @@ func (fnt *Font) StringInPixels(s string) int {
 
 // Print draws text using the font
 func (fnt *Font) Print(text string) (*image.RGBA, error) {
+	if text == "" {
+		fmt.Println("XXX print empty str")
+	}
 
 	// keep cache of last 10 rendered strings
 	if val, ok := fnt.cachedPrints[text]; ok {

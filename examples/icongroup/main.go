@@ -21,13 +21,13 @@ const (
 var (
 	gui   = ui.New(width, height)
 	fps   = ui.NewText(30, color.White)
-	count = int64(0)
+	count = uint64(0)
 )
 
 // obj implements IconGroupObject interface
 type obj struct {
 	name    string
-	id      int64
+	id      uint64
 	icon    *image.RGBA
 	onClick func(*obj)
 }
@@ -35,7 +35,7 @@ type obj struct {
 func (o obj) Name() string {
 	return o.name
 }
-func (o obj) ID() int64 {
+func (o obj) ID() uint64 {
 	return o.id
 }
 func (o obj) Icon() *image.RGBA {
@@ -85,7 +85,7 @@ func makeWindow() *ui.Window {
 
 	btnBye := ui.NewButton(60, 20).
 		SetText("BYE")
-	btnBye.Position = ui.Point{X: 0, Y: wnd.Height - 20}
+	btnBye.Position = ui.Point{X: 0, Y: wnd.Dimension.Height - 20}
 	btnBye.OnClick = func() {
 		fmt.Println("exiting")
 		os.Exit(0)
@@ -94,7 +94,7 @@ func makeWindow() *ui.Window {
 
 	btnAdd := ui.NewButton(60, 20).
 		SetText("ADD")
-	btnAdd.Position = ui.Point{X: wnd.Width / 2, Y: wnd.Height - 20}
+	btnAdd.Position = ui.Point{X: wnd.Dimension.Width / 2, Y: wnd.Dimension.Height - 20}
 	btnAdd.OnClick = func() {
 		name := "icon " + fmt.Sprintf("%d", count)
 		fmt.Println("adding obj", name)

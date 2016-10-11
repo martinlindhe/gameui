@@ -2,7 +2,6 @@ package ui
 
 import (
 	"image"
-	"image/color"
 	"testing"
 )
 
@@ -89,9 +88,9 @@ func TestButtonImage(t *testing.T) {
 	}, renderAsText(im))
 
 	icon := image.NewRGBA(r)
-	icon.Set(0, 0, color.White)
-	icon.Set(2, 0, color.White)
-	icon.Set(1, 2, color.White)
+	icon.Set(0, 0, White)
+	icon.Set(2, 0, White)
+	icon.Set(1, 2, White)
 	btn.SetIcon(icon)
 
 	im = btn.Draw(0, 0)
@@ -104,9 +103,9 @@ func TestButtonImage(t *testing.T) {
 	}, renderAsText(im))
 
 	icon2 := image.NewRGBA(r)
-	icon2.Set(0, 0, color.White)
-	icon2.Set(1, 0, color.White)
-	icon2.Set(2, 0, color.White)
+	icon2.Set(0, 0, White)
+	icon2.Set(1, 0, White)
+	icon2.Set(2, 0, White)
 	btn.SetIcon(icon2)
 
 	// test render after changed icon

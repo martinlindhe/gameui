@@ -2,7 +2,6 @@ package ui
 
 import (
 	"image"
-	"image/color"
 	"testing"
 )
 
@@ -29,14 +28,14 @@ func (o obj) Click() {
 func TestIcongroupOnly(t *testing.T) {
 
 	im1 := image.NewRGBA(image.Rect(0, 0, 3, 3))
-	im1.Set(0, 0, color.White)
-	im1.Set(2, 0, color.White)
-	im1.Set(1, 2, color.White)
+	im1.Set(0, 0, White)
+	im1.Set(2, 0, White)
+	im1.Set(1, 2, White)
 
 	im2 := image.NewRGBA(image.Rect(0, 0, 3, 3))
-	im2.Set(0, 0, color.White)
-	im2.Set(1, 1, color.White)
-	im2.Set(2, 2, color.White)
+	im2.Set(0, 0, White)
+	im2.Set(1, 1, White)
+	im2.Set(2, 2, White)
 
 	grp := NewIconGroup(2, 2, 3, 3)
 

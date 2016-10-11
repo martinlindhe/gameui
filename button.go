@@ -19,7 +19,7 @@ func NewButton(width, height int) *Button {
 	btn := &Button{}
 	btn.Dimension.Width = width
 	btn.Dimension.Height = height
-	btn.Text = NewText(float64(height-1), color.White)
+	btn.Text = NewText(float64(height-1), White)
 	return btn
 }
 
@@ -52,7 +52,7 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 	}
 
 	// draw outline
-	DrawRect(btn.Image, &rect, color.White)
+	DrawRect(btn.Image, &rect, White)
 
 	btn.drawIcon()
 
