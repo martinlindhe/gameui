@@ -22,7 +22,7 @@ type IconGroupObject interface {
 	Name() string
 	Icon() *image.RGBA
 	Click()
-	ID() int64
+	ID() uint64
 }
 
 const (
@@ -78,7 +78,7 @@ func (grp *IconGroup) AddObject(o IconGroupObject) {
 }
 
 // RemoveObjectByID ...
-func (grp *IconGroup) RemoveObjectByID(id int64) {
+func (grp *IconGroup) RemoveObjectByID(id uint64) {
 	for i, c := range grp.objects {
 		if c.ID() == id {
 			grp.objects = append(grp.objects[:i], grp.objects[i+1:]...)

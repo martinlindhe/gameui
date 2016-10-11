@@ -10,7 +10,7 @@ import (
 type obj struct {
 	name string
 	icon *image.RGBA
-	id   int64
+	id   uint64
 }
 
 func (o obj) Name() string {
@@ -19,7 +19,7 @@ func (o obj) Name() string {
 func (o obj) Icon() *image.RGBA {
 	return o.icon
 }
-func (o obj) ID() int64 {
+func (o obj) ID() uint64 {
 	return o.id
 }
 func (o obj) Click() {
