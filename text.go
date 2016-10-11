@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"log"
@@ -44,8 +45,10 @@ func NewText(size float64, color color.Color) *Text {
 
 // SetText ...
 func (txt *Text) SetText(s string) *Text {
+	if s != txt.text {
+		txt.isClean = false
+	}
 	txt.text = s
-	txt.isClean = false
 	return txt
 }
 
@@ -71,6 +74,7 @@ func (txt *Text) Draw(mx, my int) *image.RGBA {
 		return txt.Image
 	}
 
+	fmt.Println("XXX Draw text", txt.text, txt.GetBounds())
 	img, err := txt.font.Print(txt.text)
 	if err != nil {
 		log.Println("Print err", err)

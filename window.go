@@ -11,22 +11,27 @@ type Window struct {
 	component
 	titleColor      color.Color
 	backgroundColor color.Color
+	borderColor     color.Color
 	title           *Text
+	close           *Button
 }
 
 var (
-	windowTitleColor = color.RGBA{0x50, 0x50, 0x50, 255} //gray
-	windowBgColor    = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
+	windowBgColor     = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
+	windowBorderColor = color.White
+	windowTitleColor  = color.RGBA{0x50, 0x50, 0x50, 255} //gray
 )
 
 // NewWindow ...
 func NewWindow(width, height int) *Window {
 	wnd := Window{}
 	wnd.title = NewText(12, color.White)
+	wnd.close = NewButton(10, 10)
 	wnd.Dimension.Width = width
 	wnd.Dimension.Height = height
-	wnd.titleColor = windowTitleColor
 	wnd.backgroundColor = windowBgColor
+	wnd.borderColor = windowBorderColor
+	wnd.titleColor = windowTitleColor
 	return &wnd
 }
 
@@ -49,6 +54,11 @@ func (wnd *Window) SetTitleColor(col color.Color) {
 // SetBackgroundColor ...
 func (wnd *Window) SetBackgroundColor(col color.Color) {
 	wnd.backgroundColor = col
+}
+
+// SetBorderColor ...
+func (wnd *Window) SetBorderColor(col color.Color) {
+	wnd.borderColor = col
 }
 
 // Draw redraws internal buffer
@@ -85,8 +95,21 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	title := wnd.title.Draw(mx, my)
 	draw.Draw(wnd.Image, title.Bounds(), title, image.ZP, draw.Over)
 
+	closeBnt := wnd.close.Draw(mx, my)
+	draw.Draw(wnd.Image, closeBnt.Bounds(), closeBnt, image.ZP, draw.Over)
+
+	//fmt.Println("first", ax0, ay0, "second", ax1, ay1)
+	/* XXX handle click X
+	if isPointInsideRect(mouse, &closeRect) &&
+		r.world.Input.StateForMouse(ebiten.MouseButtonLeft) {
+		fmt.Println("XXX clicked close X")
+		r.ShowBuildMenu = false
+		return
+	}
+	*/
+
 	// draw outline
-	DrawRect(wnd.Image, &rect, color.White)
+	DrawRect(wnd.Image, &rect, wnd.borderColor)
 
 	wnd.drawChildren(mx, my)
 
