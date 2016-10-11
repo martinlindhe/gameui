@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"fmt"
 	"image"
 	"image/draw"
 	"log"
@@ -67,7 +66,6 @@ func (c *component) RemoveAllChildren() {
 
 func (c *component) drawChildren(mx, my int) {
 	for _, child := range c.children {
-		fmt.Println("draw child", child.GetBounds())
 		img := child.Draw(mx, my)
 		if img == nil {
 			continue
