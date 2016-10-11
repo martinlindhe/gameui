@@ -5,8 +5,7 @@ import "image"
 // Icon ...
 type Icon struct {
 	component
-	Image  *image.RGBA
-	Hidden bool
+	Image *image.RGBA
 }
 
 // NewIcon ...

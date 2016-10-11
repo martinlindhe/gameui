@@ -10,6 +10,7 @@ import (
 type obj struct {
 	name string
 	icon *image.RGBA
+	id   int64
 }
 
 func (o obj) Name() string {
@@ -17,6 +18,12 @@ func (o obj) Name() string {
 }
 func (o obj) Icon() *image.RGBA {
 	return o.icon
+}
+func (o obj) ID() int64 {
+	return o.id
+}
+func (o obj) Click() {
+	// XXX fmt.Println("CLICKED ME: ", o.name)
 }
 
 func TestIcongroupOnly(t *testing.T) {
@@ -33,14 +40,14 @@ func TestIcongroupOnly(t *testing.T) {
 
 	grp := NewIconGroup(2, 2, 3, 3)
 
-	o1 := obj{name: "item1", icon: im1}
+	o1 := obj{name: "item1", icon: im1, id: 1}
 	grp.AddObject(o1)
 
-	o2 := obj{name: "item2", icon: im2}
+	o2 := obj{name: "item2", icon: im2, id: 2}
 	grp.AddObject(o2)
 
 	// make sure second row of objects is shown in ui
-	o3 := obj{name: "item3", icon: im1}
+	o3 := obj{name: "item3", icon: im1, id: 3}
 	grp.AddObject(o3)
 
 	// make sure same frame is delivered each time

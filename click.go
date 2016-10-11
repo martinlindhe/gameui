@@ -8,7 +8,7 @@ func (ui *UI) click() {
 
 	mouse := Point{X: ui.Input.X, Y: ui.Input.Y}
 	for _, c := range ui.components {
-		if mouse.In(c.GetRect()) {
+		if mouse.In(c.GetBounds()) {
 			c.Click(mouse)
 			return
 		}

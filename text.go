@@ -64,6 +64,9 @@ func (txt *Text) GetWidth() int {
 
 // Draw redraws internal buffer
 func (txt *Text) Draw(mx, my int) *image.RGBA {
+	if txt.Hidden {
+		return nil
+	}
 	if txt.isClean {
 		return txt.Image
 	}

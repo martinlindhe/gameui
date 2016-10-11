@@ -64,7 +64,7 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 func (wnd *Window) Click(mouse Point) {
 	childPoint := Point{X: mouse.X - wnd.Position.X, Y: mouse.Y - wnd.Position.Y}
 	for _, c := range wnd.children {
-		if childPoint.In(c.GetRect()) {
+		if childPoint.In(c.GetBounds()) {
 			c.Click(childPoint)
 			return
 		}

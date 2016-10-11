@@ -10,14 +10,13 @@ import (
 type Component interface {
 	// Draw return nil if no image is drawn
 	Draw(mx, my int) *image.RGBA
-	GetBounds() (int, int, int, int)
-	GetRect() image.Rectangle
+	GetBounds() image.Rectangle
 	Hover(bool)
 	IsClean() bool
 	Click(Point)
 }
 
-// component is the abstract base class for ui components
+// component is the abstract base class for ui components (doesn't implement Draw())
 type component struct {
 	IsMouseOver   bool
 	isClean       bool // does component need redraw?
@@ -41,12 +40,7 @@ func (c *component) IsClean() bool {
 	return c.isClean
 }
 
-// GetBounds returns x, y, width, height
-func (c component) GetBounds() (int, int, int, int) {
-	return c.Position.X, c.Position.Y, c.Width, c.Height
-}
-
-func (c component) GetRect() image.Rectangle {
+func (c component) GetBounds() image.Rectangle {
 	min := image.Point{c.Position.X, c.Position.Y}
 	max := image.Point{c.Position.X + c.Width, c.Position.Y + c.Height}
 	return image.Rectangle{min, max}
@@ -72,12 +66,9 @@ func (c *component) drawChildren(mx, my int) {
 		if img == nil {
 			continue
 		}
-		x, y, w, h := child.GetBounds()
-		x1 := x + w
-		y1 := y + h
-		child.Hover(mx >= x && mx <= x1 && my >= y && my <= y1)
+		r := child.GetBounds()
+		child.Hover(mx >= r.Min.X && mx <= r.Max.X && my >= r.Min.Y && my <= r.Max.Y)
 
-		dr := image.Rect(x, y, x1, y1)
-		draw.Draw(c.Image, dr, img, image.ZP, draw.Over)
+		draw.Draw(c.Image, r, img, image.ZP, draw.Over)
 	}
 }

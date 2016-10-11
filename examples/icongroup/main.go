@@ -19,21 +19,30 @@ const (
 )
 
 var (
-	gui = ui.New(width, height)
-	fps = ui.NewText(30, color.White)
+	gui   = ui.New(width, height)
+	fps   = ui.NewText(30, color.White)
+	count = int64(0)
 )
 
 // obj implements IconGroupObject interface
 type obj struct {
-	name string
-	icon *image.RGBA
+	name    string
+	id      int64
+	icon    *image.RGBA
+	onClick func(*obj)
 }
 
 func (o obj) Name() string {
 	return o.name
 }
+func (o obj) ID() int64 {
+	return o.id
+}
 func (o obj) Icon() *image.RGBA {
 	return o.icon
+}
+func (o obj) Click() {
+	o.onClick(&o)
 }
 
 func main() {
@@ -65,11 +74,12 @@ func update(screen *ebiten.Image) error {
 }
 
 func makeWindow() *ui.Window {
+	iconW, iconH := 3, 3
 	wnd := ui.NewWindow(width-30, height-30).
 		SetTitle("icon group")
 	wnd.Position = ui.Point{X: 15, Y: 25}
 
-	grp := ui.NewIconGroup(5, 5, 3, 3)
+	grp := ui.NewIconGroup(5, 5, iconW, iconH)
 	grp.Position = ui.Point{X: 0, Y: 0}
 	wnd.AddChild(grp)
 
@@ -86,12 +96,18 @@ func makeWindow() *ui.Window {
 		SetText("ADD")
 	btnAdd.Position = ui.Point{X: wnd.Width / 2, Y: wnd.Height - 20}
 	btnAdd.OnClick = func() {
-		fmt.Println("adding obj")
-		im1 := image.NewRGBA(image.Rect(0, 0, 3, 3))
+		name := "icon " + fmt.Sprintf("%d", count)
+		fmt.Println("adding obj", name)
+		im1 := image.NewRGBA(image.Rect(0, 0, iconW, iconH))
 		im1.Set(0, 0, color.White)
 		im1.Set(2, 0, color.White)
 		im1.Set(1, 2, color.White)
-		grp.AddObject(obj{name: "icon", icon: im1})
+		o := obj{name: name, id: count, icon: im1, onClick: func(o *obj) {
+			fmt.Println("CLICKED", o.name, "idx", o.id, "so we remove it")
+			grp.RemoveObjectByID(o.id)
+		}}
+		grp.AddObject(o)
+		count++
 	}
 	wnd.AddChild(btnAdd)
 	return wnd

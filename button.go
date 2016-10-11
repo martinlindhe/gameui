@@ -37,6 +37,9 @@ func (btn *Button) SetText(s string) *Button {
 
 // Draw redraws internal buffer
 func (btn *Button) Draw(mx, my int) *image.RGBA {
+	if btn.Hidden {
+		return nil
+	}
 	if btn.isClean {
 		return btn.Image
 	}

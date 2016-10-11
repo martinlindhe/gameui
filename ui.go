@@ -82,13 +82,10 @@ func (ui *UI) Render(mx, my int) *image.RGBA {
 		if img == nil {
 			continue
 		}
-		x, y, w, h := c.GetBounds()
-		x1 := x + w
-		y1 := y + h
-		c.Hover(mx >= x && mx <= x1 && my >= y && my <= y1)
+		r := c.GetBounds()
+		c.Hover(mx >= r.Min.X && mx <= r.Max.X && my >= r.Min.Y && my <= r.Max.Y)
 
-		dr := image.Rect(x, y, x1, y1)
-		draw.Draw(ui.Scene, dr, img, image.ZP, draw.Over)
+		draw.Draw(ui.Scene, r, img, image.ZP, draw.Over)
 	}
 	return ui.Scene
 }

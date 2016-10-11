@@ -21,7 +21,13 @@ type IconGroup struct {
 type IconGroupObject interface {
 	Name() string
 	Icon() *image.RGBA
+	Click()
+	ID() int64
 }
+
+const (
+	iconBorderPad = 1
+)
 
 // NewIconGroup ...
 func NewIconGroup(columns, rows, iconWidth, iconHeight int) *IconGroup {
@@ -42,6 +48,9 @@ func NewIconGroup(columns, rows, iconWidth, iconHeight int) *IconGroup {
 
 // Draw redraws internal buffer
 func (grp *IconGroup) Draw(mx, my int) *image.RGBA {
+	if grp.Hidden {
+		return nil
+	}
 	if grp.isClean {
 		return grp.Image
 	}
@@ -68,6 +77,17 @@ func (grp *IconGroup) AddObject(o IconGroupObject) {
 	grp.isClean = false
 }
 
+// RemoveObjectByID ...
+func (grp *IconGroup) RemoveObjectByID(id int64) {
+	for i, c := range grp.objects {
+		if c.ID() == id {
+			grp.objects = append(grp.objects[:i], grp.objects[i+1:]...)
+			grp.isClean = false
+			return
+		}
+	}
+}
+
 // ClearObjects removes all displayed content
 func (grp *IconGroup) ClearObjects() {
 	grp.objects = nil
@@ -75,9 +95,8 @@ func (grp *IconGroup) ClearObjects() {
 }
 
 func (grp *IconGroup) drawIcons(mx, my int) {
-	pad := 1
-	x := pad + 1
-	y := pad + 1
+	x := iconBorderPad + 1
+	y := iconBorderPad + 1
 	col := 0
 	row := 0
 
@@ -107,12 +126,43 @@ func (grp *IconGroup) drawIcons(mx, my int) {
 		col++
 		if col >= grp.columns {
 			col = 0
-			x = pad + 1
+			x = iconBorderPad + 1
 			y += h
 			row++
 		}
 		if row >= grp.rows {
 			break
+		}
+	}
+}
+
+// Click pass click to child icon
+func (grp *IconGroup) Click(mouse Point) {
+
+	x := iconBorderPad + 1
+	y := iconBorderPad + 1
+	col := 0
+	row := 0
+
+	childPoint := Point{X: mouse.X - grp.Position.X, Y: mouse.Y - grp.Position.Y}
+
+	for _, c := range grp.objects {
+		b := c.Icon().Bounds()
+		x1 := x + b.Max.X
+		y1 := y + b.Max.Y
+		r := image.Rect(x, y, x1, y1)
+		if childPoint.In(r) {
+			c.Click()
+			return
+		}
+
+		x += b.Max.X
+		col++
+		if col >= grp.columns {
+			col = 0
+			x = iconBorderPad + 1
+			y += b.Max.Y
+			row++
 		}
 	}
 }
