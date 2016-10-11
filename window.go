@@ -9,9 +9,9 @@ import (
 // Window ...
 type Window struct {
 	component
-	title           string
 	titleColor      color.Color
 	backgroundColor color.Color
+	title           *Text
 }
 
 var (
@@ -21,7 +21,8 @@ var (
 
 // NewWindow ...
 func NewWindow(width, height int) *Window {
-	wnd := Window{title: "new window"}
+	wnd := Window{}
+	wnd.title = NewText(12, color.White)
 	wnd.Dimension.Width = width
 	wnd.Dimension.Height = height
 	wnd.titleColor = windowTitleColor
@@ -36,7 +37,7 @@ func (wnd *Window) AddChild(c Component) {
 
 // SetTitle ...
 func (wnd *Window) SetTitle(s string) *Window {
-	wnd.title = s
+	wnd.title.SetText(s)
 	return wnd
 }
 
@@ -75,16 +76,14 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 
 	textH := 10 // XXX
 	titlebarH := textH + 1
+
 	// draw titlebar rect
 	titleRect := image.Rect(0, 0, wnd.Dimension.Width, titlebarH)
 	draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
 
-	/* XXX add a child font object for this:
-	title := "BLUEPRINTS"
-	if err := common.ArcadeFont.DrawTextOnImage(wnd.Image, title, x0+1, y0+1); err != nil {
-		panic(err)
-	}
-	*/
+	// draw titlebar text
+	title := wnd.title.Draw(mx, my)
+	draw.Draw(wnd.Image, title.Bounds(), title, image.ZP, draw.Over)
 
 	// draw outline
 	DrawRect(wnd.Image, &rect, color.White)

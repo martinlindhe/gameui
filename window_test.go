@@ -1,10 +1,15 @@
 package ui
 
-import "testing"
+import (
+	"image/color"
+	"testing"
+)
 
 func TestWindow(t *testing.T) {
 	w, h := 30, 20
 	wnd := NewWindow(w, h)
+	wnd.SetTitleColor(color.Black)
+	wnd.SetBackgroundColor(color.Black)
 
 	btn := NewButton(20, 14).SetText("HI")
 	btn.Position = Point{X: 5, Y: 3}
@@ -31,6 +36,40 @@ func TestWindow(t *testing.T) {
 			"#    # ##. 6#o  ######o #    #",
 			"#    #                  #    #",
 			"#    ####################    #",
+			"#                            #",
+			"#                            #",
+			"##############################",
+		}, renderAsText(im))
+	}
+}
+
+func TestWindowWithTitle(t *testing.T) {
+	w, h := 30, 20
+	wnd := NewWindow(w, h)
+	wnd.SetTitle("WOA")
+	wnd.SetBackgroundColor(color.Black)
+
+	// make sure same frame is delivered each time
+	for i := 0; i < 10; i++ {
+		im := wnd.Draw(0, 0)
+		testCompareRender(t, []string{
+			"##############################",
+			"#,,,,,,,,,,,,,,,,,,,,,,,,,,,,#",
+			"##,,,,,,##,,,,####,,,,,,##,,,#",
+			"##,,,,,,##,,,,####,,,,,,##,,,#",
+			"##,,##,,##,,##,,,,##,,##,,##,#",
+			"##,,##,,##,,##,,,,##,,##,,##,#",
+			"##,,##,,##,,##,,,,##,,######,#",
+			"##,,##,,##,,##,,,,##,,######,#",
+			"#,##,,##,,,,,,####,,,,##,,##,#",
+			"#,##,,##,,,,,,####,,,,##,,##,#",
+			"#,,,,,,,,,,,,,,,,,,,,,,,,,,,,#",
+			"#                            #",
+			"#                            #",
+			"#                            #",
+			"#                            #",
+			"#                            #",
+			"#                            #",
 			"#                            #",
 			"#                            #",
 			"##############################",

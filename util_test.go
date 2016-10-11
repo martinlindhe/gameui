@@ -55,7 +55,7 @@ func testCompareRender(t *testing.T, expected, got []string) {
 	}
 	if fail {
 		for _, g := range got {
-			t.Log(g)
+			t.Log("_" + g + "_")
 		}
 		t.FailNow()
 	}
