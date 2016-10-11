@@ -33,11 +33,12 @@ func (lst *List) addChild(c Component) {
 }
 
 // AddLine ...
-func (lst *List) AddLine(l Line) {
+func (lst *List) AddLine(l Line, fnc func()) {
 	rowHeight := 12 // XXX font height
 	titlePad := 10
 
 	h := NewText(float64(rowHeight), l.Color())
+	h.OnClick = fnc
 	h.SetText(l.Name())
 	h.Position = Point{X: 0, Y: titlePad + len(lst.children)*rowHeight}
 	h.Dimension = Dimension{Width: lst.Dimension.Width, Height: rowHeight}

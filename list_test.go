@@ -21,13 +21,13 @@ func TestListOnly(t *testing.T) {
 	grp := NewList(100, 50)
 
 	o1 := babj{name: "item1"}
-	grp.AddLine(o1)
+	grp.AddLine(o1, func() {})
 
 	o2 := babj{name: "item2"}
-	grp.AddLine(o2)
+	grp.AddLine(o2, func() {})
 
 	o3 := babj{name: "item3"}
-	grp.AddLine(o3)
+	grp.AddLine(o3, func() {})
 
 	// make sure same frame is delivered each time
 	for i := 0; i < 10; i++ {

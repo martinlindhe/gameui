@@ -65,6 +65,8 @@ func (fnt *Font) Print(text string) (*image.RGBA, error) {
 		return val, nil
 	}
 
+	// log.Println("font.Print", text)
+
 	width := fnt.StringInPixels(text)
 	if fnt.size == 0 {
 		panic("fnt.size == 0")

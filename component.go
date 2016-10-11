@@ -30,7 +30,7 @@ type component struct {
 
 func (c *component) Click(mouse Point) {
 	if c.OnClick == nil {
-		log.Println("error: OnClick == nil")
+		log.Println("OnClick == nil for clicked component")
 		return
 	}
 	c.OnClick()
