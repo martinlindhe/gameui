@@ -23,8 +23,9 @@ type Line interface {
 // NewList ...
 func NewList(width, height int) *List {
 	lst := List{}
-	y := 0
+	lst.Dimension = Dimension{Width: width, Height: height}
 	rowHeight := 12 // XXX font height
+	y := 10         // XXX header for windows offset
 	for i := 0; i < 20; i++ {
 		h := NewText(12, color.White)
 		h.SetText("XXX")
