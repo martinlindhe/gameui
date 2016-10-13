@@ -56,16 +56,18 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 
 	btn.drawIcon()
 
-	txt := btn.Text.Draw(mx, my)
+	if btn.Text.text != "" {
+		txt := btn.Text.Draw(mx, my)
+		// XXX center text ?
+		b := txt.Bounds()
+		x0 := 2
+		y0 := 1
+		x1 := x0 + b.Max.X
+		y1 := y0 + b.Max.Y
+		textRect := image.Rect(x0, y0, x1, y1)
+		draw.Draw(btn.Image, textRect, txt, image.ZP, draw.Over)
+	}
 
-	// XXX center text ?
-	b := txt.Bounds()
-	x0 := 2
-	y0 := 1
-	x1 := x0 + b.Max.X
-	y1 := y0 + b.Max.Y
-	textRect := image.Rect(x0, y0, x1, y1)
-	draw.Draw(btn.Image, textRect, txt, image.ZP, draw.Over)
 	btn.isClean = true
 	return btn.Image
 }
