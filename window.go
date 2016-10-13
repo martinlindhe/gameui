@@ -14,6 +14,7 @@ type Window struct {
 	borderColor     color.Color
 	title           *Text
 	close           *Button
+	hideCloseButton bool
 }
 
 var (
@@ -33,6 +34,11 @@ func NewWindow(width, height int) *Window {
 	wnd.borderColor = windowBorderColor
 	wnd.titleColor = windowTitleColor
 	return &wnd
+}
+
+// HideCloseButton ...
+func (wnd *Window) HideCloseButton(b bool) {
+	wnd.hideCloseButton = b
 }
 
 // AddChild ...
@@ -98,18 +104,22 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 		draw.Draw(wnd.Image, title.Bounds(), title, image.ZP, draw.Over)
 	}
 
-	closeBnt := wnd.close.Draw(mx, my)
-	draw.Draw(wnd.Image, closeBnt.Bounds(), closeBnt, image.ZP, draw.Over)
+	if !wnd.hideCloseButton {
+		closeBtn := wnd.close.Draw(mx, my)
+		b := closeBtn.Bounds()
+		closeRect := image.Rect(wnd.Dimension.Width-b.Max.X, 0, wnd.Dimension.Width, b.Max.Y)
+		draw.Draw(wnd.Image, closeRect, closeBtn, image.ZP, draw.Over)
 
-	//fmt.Println("first", ax0, ay0, "second", ax1, ay1)
-	/* XXX handle click X
-	if isPointInsideRect(mouse, &closeRect) &&
-		r.world.Input.StateForMouse(ebiten.MouseButtonLeft) {
-		fmt.Println("XXX clicked close X")
-		r.ShowBuildMenu = false
-		return
+		//fmt.Println("first", ax0, ay0, "second", ax1, ay1)
+		/* XXX handle click X
+		if isPointInsideRect(mouse, &closeRect) &&
+			r.world.Input.StateForMouse(ebiten.MouseButtonLeft) {
+			fmt.Println("XXX clicked close X")
+			r.ShowBuildMenu = false
+			return
+		}
+		*/
 	}
-	*/
 
 	// draw outline
 	DrawRect(wnd.Image, &rect, wnd.borderColor)
