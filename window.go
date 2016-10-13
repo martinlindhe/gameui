@@ -93,8 +93,10 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
 
 	// draw titlebar text
-	title := wnd.title.Draw(mx, my)
-	draw.Draw(wnd.Image, title.Bounds(), title, image.ZP, draw.Over)
+	if wnd.title.text != "" {
+		title := wnd.title.Draw(mx, my)
+		draw.Draw(wnd.Image, title.Bounds(), title, image.ZP, draw.Over)
+	}
 
 	closeBnt := wnd.close.Draw(mx, my)
 	draw.Draw(wnd.Image, closeBnt.Bounds(), closeBnt, image.ZP, draw.Over)
