@@ -4,7 +4,6 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
-	"log"
 )
 
 // Button ...
@@ -78,9 +77,6 @@ func (btn *Button) drawIcon() {
 	}
 	allB := btn.Image.Bounds()
 	btnB := btn.icon.Bounds()
-	if allB.Max.X > btn.Dimension.Width || allB.Max.Y > btn.Dimension.Height {
-		log.Println("UI WARNING: button.drawImage image is bigger than container button")
-	}
 
 	// centered
 	x0 := (allB.Size().X / 2) - (btnB.Size().X / 2)

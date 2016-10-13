@@ -29,7 +29,6 @@ const (
 
 // NewIconGroup ...
 func NewIconGroup(columns, rows, iconWidth, iconHeight int) *IconGroup {
-
 	pad := 2 // 1 px border, + 1 px cell padding
 	componentWidth := (columns * iconWidth) + (pad * 2)
 	componentHeight := (rows * iconHeight) + (pad * 2)
@@ -98,6 +97,7 @@ func (grp *IconGroup) drawIcons(mx, my int) {
 	row := 0
 
 	for _, o := range grp.objects {
+
 		img := o.Icon()
 		if img == nil {
 			fmt.Println("ERROR: UI IconGroup object", o.Name(), "lacks icon")

@@ -1,5 +1,11 @@
 # TODO
 
+* tests
+    - raise "make coverage":
+        ok  	github.com/martinlindhe/farm/ui	0.312s	coverage: 63.6% of statements
+
+        TEST mouse clicks!
+
 * Window
     - movable
     - resizable
@@ -11,16 +17,17 @@
 
 * Font
     - create a one-row wide lookup image with all letters rendered? (bitmap font mode)
+    - render all letters in one line to a image.Image ONCE per used size, when printing,
+        just blit from parts of this source image
+
     - google/freetype is very slow, have a look at https://github.com/google/font-go
 
 * LATER
     - move "ui" to ebui pkg, overwriting existing project there
 
-* no ebiten dependency! only export an image
-    !!! currently the input.go binds to ebiten input reading
+* dependencies
+    - ebiten: no ebiten dependency! only export an image
+        currently input.go binds to ebiten input reading
 
-* DEMO: rework the ebui menu scroll thingy
-    vert list of buttons with text
-
-* font: render all letters in one line to a image.Image ONCE per used size, when printing, just blit from parts
-    of this source image
+* examples
+    - rework the ebui menu scroll thing. vert list of buttons with text

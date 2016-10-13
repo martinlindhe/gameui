@@ -12,7 +12,6 @@ import (
 
 // LoadTiles ...
 func LoadTiles(imgFile string, tileWidth, tileHeight int) []*image.RGBA {
-
 	f, err := os.Open(imgFile)
 	if err != nil {
 		fmt.Println("error loadTiles", err)

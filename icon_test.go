@@ -3,6 +3,8 @@ package ui
 import (
 	"image"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestIconOnly(t *testing.T) {
@@ -37,6 +39,8 @@ func TestUIWithIconOnly(t *testing.T) {
 
 	ico := NewIcon(img)
 	ui.AddComponent(ico)
+
+	assert.Equal(t, true, CheckUI(ui))
 
 	// make sure same frame is delivered each time
 	for i := 0; i < 10; i++ {

@@ -1,6 +1,10 @@
 package ui
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 // BenchmarkUI-4                   500000000                3.52 ns/op (elitebook)
 func BenchmarkUI(b *testing.B) {
@@ -31,8 +35,14 @@ func TestUI(t *testing.T) {
 
 	txt := NewText(6, White)
 	txt.SetText("HELLO")
-	txt.Position = Point{X: 0, Y: 0}
 	ui.AddComponent(txt)
+
+	hidden := NewText(6, White)
+	hidden.SetText("INVISIBLE")
+	hidden.Hidden = true
+	ui.AddComponent(hidden)
+
+	assert.Equal(t, true, CheckUI(ui))
 
 	ex := []string{
 		"# # ### #   #    ## ",

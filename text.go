@@ -25,10 +25,6 @@ type Text struct {
 
 // NewText ...
 func NewText(size float64, color color.Color) *Text {
-	if size < 3 {
-		log.Fatal("txt.size too small:", size)
-	}
-
 	txt := &Text{}
 	txt.size = size
 	txt.color = color
