@@ -64,4 +64,44 @@ func TestIcongroupOnly(t *testing.T) {
 			"##########",
 		}, renderAsText(im))
 	}
+
+	grp.RemoveObjectByID(o1.ID())
+
+	// make sure same frame is delivered each time
+	for i := 0; i < 10; i++ {
+		im := grp.Draw(-1, -1)
+		testCompareRender(t, []string{
+			"##########",
+			"#        #",
+			"# #  # # #",
+			"#  #     #",
+			"#   # #  #",
+			"#        #",
+			"#        #",
+			"#        #",
+			"#        #",
+			"##########",
+		}, renderAsText(im))
+	}
+
+	grp.RemoveAllObjects()
+
+	// make sure same frame is delivered each time
+	for i := 0; i < 10; i++ {
+		im := grp.Draw(-1, -1)
+		testCompareRender(t, []string{
+			"##########",
+			"#        #",
+			"#        #",
+			"#        #",
+			"#        #",
+			"#        #",
+			"#        #",
+			"#        #",
+			"#        #",
+			"##########",
+		}, renderAsText(im))
+	}
+
+	grp.RemoveAllChildren()
 }

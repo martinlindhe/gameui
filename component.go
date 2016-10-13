@@ -60,6 +60,7 @@ func (c *component) isChildrenClean() bool {
 	return true
 }
 
+// RemoveAllChildren removes all children
 func (c *component) RemoveAllChildren() {
 	c.children = nil
 }
@@ -78,6 +79,6 @@ func (c *component) drawChildren(mx, my int) {
 }
 
 func (c *component) Hide() {
-	c.isClean = false
 	c.Hidden = true
+	c.isClean = false
 }

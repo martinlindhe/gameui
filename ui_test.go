@@ -28,6 +28,7 @@ func BenchmarkUI(b *testing.B) {
 func TestUI(t *testing.T) {
 	w, h := 20, 10
 	ui := New(w, h)
+	ui.SetWindowTitle("test ui")
 
 	btn := NewButton(w-10, h-4)
 	btn.Position = Point{X: 5, Y: 3}
@@ -39,7 +40,7 @@ func TestUI(t *testing.T) {
 
 	hidden := NewText(6, White)
 	hidden.SetText("INVISIBLE")
-	hidden.Hidden = true
+	hidden.Hide()
 	ui.AddComponent(hidden)
 
 	assert.Equal(t, true, CheckUI(ui))

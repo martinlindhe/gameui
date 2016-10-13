@@ -3,6 +3,8 @@ package ui
 import (
 	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 // BenchmarkDrawText-2     	200000000	         7.36 ns/op   (mbp-2010)
@@ -35,6 +37,9 @@ func TestTextOnly(t *testing.T) {
 		"            ",
 	}
 	txt.SetText("HEJ")
+	assert.Equal(t, "HEJ", txt.GetText())
+	assert.Equal(t, 12, txt.GetWidth())
+
 	// render 2 frames, the second should reach txt.IsClean code paths
 	testCompareRender(t, ex, renderAsText(txt.Draw(0, 0)))
 	testCompareRender(t, ex, renderAsText(txt.Draw(0, 0)))

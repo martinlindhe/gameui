@@ -84,8 +84,8 @@ func (grp *IconGroup) RemoveObjectByID(id uint64) {
 	}
 }
 
-// ClearObjects removes all displayed content
-func (grp *IconGroup) ClearObjects() {
+// RemoveAllObjects removes all displayed content
+func (grp *IconGroup) RemoveAllObjects() {
 	grp.objects = nil
 	grp.isClean = false
 }
