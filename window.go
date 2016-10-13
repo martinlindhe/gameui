@@ -14,7 +14,6 @@ type Window struct {
 	borderColor     color.Color
 	title           *Text
 	close           *Button
-	hideCloseButton bool
 }
 
 var (
@@ -26,25 +25,38 @@ var (
 // NewWindow ...
 func NewWindow(width, height int) *Window {
 	wnd := Window{}
-	wnd.title = NewText(12, White)
-	wnd.close = NewButton(10, 10)
 	wnd.Dimension.Width = width
 	wnd.Dimension.Height = height
+
 	wnd.backgroundColor = windowBgColor
 	wnd.borderColor = windowBorderColor
 	wnd.titleColor = windowTitleColor
-	return &wnd
-}
 
-// HideCloseButton ...
-func (wnd *Window) HideCloseButton(b bool) {
-	wnd.hideCloseButton = b
+	title := NewText(12, White)
+	title.Position = Point{X: 0, Y: 0}
+	wnd.title = title
+	wnd.AddChild(title)
+
+	close := NewButton(10, 10)
+	close.Position = Point{X: wnd.Dimension.Width - close.GetBounds().Max.X, Y: 0}
+	close.OnClick = func() {
+		wnd.Hide()
+	}
+	wnd.close = close
+	wnd.AddChild(close)
+
+	return &wnd
 }
 
 // AddChild ...
 func (wnd *Window) AddChild(c Component) {
 	wnd.children = append(wnd.children, c)
 	wnd.isClean = false
+}
+
+// HideCloseButton ...
+func (wnd *Window) HideCloseButton(b bool) {
+	wnd.close.Hidden = b
 }
 
 // SetTitle ...
@@ -96,29 +108,6 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	// draw titlebar rect
 	titleRect := image.Rect(0, 0, wnd.Dimension.Width, titlebarH)
 	draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
-
-	// draw titlebar text
-	if wnd.title.text != "" {
-		title := wnd.title.Draw(mx, my)
-		draw.Draw(wnd.Image, title.Bounds(), title, image.ZP, draw.Over)
-	}
-
-	if !wnd.hideCloseButton {
-		closeBtn := wnd.close.Draw(mx, my)
-		b := closeBtn.Bounds()
-		closeRect := image.Rect(wnd.Dimension.Width-b.Max.X, 0, wnd.Dimension.Width, b.Max.Y)
-		draw.Draw(wnd.Image, closeRect, closeBtn, image.ZP, draw.Over)
-
-		// XXX handle click X
-		/*
-			if isPointInsideRect(mouse, &closeRect) &&
-				r.world.Input.StateForMouse(ebiten.MouseButtonLeft) {
-				fmt.Println("XXX close window")
-				wnd.Hidden = true
-				return
-			}
-		*/
-	}
 
 	// draw outline
 	DrawRect(wnd.Image, &rect, wnd.borderColor)

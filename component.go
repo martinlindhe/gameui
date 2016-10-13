@@ -76,3 +76,8 @@ func (c *component) drawChildren(mx, my int) {
 		draw.Draw(c.Image, r, img, image.ZP, draw.Over)
 	}
 }
+
+func (c *component) Hide() {
+	c.isClean = false
+	c.Hidden = true
+}

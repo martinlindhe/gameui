@@ -1,7 +1,6 @@
 # TODO
 
 * Window
-    - closeable (x in corner) XXX handle click on X
     - movable
     - resizable
     - click to focus window (put on top of other windows)
