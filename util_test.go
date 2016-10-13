@@ -31,12 +31,12 @@ func colToText(col color.Color) string {
 	vals := []string{
 		" ", ".", ",", "+", "o", "5", "6", "O", "0", "#",
 	}
-	r, g, b, _ := col.RGBA()
-	avg := (r + g + b) / 3
-	// XXX include alpha by using it as pct of value c
+	r, g, b, a := col.RGBA()
+	avg := (r + g + b + a) / 4
+
 	n := int(scale(float64(avg), 0, 0xffff, 0, 9))
 	if n > len(vals) {
-		log.Fatal("XXX n too long ", n, len(vals))
+		log.Fatal("n is too big", n, len(vals))
 	}
 	return vals[n]
 }

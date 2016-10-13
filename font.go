@@ -1,7 +1,7 @@
 package ui
 
-//  TODO check out https://github.com/hajimehoshi/ebiten/blob/master/examples/common/font.go
-// XXX 2, google/freetype is very slow, have a look at https://github.com/google/font-go
+// TODO google/freetype is very slow, have a look at https://github.com/google/font-go
+
 import (
 	"fmt"
 	"image"

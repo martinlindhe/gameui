@@ -1,14 +1,12 @@
 package ui
 
-// XXX a list is a component holding a number of rows of text, each is clickable
-
 import (
 	"image"
 	"image/color"
 	"image/draw"
 )
 
-// List ...
+// List is a component holding a number of rows of text, each is clickable
 type List struct {
 	component
 }

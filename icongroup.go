@@ -1,7 +1,5 @@
 package ui
 
-// XXX tests!!!
-
 import (
 	"fmt"
 	"image"

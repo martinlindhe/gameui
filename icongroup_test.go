@@ -22,7 +22,6 @@ func (o obj) ID() uint64 {
 	return o.id
 }
 func (o obj) Click() {
-	// XXX fmt.Println("CLICKED ME: ", o.name)
 }
 
 func TestIcongroupOnly(t *testing.T) {
