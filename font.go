@@ -60,15 +60,12 @@ func (fnt *Font) StringInPixels(s string) int {
 // Print draws text using the font
 func (fnt *Font) Print(text string) (*image.RGBA, error) {
 	if text == "" {
-		fmt.Println("XXX print empty str")
+		fmt.Println("XXX font.Print with no text")
 	}
 
-	// keep cache of last 10 rendered strings
 	if val, ok := fnt.cachedPrints[text]; ok {
 		return val, nil
 	}
-
-	// log.Println("font.Print", text)
 
 	width := fnt.StringInPixels(text)
 	if fnt.size == 0 {
@@ -81,15 +78,14 @@ func (fnt *Font) Print(text string) (*image.RGBA, error) {
 	fnt.drawer.Dot = fixed.P(0, int(dy-2))
 	fnt.drawer.DrawString(text)
 
-	// trim cache
+	// trim cache. keep last few rendered strings
 	if len(fnt.cachedPrints) > fontRenderCache {
 		randKey := getRandomKey(fnt.cachedPrints)
 		delete(fnt.cachedPrints, randKey)
 	}
 
-	fnt.cachedPrints[text] = fnt.drawer.Dst.(*image.RGBA)
-
 	if img, ok := fnt.drawer.Dst.(*image.RGBA); ok {
+		fnt.cachedPrints[text] = img
 		return img, nil
 	}
 	return nil, fmt.Errorf("bad print")
