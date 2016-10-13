@@ -34,7 +34,7 @@ func NewText(size float64, color color.Color) *Text {
 	txt.color = color
 
 	var err error
-	txt.font, err = NewFont(defaultFontName, txt.size, dpi, txt.color)
+	txt.font, err = NewFont(defaultFontName, size, dpi, txt.color)
 	if err != nil {
 		log.Println("NewFont err", err)
 		return nil
