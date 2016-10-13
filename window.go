@@ -91,8 +91,7 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	// draw background color
 	draw.Draw(wnd.Image, rect, &image.Uniform{wnd.backgroundColor}, image.ZP, draw.Over)
 
-	textH := 10 // XXX
-	titlebarH := textH + 1
+	titlebarH := wnd.title.Dimension.Height + 1
 
 	// draw titlebar rect
 	titleRect := image.Rect(0, 0, wnd.Dimension.Width, titlebarH)
@@ -110,14 +109,14 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 		closeRect := image.Rect(wnd.Dimension.Width-b.Max.X, 0, wnd.Dimension.Width, b.Max.Y)
 		draw.Draw(wnd.Image, closeRect, closeBtn, image.ZP, draw.Over)
 
-		//fmt.Println("first", ax0, ay0, "second", ax1, ay1)
-		/* XXX handle click X
-		if isPointInsideRect(mouse, &closeRect) &&
-			r.world.Input.StateForMouse(ebiten.MouseButtonLeft) {
-			fmt.Println("XXX clicked close X")
-			r.ShowBuildMenu = false
-			return
-		}
+		// XXX handle click X
+		/*
+			if isPointInsideRect(mouse, &closeRect) &&
+				r.world.Input.StateForMouse(ebiten.MouseButtonLeft) {
+				fmt.Println("XXX close window")
+				wnd.Hidden = true
+				return
+			}
 		*/
 	}
 

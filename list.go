@@ -9,9 +9,11 @@ import (
 // List is a component holding a number of rows of text, each is clickable
 type List struct {
 	component
+	rowHeight   int
+	titleHeight int
 }
 
-// Line ...
+// Line defines the interface for lines of text usable with the List object
 type Line interface {
 	Name() string
 	Color() color.Color
@@ -21,6 +23,8 @@ type Line interface {
 func NewList(width, height int) *List {
 	lst := List{}
 	lst.Dimension = Dimension{Width: width, Height: height}
+	lst.rowHeight = 12 // XXX
+	lst.titleHeight = 10
 	return &lst
 }
 
@@ -32,14 +36,11 @@ func (lst *List) addChild(c Component) {
 
 // AddLine ...
 func (lst *List) AddLine(l Line, fnc func()) {
-	rowHeight := 12 // XXX font height
-	titlePad := 10
-
-	h := NewText(float64(rowHeight), l.Color())
+	h := NewText(float64(lst.rowHeight), l.Color())
 	h.OnClick = fnc
 	h.SetText(l.Name())
-	h.Position = Point{X: 0, Y: titlePad + len(lst.children)*rowHeight}
-	h.Dimension = Dimension{Width: lst.Dimension.Width, Height: rowHeight}
+	h.Position = Point{X: 0, Y: lst.titleHeight + len(lst.children)*lst.rowHeight}
+	h.Dimension = Dimension{Width: lst.Dimension.Width, Height: lst.rowHeight}
 	lst.addChild(h)
 	lst.isClean = false
 }

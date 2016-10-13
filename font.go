@@ -1,7 +1,5 @@
 package ui
 
-// TODO google/freetype is very slow, have a look at https://github.com/google/font-go
-
 import (
 	"fmt"
 	"image"
@@ -48,7 +46,6 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 		}),
 	}
 
-	// XXX create a one-row wide lookup image with all letters rendered
 	return &fnt, err
 }
 
@@ -60,7 +57,7 @@ func (fnt *Font) StringInPixels(s string) int {
 // Print draws text using the font
 func (fnt *Font) Print(text string) (*image.RGBA, error) {
 	if text == "" {
-		fmt.Println("XXX font.Print with no text")
+		fmt.Println("ERROR: font.Print with no text")
 	}
 
 	if val, ok := fnt.cachedPrints[text]; ok {
@@ -71,7 +68,7 @@ func (fnt *Font) Print(text string) (*image.RGBA, error) {
 	if fnt.size == 0 {
 		panic("fnt.size == 0")
 	}
-	height := int(fnt.size - 1) // XXX not perfect
+	height := int(fnt.size - 1)
 	fnt.drawer.Dst = image.NewRGBA(image.Rect(0, 0, width, height))
 
 	dy := (fnt.size * fnt.dpi) / 72

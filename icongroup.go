@@ -97,12 +97,7 @@ func (grp *IconGroup) drawIcons(mx, my int) {
 	col := 0
 	row := 0
 
-	// TODO: allow scrolling with scroll bar / mouse wheel
-
 	for _, o := range grp.objects {
-		// TODO show o.Name() if mouse is hover without click
-		//fmt.Println("drawing", o.Name())
-
 		img := o.Icon()
 		if img == nil {
 			fmt.Println("ERROR: UI IconGroup object", o.Name(), "lacks icon")
