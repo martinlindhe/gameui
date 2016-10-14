@@ -13,7 +13,7 @@ type Component interface {
 	GetBounds() image.Rectangle
 	Hover(bool)
 	IsClean() bool
-	Click(Point)
+	Click(Point) bool // return true if click was handled
 }
 
 // component is the abstract base class for ui components (doesn't implement Draw())
@@ -28,12 +28,13 @@ type component struct {
 	children    []Component
 }
 
-func (c *component) Click(mouse Point) {
+func (c *component) Click(mouse Point) bool {
 	if c.OnClick == nil {
 		log.Println("OnClick == nil for clicked component")
-		return
+		return false
 	}
 	c.OnClick()
+	return true
 }
 
 func (c *component) IsClean() bool {

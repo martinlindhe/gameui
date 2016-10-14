@@ -119,12 +119,13 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 }
 
 // Click pass click to window child components
-func (wnd *Window) Click(mouse Point) {
+func (wnd *Window) Click(mouse Point) bool {
 	childPoint := Point{X: mouse.X - wnd.Position.X, Y: mouse.Y - wnd.Position.Y}
 	for _, c := range wnd.children {
 		if childPoint.In(c.GetBounds()) {
 			c.Click(childPoint)
-			return
+			return true
 		}
 	}
+	return false
 }

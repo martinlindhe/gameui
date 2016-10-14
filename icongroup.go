@@ -11,8 +11,8 @@ import (
 type IconGroup struct {
 	component
 	columns, rows         int
-	iconWidth, iconHeight int // size of each icon
-	objects               []IconGroupObject
+	iconWidth, iconHeight int               // size of each icon
+	objects               []IconGroupObject // holds the icons to display
 }
 
 // IconGroupObject is something that is contained in the icon group
@@ -125,8 +125,8 @@ func (grp *IconGroup) drawIcons(mx, my int) {
 	}
 }
 
-// Click pass click to child icon
-func (grp *IconGroup) Click(mouse Point) {
+// Click pass click to child icon (click has happened)
+func (grp *IconGroup) Click(mouse Point) bool {
 
 	x := iconBorderPad + 1
 	y := iconBorderPad + 1
@@ -142,7 +142,8 @@ func (grp *IconGroup) Click(mouse Point) {
 		r := image.Rect(x, y, x1, y1)
 		if childPoint.In(r) {
 			c.Click()
-			return
+			// XXX mark click consumed so it dont re-trigger
+			return true
 		}
 
 		x += b.Max.X
@@ -154,4 +155,5 @@ func (grp *IconGroup) Click(mouse Point) {
 			row++
 		}
 	}
+	return false
 }

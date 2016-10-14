@@ -9,10 +9,10 @@ import (
 func TestAssetPath(t *testing.T) {
 	tests := map[string]string{
 		// input, expect
-		".":     `.*[/\\]+farm[/\\]+ui$`,
-		"./..":  `.*[/\\]+farm$`,
-		"./dir": `.*[/\\]+farm[/\\]+ui[/\\]+dir$`,
-		"/dir":  `[/\\]+dir$`,
+		".":          `.*[/\\]+farm[/\\]+ui$`,
+		"./..":       `.*[/\\]+farm$`,
+		"./examples": `.*[/\\]+farm[/\\]+ui[/\\]+examples$`,
+		"/tmp":       `[/\\]+tmp$`,
 	}
 	for in, ex := range tests {
 		assert.Regexp(t, ex, assetPath(in))

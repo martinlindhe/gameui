@@ -21,6 +21,11 @@ func (i *Input) StateForMouse(mouse MouseButton) bool {
 	return i.mouseStates[mouse] == 1
 }
 
+// ConsumeStateForMouse makes the mouse state been consumed, so click-thru doesn't happen
+func (i *Input) ConsumeStateForMouse(mouse MouseButton) {
+	i.mouseStates[mouse] = 2
+}
+
 // ClearMouse clear the mouse state
 func (i *Input) ClearMouse() {
 	for mouse := range i.mouseStates {

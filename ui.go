@@ -37,7 +37,7 @@ func (ui *UI) AddKeyFunc(key Key, fnc func() error) {
 // Update is called on every frame from the ebiten.Run update callback
 func (ui *UI) Update() error {
 	ui.Input.updateMouse()
-	ui.click()
+	ui.handleClick()
 	if err := ui.handleKeypress(); err != nil {
 		return err
 	}

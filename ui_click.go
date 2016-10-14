@@ -1,7 +1,7 @@
 package ui
 
 // click handles click events for all components
-func (ui *UI) click() {
+func (ui *UI) handleClick() {
 	if !ui.Input.StateForMouse(MouseButtonLeft) {
 		return
 	}
@@ -9,7 +9,9 @@ func (ui *UI) click() {
 	mouse := Point{X: ui.Input.X, Y: ui.Input.Y}
 	for _, c := range ui.components {
 		if mouse.In(c.GetBounds()) {
-			c.Click(mouse)
+			if c.Click(mouse) {
+				ui.Input.ConsumeStateForMouse(MouseButtonLeft)
+			}
 			return
 		}
 	}

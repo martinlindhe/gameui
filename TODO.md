@@ -1,10 +1,10 @@
 # TODO
 
 * tests
-    - raise "make coverage":
-        ok  	github.com/martinlindhe/farm/ui	0.312s	coverage: 63.6% of statements
+    - raise "make cover":
+        ok  	github.com/martinlindhe/farm/ui	0.312s	coverage: 66.3% of statements
 
-        TEST mouse clicks!
+        TEST mouse clicks to reach most remaining code paths for coverage
 
 * Window
     - movable
