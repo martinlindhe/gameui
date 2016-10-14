@@ -7,9 +7,14 @@ import (
 )
 
 func TestAssetPath(t *testing.T) {
-	assert.Regexp(t, ".*/farm/ui$", assetPath(""))
-	assert.Regexp(t, ".*/farm/ui$", assetPath("."))
-	assert.Regexp(t, ".*/farm$", assetPath("./.."))
-	assert.Regexp(t, ".*/farm/ui/dir", assetPath("./dir"))
-	assert.Regexp(t, "^/dir$", assetPath("/dir"))
+	tests := map[string]string{
+		// input, expect
+		".":     `.*[/\\]+farm[/\\]+ui$`,
+		"./..":  `.*[/\\]+farm$`,
+		"./dir": `.*[/\\]+farm[/\\]+ui[/\\]+dir$`,
+		"/dir":  `[/\\]+dir$`,
+	}
+	for in, ex := range tests {
+		assert.Regexp(t, ex, assetPath(in))
+	}
 }
