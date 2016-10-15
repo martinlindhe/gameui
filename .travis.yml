@@ -4,11 +4,29 @@ go:
   - 1.7
   - tip
 
+# to build ebiten
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libglew-dev
+      - libgles2-mesa-dev
+      - libopenal-dev
+      - libalut-dev
+      - libxxf86vm-dev
+      - libxrandr-dev
+
 before_install:
   - go get -t ./...
   - go get github.com/onsi/gomega
   - go get github.com/onsi/ginkgo
   - go get golang.org/x/tools/cmd/cover
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
 
 script:
   - go test -coverprofile=coverage.txt -covermode=atomic
