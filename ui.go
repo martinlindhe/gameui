@@ -44,19 +44,6 @@ func (ui *UI) Update() error {
 	return nil
 }
 
-// handleKeypress runs corresponding function for key press
-func (ui *UI) handleKeypress() error {
-	ui.Input.updateKeyboard()
-	for key, fnc := range ui.keyFuncs {
-		if ui.Input.StateForKey(key) {
-			if err := fnc(); err != nil {
-				return err
-			}
-		}
-	}
-	return nil
-}
-
 // SetWindowTitle sets the title of the application window
 func (ui *UI) SetWindowTitle(s string) {
 	ui.WindowTitle = s
@@ -97,4 +84,17 @@ func (ui *UI) isAllClean() bool {
 		}
 	}
 	return true
+}
+
+// handleKeypress runs corresponding function when a key is pressed
+func (ui *UI) handleKeypress() error {
+	ui.Input.updateKeyboard()
+	for key, fnc := range ui.keyFuncs {
+		if ui.Input.StateForKey(key) {
+			if err := fnc(); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }
