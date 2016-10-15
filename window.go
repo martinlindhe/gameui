@@ -33,12 +33,11 @@ func NewWindow(width, height int) *Window {
 	wnd.titleColor = windowTitleColor
 
 	title := NewText(12, White)
-	title.Position = Point{X: 0, Y: 0}
+	title.Position = Point{X: 1, Y: 0}
 	wnd.title = title
 	wnd.AddChild(title)
 
 	close := NewButton(10, 10)
-	close.Position = Point{X: wnd.Dimension.Width - close.GetBounds().Max.X, Y: 0}
 	close.OnClick = func() {
 		wnd.Hide()
 	}
@@ -93,6 +92,8 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 		}
 	}
 
+	wnd.close.Position = Point{X: wnd.Dimension.Width - wnd.close.GetBounds().Max.X, Y: 0}
+
 	rect := image.Rect(0, 0, wnd.Dimension.Width, wnd.Dimension.Height)
 	if wnd.Image == nil {
 		wnd.Image = image.NewRGBA(rect)
@@ -110,7 +111,8 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
 
 	// draw outline
-	DrawRect(wnd.Image, &rect, wnd.borderColor)
+	outlineRect := image.Rect(0, 0, wnd.Dimension.Width-1, wnd.Dimension.Height-1)
+	DrawRect(wnd.Image, &outlineRect, wnd.borderColor)
 
 	wnd.drawChildren(mx, my)
 
