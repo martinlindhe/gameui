@@ -5,7 +5,6 @@ func (ui *UI) handleClick() {
 	if !ui.Input.StateForMouse(MouseButtonLeft) {
 		return
 	}
-
 	mouse := Point{X: ui.Input.X, Y: ui.Input.Y}
 	for _, c := range ui.components {
 		if mouse.In(c.GetBounds()) {

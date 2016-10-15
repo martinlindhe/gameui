@@ -1,5 +1,16 @@
 # About
 
-simple golang lib on top of [image](https://golang.org/pkg/image/) to render a game ui
+A game UI for golang with boilerplate to run with [ebiten](https://github.com/hajimehoshi/ebiten/).
 
-STATUS: private
+PLEASE NOTE: this project is under active development, and the api may change.
+Released versions will follow semver.
+
+
+# Examples
+
+See the [examples folder](examples)
+
+
+### License
+
+Under [MIT](LICENSE)

@@ -8,8 +8,7 @@ import (
 
 // Component represents any type of UI component
 type Component interface {
-	// Draw return nil if no image is drawn
-	Draw(mx, my int) *image.RGBA
+	Draw(mx, my int) *image.RGBA // return nil if no image is drawn
 	GetBounds() image.Rectangle
 	Hover(bool)
 	IsClean() bool

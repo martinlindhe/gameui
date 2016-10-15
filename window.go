@@ -110,7 +110,7 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
 
 	// draw outline
-	DrawRect(wnd.Image, &rect, wnd.borderColor)
+	drawRect(wnd.Image, &rect, wnd.borderColor)
 
 	wnd.drawChildren(mx, my)
 
