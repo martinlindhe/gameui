@@ -19,7 +19,7 @@ type Component interface {
 type component struct {
 	IsMouseOver bool
 	isClean     bool // does component need redraw?
-	Hidden      bool
+	isHidden    bool
 	Dimension   Dimension
 	Position    Point
 	Image       *image.RGBA
@@ -38,6 +38,10 @@ func (c *component) Click(mouse Point) bool {
 
 func (c *component) IsClean() bool {
 	return c.isClean
+}
+
+func (c *component) IsHidden() bool {
+	return c.isHidden
 }
 
 func (c component) GetBounds() image.Rectangle {
@@ -79,6 +83,11 @@ func (c *component) drawChildren(mx, my int) {
 }
 
 func (c *component) Hide() {
-	c.Hidden = true
+	c.isHidden = true
+	c.isClean = false
+}
+
+func (c *component) Show() {
+	c.isHidden = false
 	c.isClean = false
 }

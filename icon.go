@@ -19,7 +19,7 @@ func NewIcon(image *image.RGBA) *Icon {
 
 // Draw ...
 func (ico *Icon) Draw(mx, my int) *image.RGBA {
-	if ico.Hidden {
+	if ico.isHidden {
 		return nil
 	}
 	return ico.Image

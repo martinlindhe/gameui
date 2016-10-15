@@ -54,8 +54,8 @@ func (wnd *Window) AddChild(c Component) {
 }
 
 // HideCloseButton ...
-func (wnd *Window) HideCloseButton(b bool) {
-	wnd.close.Hidden = b
+func (wnd *Window) HideCloseButton() {
+	wnd.close.Hide()
 }
 
 // SetTitle ...
@@ -81,7 +81,7 @@ func (wnd *Window) SetBorderColor(col color.Color) {
 
 // Draw redraws internal buffer
 func (wnd *Window) Draw(mx, my int) *image.RGBA {
-	if wnd.Hidden {
+	if wnd.isHidden {
 		return nil
 	}
 	if wnd.isClean {

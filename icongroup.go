@@ -44,7 +44,7 @@ func NewIconGroup(columns, rows, iconWidth, iconHeight int) *IconGroup {
 
 // Draw redraws internal buffer
 func (grp *IconGroup) Draw(mx, my int) *image.RGBA {
-	if grp.Hidden {
+	if grp.isHidden {
 		return nil
 	}
 	if grp.isClean {

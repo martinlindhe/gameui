@@ -47,7 +47,7 @@ func (lst *List) AddLine(l Line, fnc func()) {
 
 // Draw redraws internal buffer
 func (lst *List) Draw(mx, my int) *image.RGBA {
-	if lst.Hidden {
+	if lst.isHidden {
 		return nil
 	}
 	if lst.isClean {
