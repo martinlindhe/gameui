@@ -92,7 +92,7 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 		}
 	}
 
-	wnd.close.Position = Point{X: wnd.Dimension.Width - wnd.close.GetBounds().Max.X, Y: 0}
+	wnd.close.Position = Point{X: wnd.Dimension.Width - wnd.close.Dimension.Width, Y: 0}
 
 	rect := image.Rect(0, 0, wnd.Dimension.Width, wnd.Dimension.Height)
 	if wnd.Image == nil {
