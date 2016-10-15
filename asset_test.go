@@ -9,9 +9,9 @@ import (
 func TestAssetPath(t *testing.T) {
 	tests := map[string]string{
 		// input, expect
-		".":          `.*[/\\]+farm[/\\]+ui$`,
-		"./..":       `.*[/\\]+farm$`,
-		"./examples": `.*[/\\]+farm[/\\]+ui[/\\]+examples$`,
+		".":          `.*[/\\]+martinlindhe[/\\]+gameui$`,
+		"./..":       `.*[/\\]+martinlindhe$`,
+		"./examples": `.*[/\\]+gameui[/\\]+examples$`,
 		"/tmp":       `[/\\]+tmp$`,
 	}
 	for in, ex := range tests {

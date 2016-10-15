@@ -20,7 +20,7 @@ func vLine(img *image.RGBA, x, y1, y2 int, col color.Color) {
 }
 
 // DrawRect ...
-func drawRect(img *image.RGBA, r *image.Rectangle, col color.Color) {
+func DrawRect(img *image.RGBA, r *image.Rectangle, col color.Color) {
 	// left, right
 	vLine(img, r.Min.X, r.Min.Y+1, r.Max.Y-1, col)
 	vLine(img, r.Max.X-1, r.Min.Y+1, r.Max.Y-1, col)

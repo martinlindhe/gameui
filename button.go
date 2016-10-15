@@ -51,7 +51,7 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 	}
 
 	// draw outline
-	drawRect(btn.Image, &rect, White)
+	DrawRect(btn.Image, &rect, White)
 
 	btn.drawIcon()
 
