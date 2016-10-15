@@ -10,7 +10,7 @@ import (
 	"os"
 
 	"github.com/hajimehoshi/ebiten"
-	"github.com/martinlindhe/farm/ui"
+	ui "github.com/martinlindhe/gameui"
 )
 
 const (

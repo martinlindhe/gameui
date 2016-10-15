@@ -2,7 +2,7 @@
 
 * tests
     - raise "make cover":
-        ok  	github.com/martinlindhe/farm/ui	0.312s	coverage: 66.6% of statements
+        ok  	github.com/martinlindhe/gameui	0.312s	coverage: 66.6% of statements
 
         TEST mouse clicks to reach most remaining code paths for coverage
 
