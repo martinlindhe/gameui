@@ -10,6 +10,7 @@ func TestWindow(t *testing.T) {
 	wnd := NewWindow(w, h)
 	wnd.SetTitleColor(color.Black)
 	wnd.SetBackgroundColor(color.Black)
+	wnd.SetBorderColor(color.White)
 	wnd.HideCloseButton(true)
 
 	btn := NewButton(20, 14).SetText("HI")

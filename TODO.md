@@ -2,13 +2,13 @@
 
 * tests
     - raise "make cover":
-        ok  	github.com/martinlindhe/farm/ui	0.312s	coverage: 66.3% of statements
+        ok  	github.com/martinlindhe/farm/ui	0.312s	coverage: 66.6% of statements
 
         TEST mouse clicks to reach most remaining code paths for coverage
 
 * Window
-    - movable
-    - resizable
+    - movable (drag title bar)
+    - resizable (drag resize area, bottom right triangle)
     - click to focus window (put on top of other windows)
 
 * IconGroup
