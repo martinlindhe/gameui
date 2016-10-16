@@ -26,13 +26,6 @@ func (i *Input) ConsumeStateForMouse(mouse MouseButton) {
 	i.mouseStates[mouse] = 2
 }
 
-// ClearMouse clear the mouse state
-func (i *Input) ClearMouse() {
-	for mouse := range i.mouseStates {
-		i.mouseStates[mouse] = 0
-	}
-}
-
 // updateKeyboard ...
 func (i *Input) updateKeyboard() {
 	for key := range i.keyStates {

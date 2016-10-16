@@ -17,11 +17,6 @@ func assetPath(s string) string {
 	if _, err := os.Stat(res); err == nil {
 		return res
 	}
-
-	if s != "" && s[0] != '/' && s[0] != '.' {
-		return assetPath("../" + s)
-	}
-
 	log.Fatal("path not found", s)
 	return s
 }

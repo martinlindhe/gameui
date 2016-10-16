@@ -76,7 +76,7 @@ func (fnt *Font) Print(text string) (*image.RGBA, error) {
 	fnt.drawer.DrawString(text)
 
 	// trim cache. keep last few rendered strings
-	if len(fnt.cachedPrints) > fontRenderCache {
+	if len(fnt.cachedPrints) >= fontRenderCache {
 		randKey := getRandomKey(fnt.cachedPrints)
 		delete(fnt.cachedPrints, randKey)
 	}
