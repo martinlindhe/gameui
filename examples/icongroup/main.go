@@ -46,10 +46,8 @@ func (o obj) Click() {
 }
 
 func main() {
-
 	wnd := makeWindow()
 	gui.AddComponent(wnd)
-
 	gui.AddComponent(fps)
 
 	if err := ebiten.Run(update, width, height, scale, "Dialog (UI Demo)"); err != nil {
@@ -80,7 +78,7 @@ func makeWindow() *ui.Window {
 	wnd.Position = ui.Point{X: 15, Y: 25}
 
 	grp := ui.NewIconGroup(5, 5, iconW, iconH)
-	grp.Position = ui.Point{X: 0, Y: 0}
+	grp.Position = ui.Point{X: 10, Y: 20}
 	wnd.AddChild(grp)
 
 	btnBye := ui.NewButton(60, 20).
@@ -94,7 +92,7 @@ func makeWindow() *ui.Window {
 
 	btnAdd := ui.NewButton(60, 20).
 		SetText("ADD")
-	btnAdd.Position = ui.Point{X: wnd.Dimension.Width / 2, Y: wnd.Dimension.Height - 20}
+	btnAdd.Position = ui.Point{X: wnd.Dimension.Width - btnAdd.Dimension.Width, Y: wnd.Dimension.Height - 20}
 	btnAdd.OnClick = func() {
 		name := "icon " + fmt.Sprintf("%d", count)
 		fmt.Println("adding obj", name)

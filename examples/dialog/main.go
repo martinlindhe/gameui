@@ -23,13 +23,12 @@ var (
 )
 
 func main() {
-	// XXX improve positions
 	exit := ui.NewText(20, color.White).SetText("exit?")
-	exit.Position = ui.Point{X: width / 3, Y: height / 3}
+	exit.Position = ui.Point{X: width/2 - exit.GetWidth()/2, Y: height / 3}
 	gui.AddComponent(exit)
 
 	btnYes := ui.NewButton(60, 20).SetText("YES")
-	btnYes.Position = ui.Point{X: 0, Y: height / 2}
+	btnYes.Position = ui.Point{X: width/4 - btnYes.Dimension.Width/2, Y: height / 2}
 	btnYes.OnClick = func() {
 		fmt.Println("clicked", btnYes.Text.GetText())
 		os.Exit(0)
@@ -37,7 +36,7 @@ func main() {
 	gui.AddComponent(btnYes)
 
 	btnNo := ui.NewButton(60, 20).SetText("NO")
-	btnNo.Position = ui.Point{X: width / 2, Y: height / 2}
+	btnNo.Position = ui.Point{X: (width/4)*3 - btnYes.Dimension.Width/2, Y: height / 2}
 	btnNo.OnClick = func() {
 		fmt.Println("clicked", btnNo.Text.GetText())
 	}
