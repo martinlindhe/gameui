@@ -14,7 +14,7 @@ import (
 
 const (
 	width, height = 320, 200
-	scale         = 2.
+	scale         = 1.
 )
 
 var (

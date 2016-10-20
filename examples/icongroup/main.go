@@ -14,13 +14,13 @@ import (
 )
 
 const (
-	width, height = 320, 200
-	scale         = 2.
+	width, height = 640, 480
+	scale         = 1.
 )
 
 var (
 	gui   = ui.New(width, height)
-	fps   = ui.NewText(30, color.White)
+	fps   = ui.NewText(20, color.White)
 	count = uint64(0)
 )
 

@@ -11,7 +11,7 @@ const (
 )
 
 var (
-	defaultFontName = assetPath("_resources/font/tiny/tiny.ttf")
+	defaultFontName = assetPath("_resources/font/open_dyslexic/OpenDyslexicMono-Regular.ttf")
 )
 
 // Text ...
