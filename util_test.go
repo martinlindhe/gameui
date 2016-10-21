@@ -1,10 +1,13 @@
 package ui
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"log"
 	"testing"
+
+	"github.com/martinlindhe/go-difflib/difflib"
 )
 
 func scale(valueIn, baseMin, baseMax, limitMin, limitMax float64) float64 {
@@ -51,12 +54,20 @@ func testCompareRender(t *testing.T, expected, got []string) {
 	for i, ex := range expected {
 		if i >= len(got) || ex != got[i] {
 			fail = true
+			break
 		}
 	}
 	if fail {
-		for _, g := range got {
-			t.Log("_" + g + "_")
-		}
+		diff, _ := difflib.GetUnifiedDiffString(difflib.UnifiedDiff{
+			A:        expected,
+			B:        got,
+			FromFile: "expected",
+			ToFile:   "got",
+			Context:  3,
+			Eol:      "\n",
+		})
+		fmt.Print(diff)
+
 		t.FailNow()
 	}
 }

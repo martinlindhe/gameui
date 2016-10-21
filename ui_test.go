@@ -35,6 +35,7 @@ func TestUI(t *testing.T) {
 	ui.AddComponent(btn)
 
 	txt := NewText(6, White)
+	txt.setFont(tinyFontName)
 	txt.SetText("HELLO")
 	txt.Show()
 	assert.Equal(t, false, txt.IsHidden())

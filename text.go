@@ -6,19 +6,12 @@ import (
 	"log"
 )
 
-const (
-	dpi = 72
-)
-
-var (
-	defaultFontName = assetPath("_resources/font/open_dyslexic/OpenDyslexicMono-Regular.ttf")
-)
-
 // Text ...
 type Text struct {
 	component
 	text  string
 	size  float64
+	dpi   float64
 	color color.Color
 	font  *Font
 }
@@ -28,22 +21,27 @@ func NewText(size float64, color color.Color) *Text {
 	txt := &Text{}
 	txt.size = size
 	txt.color = color
+	txt.dpi = 72
 
-	var err error
-	txt.font, err = NewFont(defaultFontName, size, dpi, txt.color)
-	if err != nil {
-		log.Println("NewFont err", err)
+	if err := txt.setFont(defaultFontName); err != nil {
+		log.Println("NewText err", err)
 		return nil
 	}
 	return txt
+}
+
+func (txt *Text) setFont(fontName string) error {
+	var err error
+	txt.font, err = NewFont(fontName, txt.size, txt.dpi, txt.color)
+	return err
 }
 
 // SetText ...
 func (txt *Text) SetText(s string) *Text {
 	if s != txt.text {
 		txt.isClean = false
+		txt.text = s
 	}
-	txt.text = s
 	return txt
 }
 

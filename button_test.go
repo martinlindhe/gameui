@@ -36,6 +36,7 @@ func TestButtonOnly(t *testing.T) {
 func TestButtonWithText(t *testing.T) {
 	w, h := 16, 7
 	btn := NewButton(w, h)
+	btn.Text.setFont(tinyFontName)
 	btn.SetText("HEJ")
 
 	// make sure same frame is delivered each time

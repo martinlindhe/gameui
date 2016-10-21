@@ -35,7 +35,13 @@ func TestTextOnly(t *testing.T) {
 		"### #   # # ",
 		"# # ###  #  ",
 		"            ",
+		"            ",
+		"            ",
+		"            ",
+		"            ",
+		"            ",
 	}
+	txt.setFont(tinyFontName)
 	txt.SetText("HEJ")
 	assert.Equal(t, "HEJ", txt.GetText())
 	assert.Equal(t, 12, txt.GetWidth())
@@ -51,6 +57,11 @@ func TestTextOnly(t *testing.T) {
 		"# # #  # # # # # ",
 		"### #  # ##  ##  ",
 		"# #  ##  #   #   ",
+		"                 ",
+		"                 ",
+		"                 ",
+		"                 ",
+		"                 ",
 		"                 ",
 	}
 	testCompareRender(t, ex2, renderAsText(txt.Draw(0, 0)))

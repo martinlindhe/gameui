@@ -19,7 +19,7 @@ func BenchmarkDrawFont(b *testing.B) {
 }
 
 func TestFontOnly(t *testing.T) {
-	fnt, err := NewFont(defaultFontName, 6, 72, White)
+	fnt, err := NewFont(tinyFontName, 6, 72, White)
 	assert.Equal(t, nil, err)
 
 	im, err := fnt.Print("HEJ")
@@ -31,11 +31,16 @@ func TestFontOnly(t *testing.T) {
 		"### #   # # ",
 		"# # ###  #  ",
 		"            ",
+		"            ",
+		"            ",
+		"            ",
+		"            ",
+		"            ",
 	}, renderAsText(im))
 }
 
 func TestFontCache(t *testing.T) {
-	fnt, err := NewFont(defaultFontName, 6, 72, White)
+	fnt, err := NewFont(tinyFontName, 6, 72, White)
 	assert.Equal(t, nil, err)
 	assert.Equal(t, 0, len(fnt.cachedPrints))
 

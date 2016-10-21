@@ -81,18 +81,12 @@ func makeWindow() *ui.Window {
 	grp.Position = ui.Point{X: 10, Y: 20}
 	wnd.AddChild(grp)
 
-	btnBye := ui.NewButton(60, 20).
-		SetText("BYE")
-	btnBye.Position = ui.Point{X: 0, Y: wnd.Dimension.Height - 20}
-	btnBye.OnClick = func() {
-		fmt.Println("exiting")
-		os.Exit(0)
-	}
-	wnd.AddChild(btnBye)
-
-	btnAdd := ui.NewButton(60, 20).
+	btnAdd := ui.NewButton(60, 22).
 		SetText("ADD")
-	btnAdd.Position = ui.Point{X: wnd.Dimension.Width - btnAdd.Dimension.Width, Y: wnd.Dimension.Height - 20}
+	btnAdd.Position = ui.Point{
+		X: 0,
+		Y: wnd.Dimension.Height - btnAdd.Dimension.Height,
+	}
 	btnAdd.OnClick = func() {
 		name := "icon " + fmt.Sprintf("%d", count)
 		fmt.Println("adding obj", name)
@@ -108,5 +102,18 @@ func makeWindow() *ui.Window {
 		count++
 	}
 	wnd.AddChild(btnAdd)
+
+	btnBye := ui.NewButton(60, 22).
+		SetText("BYE")
+	btnBye.Position = ui.Point{
+		X: wnd.Dimension.Width - btnBye.Dimension.Width,
+		Y: wnd.Dimension.Height - btnBye.Dimension.Height,
+	}
+	btnBye.OnClick = func() {
+		fmt.Println("exiting")
+		os.Exit(0)
+	}
+	wnd.AddChild(btnBye)
+
 	return wnd
 }

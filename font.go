@@ -5,16 +5,23 @@ import (
 	"image"
 	"image/color"
 	"io/ioutil"
+	"math"
 
 	"github.com/golang/freetype/truetype"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 )
 
+var (
+	defaultFontName = assetPath("_resources/font/open_dyslexic/OpenDyslexicMono-Regular.ttf")
+	tinyFontName    = assetPath("_resources/font/tiny/tiny.ttf")
+)
+
 // Font represents a font resource
 type Font struct {
 	dpi          float64
 	size         float64
+	spacing      float64
 	font         *truetype.Font
 	drawer       *font.Drawer
 	cachedPrints map[string]*image.RGBA
@@ -35,6 +42,7 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 	fnt.font, err = truetype.Parse(b)
 	fnt.size = size
 	fnt.dpi = dpi
+	fnt.spacing = 1
 	fnt.cachedPrints = make(map[string]*image.RGBA)
 
 	fnt.drawer = &font.Drawer{
@@ -49,11 +57,6 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 	return &fnt, err
 }
 
-// StringInPixels ...
-func (fnt *Font) StringInPixels(s string) int {
-	return int(fnt.drawer.MeasureString(s).Ceil())
-}
-
 // Print draws text using the font
 func (fnt *Font) Print(text string) (*image.RGBA, error) {
 	if text == "" {
@@ -64,28 +67,35 @@ func (fnt *Font) Print(text string) (*image.RGBA, error) {
 		return val, nil
 	}
 
-	width := fnt.StringInPixels(text)
 	if fnt.size == 0 {
 		panic("fnt.size == 0")
 	}
-	height := int(fnt.size - 1)
-	fnt.drawer.Dst = image.NewRGBA(image.Rect(0, 0, width, height))
+
+	dim := fnt.findDimension(text)
+	fnt.drawer.Dst = image.NewRGBA(image.Rect(0, 0, dim.Width, dim.Height))
 
 	dy := (fnt.size * fnt.dpi) / 72
 	fnt.drawer.Dot = fixed.P(0, int(dy-2))
 	fnt.drawer.DrawString(text)
 
-	// trim cache. keep last few rendered strings
-	if len(fnt.cachedPrints) >= fontRenderCache {
-		randKey := getRandomKey(fnt.cachedPrints)
-		delete(fnt.cachedPrints, randKey)
-	}
-
 	if img, ok := fnt.drawer.Dst.(*image.RGBA); ok {
+		if len(fnt.cachedPrints) >= fontRenderCache {
+			// trim cache. keep last few rendered strings
+			randKey := getRandomKey(fnt.cachedPrints)
+			delete(fnt.cachedPrints, randKey)
+		}
+
 		fnt.cachedPrints[text] = img
 		return img, nil
 	}
 	return nil, fmt.Errorf("bad print")
+}
+
+// Measure the text to calculate the minimum size of the image
+func (fnt *Font) findDimension(text string) (dim Dimension) {
+	dim.Width = int(fnt.drawer.MeasureString(text).Ceil())
+	dim.Height = 4 + int(math.Ceil(fnt.size*fnt.dpi/72))
+	return
 }
 
 func getRandomKey(m map[string]*image.RGBA) string {
