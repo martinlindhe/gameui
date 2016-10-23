@@ -18,7 +18,7 @@ type Text struct {
 
 // NewText ...
 func NewText(size float64, color color.Color) *Text {
-	txt := &Text{}
+	txt := Text{}
 	txt.size = size
 	txt.color = color
 	txt.dpi = 72
@@ -27,7 +27,7 @@ func NewText(size float64, color color.Color) *Text {
 		log.Println("NewText err", err)
 		return nil
 	}
-	return txt
+	return &txt
 }
 
 func (txt *Text) setFont(fontName string) error {
@@ -66,7 +66,9 @@ func (txt *Text) Draw(mx, my int) *image.RGBA {
 	if txt.isClean {
 		return txt.Image
 	}
-
+	if txt.text == "" {
+		return nil
+	}
 	img, err := txt.font.Print(txt.text)
 	if err != nil {
 		log.Println("Print err", err)

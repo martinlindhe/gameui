@@ -15,11 +15,11 @@ type Button struct {
 
 // NewButton ...
 func NewButton(width, height int) *Button {
-	btn := &Button{}
+	btn := Button{}
 	btn.Dimension.Width = width
 	btn.Dimension.Height = height
 	btn.Text = NewText(float64(height-3), White)
-	return btn
+	return &btn
 }
 
 // SetIcon a image to show on button, instead of text

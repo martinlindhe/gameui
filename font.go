@@ -38,7 +38,7 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 		return nil, err
 	}
 
-	var fnt Font
+	fnt := Font{}
 	fnt.font, err = truetype.Parse(b)
 	fnt.size = size
 	fnt.dpi = dpi
