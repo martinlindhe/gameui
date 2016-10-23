@@ -19,7 +19,7 @@ const (
 
 var (
 	gui = ui.New(width, height)
-	fps = ui.NewText(20, color.White)
+	fps = ui.NewText(12, color.White)
 )
 
 func main() {

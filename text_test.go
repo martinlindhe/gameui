@@ -30,12 +30,12 @@ func TestTextOnly(t *testing.T) {
 	txt := NewText(6, White)
 
 	ex := []string{
+		"            ",
+		"            ",
 		"# # ###   # ",
 		"# # ##    # ",
 		"### #   # # ",
 		"# # ###  #  ",
-		"            ",
-		"            ",
 		"            ",
 		"            ",
 		"            ",
@@ -53,12 +53,12 @@ func TestTextOnly(t *testing.T) {
 	// change text, make sure the change is rendered
 	txt.SetText("HOPP")
 	ex2 := []string{
+		"                 ",
+		"                 ",
 		"# #  ##  ##  ##  ",
 		"# # #  # # # # # ",
 		"### #  # ##  ##  ",
 		"# #  ##  #   #   ",
-		"                 ",
-		"                 ",
 		"                 ",
 		"                 ",
 		"                 ",

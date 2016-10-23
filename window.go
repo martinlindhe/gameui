@@ -58,6 +58,11 @@ func (wnd *Window) HideCloseButton() {
 	wnd.close.Hide()
 }
 
+// HideTitle ...
+func (wnd *Window) HideTitle() {
+	wnd.title.Hide()
+}
+
 // SetTitle ...
 func (wnd *Window) SetTitle(s string) *Window {
 	wnd.title.SetText(s)
@@ -107,8 +112,10 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	titlebarH := wnd.title.Dimension.Height + 1
 
 	// draw titlebar rect
-	titleRect := image.Rect(0, 0, wnd.Dimension.Width, titlebarH)
-	draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
+	if !wnd.title.isHidden {
+		titleRect := image.Rect(0, 0, wnd.Dimension.Width, titlebarH)
+		draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
+	}
 
 	// draw outline
 	outlineRect := image.Rect(0, 0, wnd.Dimension.Width-1, wnd.Dimension.Height-1)

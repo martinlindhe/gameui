@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	defaultFontName = assetPath("_resources/font/open_dyslexic/OpenDyslexicMono-Regular.ttf")
+	defaultFontName = assetPath("_resources/font/open_dyslexic/OpenDyslexic3-Regular.ttf")
 	tinyFontName    = assetPath("_resources/font/tiny/tiny.ttf")
 )
 
@@ -75,7 +75,7 @@ func (fnt *Font) Print(text string) (*image.RGBA, error) {
 	fnt.drawer.Dst = image.NewRGBA(image.Rect(0, 0, dim.Width, dim.Height))
 
 	dy := (fnt.size * fnt.dpi) / 72
-	fnt.drawer.Dot = fixed.P(0, int(dy-2))
+	fnt.drawer.Dot = fixed.P(0, int(dy))
 	fnt.drawer.DrawString(text)
 
 	if img, ok := fnt.drawer.Dst.(*image.RGBA); ok {

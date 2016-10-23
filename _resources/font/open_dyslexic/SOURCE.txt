@@ -1,1 +1,1 @@
-from http://www.dafont.com/open-dyslexic.font
+from https://github.com/antijingoist/open-dyslexic/blob/master/ttf/OpenDyslexic3-Regular.ttf

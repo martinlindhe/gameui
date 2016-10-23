@@ -34,7 +34,7 @@ func TestButtonOnly(t *testing.T) {
 }
 
 func TestButtonWithText(t *testing.T) {
-	w, h := 16, 7
+	w, h := 20, 10
 	btn := NewButton(w, h)
 	btn.Text.setFont(tinyFontName)
 	btn.SetText("HEJ")
@@ -43,13 +43,16 @@ func TestButtonWithText(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		im := btn.Draw(0, 0)
 		testCompareRender(t, []string{
-			"################",
-			"# # # ###   #  #",
-			"# # # ##    #  #",
-			"# ### #   # #  #",
-			"# # # ###  #   #",
-			"#              #",
-			"################",
+			"####################",
+			"#                  #",
+			"#6.o+ 666+   o+    #",
+			"##.6o ##6,   6o    #",
+			"##+Oo #6.  , 6o    #",
+			"##O0o #,.  O,5+    #",
+			"##.6o ###o  O,     #",
+			"#                  #",
+			"#                  #",
+			"####################",
 		}, renderAsText(im))
 	}
 }

@@ -26,12 +26,12 @@ func TestFontOnly(t *testing.T) {
 	assert.Equal(t, nil, err)
 
 	testCompareRender(t, []string{
+		"            ",
+		"            ",
 		"# # ###   # ",
 		"# # ##    # ",
 		"### #   # # ",
 		"# # ###  #  ",
-		"            ",
-		"            ",
 		"            ",
 		"            ",
 		"            ",

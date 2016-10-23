@@ -18,7 +18,7 @@ func NewButton(width, height int) *Button {
 	btn := &Button{}
 	btn.Dimension.Width = width
 	btn.Dimension.Height = height
-	btn.Text = NewText(float64(height-1), White)
+	btn.Text = NewText(float64(height-3), White)
 	return btn
 }
 
@@ -58,10 +58,12 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 
 	if btn.Text.text != "" {
 		txt := btn.Text.Draw(mx, my)
-		// XXX center text ?
+		// XXX allow to modify text alignment
+
+		// left-aligned
 		b := txt.Bounds()
-		x0 := 2
-		y0 := 1
+		x0 := 1
+		y0 := 0
 		x1 := x0 + b.Max.X
 		y1 := y0 + b.Max.Y
 		textRect := image.Rect(x0, y0, x1, y1)
