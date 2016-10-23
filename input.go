@@ -11,9 +11,14 @@ type Input struct {
 	X, Y        int
 }
 
-// StateForKey ...
+// StateForKey returns true once when the key starts to be pressed
 func (i *Input) StateForKey(key Key) bool {
 	return i.keyStates[key] == 1
+}
+
+// WasPressed returns true if key was pressed (for ctrl, alt etc)
+func (i *Input) WasPressed(key Key) bool {
+	return i.keyStates[key] != 0
 }
 
 // StateForMouse ...
