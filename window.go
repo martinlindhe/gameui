@@ -9,6 +9,8 @@ import (
 // Window ...
 type Window struct {
 	component
+	titlebarHeight  int
+	childLeftPad    int
 	titleColor      color.Color
 	backgroundColor color.Color
 	borderColor     color.Color
@@ -19,11 +21,11 @@ type Window struct {
 var (
 	windowBgColor     = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
 	windowBorderColor = White
-	windowTitleColor  = color.RGBA{0x50, 0x50, 0x50, 255} //gray
+	windowTitleColor  = color.RGBA{0x60, 0x60, 0x60, 255} //gray
 )
 
-// NewWindow ...
-func NewWindow(width, height int) *Window {
+// NewWindow creates a new window with height of `height` + height of title bar
+func NewWindow(width, height int, titleText string) *Window {
 	wnd := Window{}
 	wnd.Dimension.Width = width
 	wnd.Dimension.Height = height
@@ -32,25 +34,41 @@ func NewWindow(width, height int) *Window {
 	wnd.borderColor = windowBorderColor
 	wnd.titleColor = windowTitleColor
 
-	title := NewText(12, White)
+	title := NewText(10, White)
 	title.Position = Point{X: 1, Y: 0}
 	wnd.title = title
-	wnd.AddChild(title)
+	wnd.title.SetText(titleText)
+	wnd.addChild(title)
 
-	close := NewButton(10, 10)
+	if titleText != "" {
+		wnd.titlebarHeight = wnd.title.GetHeight() + 1
+		wnd.childLeftPad = 1
+	}
+
+	close := NewButton(wnd.titlebarHeight, wnd.titlebarHeight)
 	close.OnClick = func() {
 		wnd.Hide()
 	}
 	wnd.close = close
-	wnd.AddChild(close)
+	wnd.addChild(close)
 
 	return &wnd
 }
 
-// AddChild ...
+// AddChild adds a child component to the window, adjusting position
 func (wnd *Window) AddChild(c Component) {
-	wnd.children = append(wnd.children, c)
+	if val, ok := c.(Positioner); ok {
+		pos := val.GetPosition()
+		pos.X += wnd.childLeftPad
+		pos.Y += wnd.titlebarHeight
+		val.SetPosition(pos)
+	}
+	wnd.addChild(c)
+}
+
+func (wnd *Window) addChild(c Component) {
 	wnd.isClean = false
+	wnd.children = append(wnd.children, c)
 }
 
 // HideCloseButton ...
@@ -109,11 +127,9 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	// draw background color
 	draw.Draw(wnd.Image, rect, &image.Uniform{wnd.backgroundColor}, image.ZP, draw.Over)
 
-	titlebarH := wnd.title.Dimension.Height + 1
-
 	// draw titlebar rect
 	if !wnd.title.isHidden {
-		titleRect := image.Rect(0, 0, wnd.Dimension.Width, titlebarH)
+		titleRect := image.Rect(0, 0, wnd.Dimension.Width, wnd.titlebarHeight)
 		draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
 	}
 
@@ -137,4 +153,9 @@ func (wnd *Window) Click(mouse Point) bool {
 		}
 	}
 	return false
+}
+
+// TitlebarHeight ...
+func (wnd *Window) TitlebarHeight() int {
+	return wnd.titlebarHeight
 }

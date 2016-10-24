@@ -73,19 +73,18 @@ func update(screen *ebiten.Image) error {
 
 func makeWindow() *ui.Window {
 	iconW, iconH := 3, 3
-	wnd := ui.NewWindow(width-30, height-30).
-		SetTitle("icon group")
+	wnd := ui.NewWindow(width-30, height-30, "icon group")
 	wnd.Position = ui.Point{X: 15, Y: 25}
 
 	grp := ui.NewIconGroup(5, 5, iconW, iconH)
-	grp.Position = ui.Point{X: 10, Y: 20}
+	grp.Position = ui.Point{X: 0, Y: 0} // XXX should become relative to y=0 = after title bar
 	wnd.AddChild(grp)
 
 	btnAdd := ui.NewButton(60, 22).
 		SetText("ADD")
 	btnAdd.Position = ui.Point{
 		X: 0,
-		Y: wnd.Dimension.Height - btnAdd.Dimension.Height,
+		Y: wnd.Dimension.Height - btnAdd.Dimension.Height - wnd.TitlebarHeight(),
 	}
 	btnAdd.OnClick = func() {
 		name := "icon " + fmt.Sprintf("%d", count)
@@ -107,7 +106,7 @@ func makeWindow() *ui.Window {
 		SetText("BYE")
 	btnBye.Position = ui.Point{
 		X: wnd.Dimension.Width - btnBye.Dimension.Width,
-		Y: wnd.Dimension.Height - btnBye.Dimension.Height,
+		Y: wnd.Dimension.Height - btnBye.Dimension.Height - wnd.TitlebarHeight(),
 	}
 	btnBye.OnClick = func() {
 		fmt.Println("exiting")

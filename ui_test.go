@@ -86,7 +86,7 @@ func TestUIClick(t *testing.T) {
 	ui.SetWindowTitle("test ui")
 
 	// create a window, with a button in it
-	wnd := NewWindow(w, h)
+	wnd := NewWindow(w, h, "")
 	ui.AddComponent(wnd)
 
 	clicked := false

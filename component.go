@@ -91,3 +91,17 @@ func (c *component) Show() {
 	c.isHidden = false
 	c.isClean = false
 }
+
+// Positioner ...
+type Positioner interface {
+	GetPosition() Point
+	SetPosition(Point)
+}
+
+func (c *component) GetPosition() Point {
+	return c.Position
+}
+
+func (c *component) SetPosition(pos Point) {
+	c.Position = pos
+}

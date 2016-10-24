@@ -58,6 +58,14 @@ func (txt *Text) GetWidth() int {
 	return txt.Dimension.Width
 }
 
+// GetHeight returns the rendered height in pixel
+func (txt *Text) GetHeight() int {
+	if txt.Image == nil {
+		txt.Draw(-1, -1)
+	}
+	return txt.Dimension.Height
+}
+
 // Draw redraws internal buffer
 func (txt *Text) Draw(mx, my int) *image.RGBA {
 	if txt.isHidden {
