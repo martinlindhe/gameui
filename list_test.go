@@ -5,41 +5,31 @@ import (
 	"testing"
 )
 
-type babj struct {
+type myItem struct {
 	name  string
 	color color.Color
 }
 
-func (o babj) Name() string {
+func (o myItem) Name() string {
 	return o.name
 }
-func (o babj) Color() color.Color {
+func (o myItem) Color() color.Color {
 	return o.color
 }
 func TestListOnly(t *testing.T) {
 
-	grp := NewList(70, 50)
+	grp := NewList(70, 30)
 
-	o1 := babj{name: "ITEM 1", color: color.White}
+	o1 := myItem{name: "ITEM 1", color: color.White}
 	grp.AddLine(o1, func() {})
 
-	o2 := babj{name: "ITEM 2", color: color.White}
+	o2 := myItem{name: "ITEM 2", color: color.White}
 	grp.AddLine(o2, func() {})
 
 	// make sure same frame is delivered each time
 	for i := 0; i < 10; i++ {
 		im := grp.Draw(-1, -1)
 		testCompareRender(t, []string{
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
 			"                                                                      ",
 			"     ,,,,,,,,.          .,.    ,.                                     ",
 			" 5#. OO6O#66Oo  0####0  5#6   5#o            .+o6                     ",
@@ -64,16 +54,6 @@ func TestListOnly(t *testing.T) {
 			" 5#     6#.     #       O  O#O  O            ,0O                      ",
 			" O#.    6#,     ######, 0  ,o,  0            5####0                   ",
 			" 0#+    6#,     0#####, 0       0            5####0                   ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
-			"                                                                      ",
 			"                                                                      ",
 			"                                                                      ",
 			"                                                                      ",
