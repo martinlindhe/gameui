@@ -135,7 +135,7 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 
 	// draw outline
 	outlineRect := image.Rect(0, 0, wnd.Dimension.Width-1, wnd.Dimension.Height-1)
-	DrawRect(wnd.Image, &outlineRect, wnd.borderColor)
+	DrawRect(wnd.Image, outlineRect, wnd.borderColor)
 
 	wnd.drawChildren(mx, my)
 
