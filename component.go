@@ -12,6 +12,7 @@ type Component interface {
 	GetBounds() image.Rectangle
 	Hover(bool)
 	IsClean() bool
+	IsHidden() bool
 	Click(Point) bool // return true if click was handled
 }
 
