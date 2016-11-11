@@ -23,6 +23,24 @@ func TestBarOnly(t *testing.T) {
 	}
 }
 
+func TestBarOnlyFull(t *testing.T) {
+	w, h := 32, 5
+	bar := NewBar(w, h)
+	bar.SetValue(100)
+
+	// make sure same frame is delivered each time
+	for i := 0; i < 10; i++ {
+		im := bar.Draw(0, 0)
+		testCompareRender(t, []string{
+			"++++++++++++++++++++++++++++++++",
+			"+666666666666666666666666666666+",
+			"+666666666666666666666666666666+",
+			"+666666666666666666666666666666+",
+			"++++++++++++++++++++++++++++++++",
+		}, renderAsText(im))
+	}
+}
+
 func TestBarWithImageOnly(t *testing.T) {
 	w, h := 30, 5
 	bar := NewBar(w, h)

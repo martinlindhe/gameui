@@ -97,20 +97,20 @@ func (bar *Bar) Draw(mx, my int) *image.RGBA {
 	DrawRect(bar.Image, outlineRect, bar.borderColor)
 
 	// convert bar.value (percent) into number of pixels to cover (width)
-	pixelWidth := int(math.Floor(((float64(bar.value)/100)*float64(bar.Dimension.Width))+0.5)) - 1
+	pixelWidth := int(math.Floor((float64(bar.value)/100)*float64(bar.Dimension.Width-2))+0.5) + 1
 
 	if bar.fillImage == nil {
-		fillRect := image.Rect(1, 1, pixelWidth+1, bar.Dimension.Height-1)
+		fillRect := image.Rect(1, 1, pixelWidth, bar.Dimension.Height-1)
 		draw.Draw(bar.Image, fillRect, &image.Uniform{bar.fillColor}, image.ZP, draw.Src)
 	} else {
 		// fill using repeating image
 		b := bar.fillImage.Bounds()
 
-		for x := 0; x <= pixelWidth; x += b.Max.X {
+		for x := 0; x < pixelWidth; x += b.Max.X {
 			width := b.Max.X
 			// on last image, use partial width to be pixel exact
 			if x+b.Max.X >= pixelWidth {
-				width = pixelWidth - x
+				width = pixelWidth - x - 1
 			}
 			fillRect := image.Rect(x+1, 1, x+width+1, b.Max.Y+1)
 			draw.Draw(bar.Image, fillRect, bar.fillImage, image.ZP, draw.Src)
