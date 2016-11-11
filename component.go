@@ -84,13 +84,21 @@ func (c *component) drawChildren(mx, my int) {
 	}
 }
 
+// Hide makes component hidden
 func (c *component) Hide() {
 	c.isHidden = true
 	c.isClean = false
 }
 
+// Show makes component visible
 func (c *component) Show() {
 	c.isHidden = false
+	c.isClean = false
+}
+
+// SetVisibility changes visibility of component
+func (c *component) SetVisibility(b bool) {
+	c.isHidden = !b
 	c.isClean = false
 }
 
