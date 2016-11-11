@@ -1,25 +1,15 @@
 package ui
 
 import (
-	"bufio"
-	"fmt"
 	"image"
 	"image/draw"
 	"log"
 	"math"
-	"os"
 )
 
 // LoadTiles ...
 func LoadTiles(imgFile string, tileWidth, tileHeight int) []*image.RGBA {
-	f, err := os.Open(imgFile)
-	if err != nil {
-		fmt.Println("error loadTiles", err)
-		return nil
-	}
-	defer f.Close()
-
-	img, _, err := image.Decode(bufio.NewReader(f))
+	img, err := OpenImage(imgFile)
 	if err != nil {
 		log.Fatal(err)
 	}
