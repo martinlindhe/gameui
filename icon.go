@@ -2,7 +2,7 @@ package ui
 
 import "image"
 
-// Icon ...
+// Icon is a icon (UI component)
 type Icon struct {
 	component
 	Image *image.RGBA

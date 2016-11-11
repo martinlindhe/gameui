@@ -6,7 +6,7 @@ import (
 	"image/draw"
 )
 
-// Window ...
+// Window is a window (UI component)
 type Window struct {
 	component
 	titlebarHeight  int

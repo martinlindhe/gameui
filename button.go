@@ -6,7 +6,7 @@ import (
 	"image/draw"
 )
 
-// Button ...
+// Button is a button (UI component)
 type Button struct {
 	component
 	icon *image.RGBA

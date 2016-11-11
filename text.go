@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-// Text ...
+// Text is a line of text (UI component)
 type Text struct {
 	component
 	text  string

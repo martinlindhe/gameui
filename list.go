@@ -6,7 +6,7 @@ import (
 	"image/draw"
 )
 
-// List is a component holding a number of rows of text, each is clickable
+// List holds a number of rows of text, each is clickable (UI component)
 type List struct {
 	component
 	rowHeight int

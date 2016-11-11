@@ -17,7 +17,7 @@ var (
 	tinyFontName    = assetPath("_resources/font/tiny/tiny.ttf")
 )
 
-// Font represents a font resource
+// Font is a font resource
 type Font struct {
 	dpi          float64
 	size         float64
