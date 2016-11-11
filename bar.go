@@ -90,13 +90,7 @@ func (bar *Bar) Draw(mx, my int) *image.RGBA {
 	if bar.isClean {
 		return bar.Image
 	}
-
-	rect := image.Rect(0, 0, bar.Dimension.Width, bar.Dimension.Height)
-	if bar.Image == nil {
-		bar.Image = image.NewRGBA(rect)
-	} else {
-		draw.Draw(bar.Image, rect, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
-	}
+	bar.initImage()
 
 	// draw outline
 	outlineRect := image.Rect(0, 0, bar.Dimension.Width-1, bar.Dimension.Height-1)

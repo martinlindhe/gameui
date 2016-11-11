@@ -2,7 +2,6 @@ package ui
 
 import (
 	"image"
-	"image/color"
 	"image/draw"
 )
 
@@ -42,13 +41,7 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 	if btn.isClean {
 		return btn.Image
 	}
-
-	rect := image.Rect(0, 0, btn.Dimension.Width, btn.Dimension.Height)
-	if btn.Image == nil {
-		btn.Image = image.NewRGBA(rect)
-	} else {
-		draw.Draw(btn.Image, rect, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
-	}
+	btn.initImage()
 
 	// draw outline
 	outlineRect := image.Rect(0, 0, btn.Dimension.Width-1, btn.Dimension.Height-1)

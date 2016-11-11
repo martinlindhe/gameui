@@ -114,17 +114,12 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 			return wnd.Image
 		}
 	}
+	wnd.initImage()
 
 	wnd.close.Position = Point{X: wnd.Dimension.Width - wnd.close.Dimension.Width, Y: 0}
 
-	rect := image.Rect(0, 0, wnd.Dimension.Width, wnd.Dimension.Height)
-	if wnd.Image == nil {
-		wnd.Image = image.NewRGBA(rect)
-	} else {
-		draw.Draw(wnd.Image, rect, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
-	}
-
 	// draw background color
+	rect := image.Rect(0, 0, wnd.Dimension.Width, wnd.Dimension.Height)
 	draw.Draw(wnd.Image, rect, &image.Uniform{wnd.backgroundColor}, image.ZP, draw.Over)
 
 	// draw titlebar rect

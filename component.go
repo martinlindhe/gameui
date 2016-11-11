@@ -2,6 +2,7 @@ package ui
 
 import (
 	"image"
+	"image/color"
 	"image/draw"
 	"log"
 )
@@ -105,4 +106,13 @@ func (c *component) GetPosition() Point {
 
 func (c *component) SetPosition(pos Point) {
 	c.Position = pos
+}
+
+func (c *component) initImage() {
+	rect := image.Rect(0, 0, c.Dimension.Width, c.Dimension.Height)
+	if c.Image == nil {
+		c.Image = image.NewRGBA(rect)
+	} else {
+		draw.Draw(c.Image, rect, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
+	}
 }

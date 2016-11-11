@@ -3,7 +3,6 @@ package ui
 import (
 	"image"
 	"image/color"
-	"image/draw"
 )
 
 // List holds a number of rows of text, each is clickable (UI component)
@@ -55,13 +54,7 @@ func (lst *List) Draw(mx, my int) *image.RGBA {
 			return lst.Image
 		}
 	}
-
-	rect := image.Rect(0, 0, lst.Dimension.Width, lst.Dimension.Height)
-	if lst.Image == nil {
-		lst.Image = image.NewRGBA(rect)
-	} else {
-		draw.Draw(lst.Image, rect, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
-	}
+	lst.initImage()
 
 	// draw background color
 	lst.drawChildren(mx, my)

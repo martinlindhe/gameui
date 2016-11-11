@@ -3,7 +3,6 @@ package ui
 import (
 	"fmt"
 	"image"
-	"image/color"
 	"image/draw"
 )
 
@@ -50,13 +49,7 @@ func (grp *IconGroup) Draw(mx, my int) *image.RGBA {
 	if grp.isClean {
 		return grp.Image
 	}
-
-	rect := image.Rect(0, 0, grp.Dimension.Width, grp.Dimension.Height)
-	if grp.Image == nil {
-		grp.Image = image.NewRGBA(rect)
-	} else {
-		draw.Draw(grp.Image, rect, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
-	}
+	grp.initImage()
 
 	// draw outline
 	outlineRect := image.Rect(0, 0, grp.Dimension.Width-1, grp.Dimension.Height-1)
