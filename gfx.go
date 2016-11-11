@@ -5,6 +5,7 @@ import (
 	"image/color"
 	"image/draw"
 	"io"
+	"log"
 	"os"
 )
 
@@ -44,6 +45,15 @@ func OpenImage(filename string) (image.Image, error) {
 		return nil, err
 	}
 	return img, nil
+}
+
+// RequireImage loads an image or exits if not successful
+func RequireImage(filename string) image.Image {
+	img, err := OpenImage(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return img
 }
 
 // decodeImage reads an image from r
