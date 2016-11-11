@@ -2,23 +2,35 @@ package ui
 
 import (
 	"image"
+	"image/color"
 	"image/draw"
 )
 
 // Button is a button (UI component)
 type Button struct {
 	component
-	icon *image.RGBA
-	Text *Text
+	icon        *image.RGBA
+	Text        *Text
+	borderColor color.Color
 }
+
+var (
+	buttonBorderColor = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
+)
 
 // NewButton ...
 func NewButton(width, height int) *Button {
 	btn := Button{}
+	btn.borderColor = buttonBorderColor
 	btn.Dimension.Width = width
 	btn.Dimension.Height = height
 	btn.Text = NewText(float64(height-3), White)
 	return &btn
+}
+
+// SetBorderColor sets the border color
+func (btn *Button) SetBorderColor(c color.Color) {
+	btn.borderColor = c
 }
 
 // SetIcon a image to show on button, instead of text
@@ -45,7 +57,7 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 
 	// draw outline
 	outlineRect := image.Rect(0, 0, btn.Dimension.Width-1, btn.Dimension.Height-1)
-	DrawRect(btn.Image, outlineRect, White)
+	DrawRect(btn.Image, outlineRect, btn.borderColor)
 
 	btn.drawIcon()
 

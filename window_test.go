@@ -14,6 +14,7 @@ func TestWindow(t *testing.T) {
 	wnd.HideCloseButton()
 
 	btn := NewButton(20, 14).SetText("HI")
+	btn.SetBorderColor(White)
 	btn.Text.setFont(tinyFontName)
 	btn.Position = Point{X: 5, Y: 3}
 	wnd.AddChild(btn)
@@ -51,6 +52,7 @@ func TestWindowWithTitle(t *testing.T) {
 	wnd := NewWindow(w, h, "WOA")
 	wnd.SetTitleColor(color.Black)
 	wnd.SetBackgroundColor(color.Black)
+	wnd.SetBorderColor(White)
 	wnd.HideCloseButton()
 
 	// make sure same frame is delivered each time

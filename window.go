@@ -19,9 +19,9 @@ type Window struct {
 }
 
 var (
-	windowBgColor     = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
-	windowBorderColor = White
-	windowTitleColor  = color.RGBA{0x60, 0x60, 0x60, 255} //gray
+	windowBgColor     = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 25% transparent
+	windowBorderColor = color.RGBA{0x40, 0x40, 0x40, 192} // white, 25% transparent
+	windowTitleColor  = color.RGBA{0x50, 0x50, 0x50, 192} //gray
 )
 
 // NewWindow creates a new window with height of `height` + height of title bar

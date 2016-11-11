@@ -37,6 +37,7 @@ func TestIcongroupOnly(t *testing.T) {
 	im2.Set(2, 2, White)
 
 	grp := NewIconGroup(2, 2, 3, 3)
+	grp.SetBorderColor(White)
 
 	o1 := obj{name: "item1", icon: im1, id: 1}
 	grp.AddObject(o1)

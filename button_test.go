@@ -19,6 +19,7 @@ func BenchmarkDrawButton(b *testing.B) {
 func TestButtonOnly(t *testing.T) {
 	w, h := 9, 5
 	btn := NewButton(w, h)
+	btn.SetBorderColor(White)
 
 	// make sure same frame is delivered each time
 	for i := 0; i < 10; i++ {
@@ -36,6 +37,7 @@ func TestButtonOnly(t *testing.T) {
 func TestButtonWithText(t *testing.T) {
 	w, h := 20, 10
 	btn := NewButton(w, h)
+	btn.SetBorderColor(White)
 	btn.Text.setFont(tinyFontName)
 	btn.SetText("HEJ")
 
@@ -57,11 +59,12 @@ func TestButtonWithText(t *testing.T) {
 	}
 }
 
-func TestUIWithButtonOnly(t *testing.T) {
+func TestButtonUIOnlyComponent(t *testing.T) {
 	w, h := 9, 5
 	ui := New(w, h)
 
 	btn := NewButton(w, h)
+	btn.SetBorderColor(White)
 	ui.AddComponent(btn)
 
 	// make sure same frame is delivered each time
@@ -80,6 +83,7 @@ func TestUIWithButtonOnly(t *testing.T) {
 func TestButtonImage(t *testing.T) {
 	w, h := 9, 5
 	btn := NewButton(w, h)
+	btn.SetBorderColor(White)
 
 	r := image.Rect(0, 0, 3, 3)
 	im := btn.Draw(0, 0)

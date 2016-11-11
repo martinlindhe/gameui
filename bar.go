@@ -12,8 +12,8 @@ import (
 type Bar struct {
 	component
 	value       int // in percent (0-100)
-	borderColor color.RGBA
-	fillColor   color.RGBA
+	borderColor color.Color
+	fillColor   color.Color
 	fillImage   image.Image
 }
 
@@ -32,12 +32,12 @@ func NewBar(width, height int) *Bar {
 }
 
 // SetBorderColor sets the border color
-func (bar *Bar) SetBorderColor(c color.RGBA) {
+func (bar *Bar) SetBorderColor(c color.Color) {
 	bar.borderColor = c
 }
 
 // SetFillColor sets the fill color
-func (bar *Bar) SetFillColor(c color.RGBA) {
+func (bar *Bar) SetFillColor(c color.Color) {
 	bar.fillColor = c
 }
 

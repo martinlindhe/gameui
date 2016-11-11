@@ -31,6 +31,7 @@ func TestUI(t *testing.T) {
 	ui.SetWindowTitle("test ui")
 
 	btn := NewButton(w-10, h-4)
+	btn.SetBorderColor(White)
 	btn.Position = Point{X: 5, Y: 3}
 	ui.AddComponent(btn)
 

@@ -3,6 +3,7 @@ package ui
 import (
 	"fmt"
 	"image"
+	"image/color"
 	"image/draw"
 )
 
@@ -12,6 +13,7 @@ type IconGroup struct {
 	columns, rows         int
 	iconWidth, iconHeight int               // size of each icon
 	objects               []IconGroupObject // holds the icons to display
+	borderColor           color.Color
 }
 
 // IconGroupObject is something that is contained in the icon group
@@ -26,19 +28,29 @@ const (
 	iconBorderPad = 1
 )
 
+var (
+	icongroupBorderColor = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
+)
+
 // NewIconGroup ...
 func NewIconGroup(columns, rows, iconWidth, iconHeight int) *IconGroup {
 	pad := 2 // 1 px border, + 1 px cell padding
 	componentWidth := (columns * iconWidth) + (pad * 2)
 	componentHeight := (rows * iconHeight) + (pad * 2)
-	igrp := IconGroup{}
-	igrp.columns = columns
-	igrp.rows = rows
-	igrp.Dimension.Width = componentWidth
-	igrp.Dimension.Height = componentHeight
-	igrp.iconWidth = iconWidth
-	igrp.iconHeight = iconHeight
-	return &igrp
+	grp := IconGroup{}
+	grp.borderColor = icongroupBorderColor
+	grp.columns = columns
+	grp.rows = rows
+	grp.Dimension.Width = componentWidth
+	grp.Dimension.Height = componentHeight
+	grp.iconWidth = iconWidth
+	grp.iconHeight = iconHeight
+	return &grp
+}
+
+// SetBorderColor sets the border color
+func (grp *IconGroup) SetBorderColor(c color.Color) {
+	grp.borderColor = c
 }
 
 // Draw redraws internal buffer
@@ -53,7 +65,7 @@ func (grp *IconGroup) Draw(mx, my int) *image.RGBA {
 
 	// draw outline
 	outlineRect := image.Rect(0, 0, grp.Dimension.Width-1, grp.Dimension.Height-1)
-	DrawRect(grp.Image, outlineRect, White)
+	DrawRect(grp.Image, outlineRect, grp.borderColor)
 
 	grp.drawIcons(mx, my)
 
