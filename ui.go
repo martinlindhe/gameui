@@ -55,7 +55,7 @@ func (ui *UI) AddComponent(o Component) {
 }
 
 // Render returns a fresh frame of the GUI
-func (ui *UI) Render(mx, my int) *image.RGBA {
+func (ui *UI) Render(mx, my int) image.Image {
 	if ui.isAllClean() {
 		return ui.Scene
 	}

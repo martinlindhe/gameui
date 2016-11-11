@@ -95,7 +95,7 @@ func TestButtonImage(t *testing.T) {
 		"#########",
 	}, renderAsText(im))
 
-	icon := image.NewRGBA(r)
+	icon := image.NewNRGBA(r)
 	icon.Set(0, 0, White)
 	icon.Set(2, 0, White)
 	icon.Set(1, 2, White)
@@ -110,7 +110,7 @@ func TestButtonImage(t *testing.T) {
 		"#########",
 	}, renderAsText(im))
 
-	icon2 := image.NewRGBA(r)
+	icon2 := image.NewNRGBA(r)
 	icon2.Set(0, 0, White)
 	icon2.Set(1, 0, White)
 	icon2.Set(2, 0, White)

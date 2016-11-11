@@ -9,7 +9,7 @@ import (
 // Button is a button (UI component)
 type Button struct {
 	component
-	icon        *image.RGBA
+	icon        image.Image
 	Text        *Text
 	borderColor color.Color
 }
@@ -34,7 +34,7 @@ func (btn *Button) SetBorderColor(c color.Color) {
 }
 
 // SetIcon a image to show on button, instead of text
-func (btn *Button) SetIcon(img *image.RGBA) {
+func (btn *Button) SetIcon(img image.Image) {
 	btn.icon = img
 	btn.isClean = false
 }

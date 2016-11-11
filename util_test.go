@@ -15,7 +15,7 @@ func scale(valueIn, baseMin, baseMax, limitMin, limitMax float64) float64 {
 }
 
 // for testing
-func renderAsText(img *image.RGBA) []string {
+func renderAsText(img image.Image) []string {
 	b := img.Bounds()
 	res := []string{}
 	for y := 0; y < b.Max.Y; y++ {
