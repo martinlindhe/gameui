@@ -84,7 +84,9 @@ func (wnd *Window) HideCloseButton() {
 
 // HideTitle ...
 func (wnd *Window) HideTitle() {
-	wnd.title.Hide()
+	if wnd.title != nil {
+		wnd.title.Hide()
+	}
 }
 
 // SetTitle ...
