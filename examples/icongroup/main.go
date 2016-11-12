@@ -5,7 +5,6 @@ package main
 import (
 	"fmt"
 	"image"
-	"image/color"
 	"log"
 	"os"
 
@@ -16,12 +15,15 @@ import (
 const (
 	width, height = 640, 480
 	scale         = 1.
+	fontName      = "_resources/font/open_dyslexic/OpenDyslexic3-Regular.ttf"
 )
 
 var (
-	gui   = ui.New(width, height)
-	fps   = ui.NewText(20, color.White)
-	count = uint64(0)
+	gui       = ui.New(width, height)
+	font12, _ = ui.NewFont(fontName, 12, 72, ui.White)
+	font20, _ = ui.NewFont(fontName, 20, 72, ui.White)
+	fps       = ui.NewText(font20)
+	count     = uint64(0)
 )
 
 // obj implements IconGroupObject interface
@@ -81,7 +83,7 @@ func makeWindow() *ui.Window {
 	wnd.AddChild(grp)
 
 	btnAdd := ui.NewButton(60, 22).
-		SetText("ADD")
+		SetText(font12, "ADD")
 	btnAdd.Position = ui.Point{
 		X: 0,
 		Y: wnd.Dimension.Height - btnAdd.Dimension.Height - wnd.TitlebarHeight(),
@@ -90,9 +92,9 @@ func makeWindow() *ui.Window {
 		name := "icon " + fmt.Sprintf("%d", count)
 		fmt.Println("adding obj", name)
 		im1 := image.NewRGBA(image.Rect(0, 0, iconW, iconH))
-		im1.Set(0, 0, color.White)
-		im1.Set(2, 0, color.White)
-		im1.Set(1, 2, color.White)
+		im1.Set(0, 0, ui.White)
+		im1.Set(2, 0, ui.White)
+		im1.Set(1, 2, ui.White)
 		o := obj{name: name, id: count, icon: im1, onClick: func(o *obj) {
 			fmt.Println("CLICKED", o.name, "idx", o.id, "so we remove it")
 			grp.RemoveObjectByID(o.id)
@@ -103,7 +105,7 @@ func makeWindow() *ui.Window {
 	wnd.AddChild(btnAdd)
 
 	btnBye := ui.NewButton(60, 22).
-		SetText("BYE")
+		SetText(font12, "BYE")
 	btnBye.Position = ui.Point{
 		X: wnd.Dimension.Width - btnBye.Dimension.Width,
 		Y: wnd.Dimension.Height - btnBye.Dimension.Height - wnd.TitlebarHeight(),

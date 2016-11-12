@@ -1,10 +1,7 @@
 package main
 
-// XXX
-
 import (
 	"fmt"
-	"image/color"
 	_ "image/png"
 	"log"
 	"time"
@@ -16,6 +13,7 @@ import (
 const (
 	width, height = 320, 200
 	scale         = 2.
+	fontName      = "_resources/font/open_dyslexic/OpenDyslexic3-Regular.ttf"
 )
 
 var (
@@ -29,7 +27,11 @@ var (
 
 func init() {
 	gui = ui.New(width, height)
-	fps = ui.NewText(12, color.White)
+	fnt, err := ui.NewFont(fontName, 12, 72, ui.White)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fps = ui.NewText(fnt)
 	gui.AddComponent(fps)
 	gui.AddKeyFunc(ui.KeyQ, func() error {
 		fmt.Println("q - QUITTING")

@@ -46,7 +46,6 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 	fnt.spacing = 1
 	fnt.color = col
 	fnt.cachedPrints = make(map[string]*image.RGBA)
-
 	fnt.drawer = &font.Drawer{
 		Src: image.NewUniform(col),
 		Face: truetype.NewFace(fnt.font, &truetype.Options{
@@ -55,7 +54,6 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 			Hinting: font.HintingFull,
 		}),
 	}
-
 	return &fnt, err
 }
 
@@ -90,7 +88,7 @@ func (fnt *Font) Print(text string) (*image.RGBA, error) {
 		fnt.cachedPrints[text] = img
 		return img, nil
 	}
-	return nil, fmt.Errorf("bad print")
+	return nil, fmt.Errorf("unhandled type %#v", fnt.drawer.Dst)
 }
 
 // Measure the text to calculate the minimum size of the image

@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -17,6 +18,6 @@ func assetPath(s string) string {
 	if _, err := os.Stat(res); err == nil {
 		return res
 	}
-	log.Fatal("path not found", s)
+	fmt.Println("error: path not found ", s)
 	return s
 }

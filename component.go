@@ -2,7 +2,6 @@ package ui
 
 import (
 	"image"
-	"image/color"
 	"image/draw"
 	"log"
 )
@@ -121,6 +120,6 @@ func (c *component) initImage() {
 	if c.Image == nil {
 		c.Image = image.NewRGBA(rect)
 	} else {
-		draw.Draw(c.Image, rect, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
+		draw.Draw(c.Image, rect, &image.Uniform{Transparent}, image.ZP, draw.Src)
 	}
 }

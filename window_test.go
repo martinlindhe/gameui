@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"image/color"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,9 +9,9 @@ import (
 func TestWindow(t *testing.T) {
 	w, h := 30, 20
 	wnd := NewWindow(w, h, "")
-	wnd.SetTitleColor(color.Black)
-	wnd.SetBackgroundColor(color.Black)
-	wnd.SetBorderColor(color.White)
+	wnd.SetTitleColor(Black)
+	wnd.SetBackgroundColor(Black)
+	wnd.SetBorderColor(White)
 	wnd.HideCloseButton()
 
 	tinyFont, err := NewFont(tinyFontName, 11, 72, White)
@@ -54,8 +53,8 @@ func TestWindow(t *testing.T) {
 func TestWindowWithTitle(t *testing.T) {
 	w, h := 40, 20
 	wnd := NewWindow(w, h, "WOA")
-	wnd.SetTitleColor(color.Black)
-	wnd.SetBackgroundColor(color.Black)
+	wnd.SetTitleColor(Black)
+	wnd.SetBackgroundColor(Black)
 	wnd.SetBorderColor(White)
 	wnd.HideCloseButton()
 
