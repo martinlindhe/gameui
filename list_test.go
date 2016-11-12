@@ -3,6 +3,8 @@ package ui
 import (
 	"image/color"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 type myItem struct {
@@ -20,11 +22,14 @@ func TestListOnly(t *testing.T) {
 
 	grp := NewList(70, 30)
 
-	o1 := myItem{name: "ITEM 1", color: color.White}
-	grp.AddLine(o1, func() {})
+	fnt, err := NewFont(defaultFontName, 12, 72, color.White)
+	assert.Equal(t, nil, err)
 
-	o2 := myItem{name: "ITEM 2", color: color.White}
-	grp.AddLine(o2, func() {})
+	o1 := myItem{name: "ITEM 1"}
+	grp.AddLine(o1, fnt, func() {})
+
+	o2 := myItem{name: "ITEM 2"}
+	grp.AddLine(o2, fnt, func() {})
 
 	// make sure same frame is delivered each time
 	for i := 0; i < 10; i++ {

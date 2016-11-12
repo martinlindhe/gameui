@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
@@ -34,13 +35,18 @@ func NewWindow(width, height int, titleText string) *Window {
 	wnd.borderColor = windowBorderColor
 	wnd.titleColor = windowTitleColor
 
-	title := NewText(10, White)
-	title.Position = Point{X: 1, Y: 0}
-	wnd.title = title
-	wnd.title.SetText(titleText)
-	wnd.addChild(title)
-
 	if titleText != "" {
+		fnt, err := NewFont(defaultFontName, 10, 72, White)
+		if err != nil {
+			fmt.Println("error:", err)
+			return nil
+		}
+		title := NewText(fnt)
+		title.Position = Point{X: 1, Y: 0}
+		wnd.title = title
+		wnd.title.SetText(titleText)
+		wnd.addChild(title)
+
 		wnd.titlebarHeight = wnd.title.GetHeight() + 1
 		wnd.childLeftPad = 1
 	}
@@ -123,7 +129,7 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	draw.Draw(wnd.Image, rect, &image.Uniform{wnd.backgroundColor}, image.ZP, draw.Over)
 
 	// draw titlebar rect
-	if !wnd.title.isHidden {
+	if wnd.title != nil && !wnd.title.isHidden {
 		titleRect := image.Rect(0, 0, wnd.Dimension.Width, wnd.titlebarHeight)
 		draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
 	}

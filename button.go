@@ -24,7 +24,6 @@ func NewButton(width, height int) *Button {
 	btn.borderColor = buttonBorderColor
 	btn.Dimension.Width = width
 	btn.Dimension.Height = height
-	btn.Text = NewText(float64(height-3), White)
 	return &btn
 }
 
@@ -40,8 +39,9 @@ func (btn *Button) SetIcon(img image.Image) {
 }
 
 // SetText ...
-func (btn *Button) SetText(s string) *Button {
-	btn.Text.SetText(s)
+func (btn *Button) SetText(fnt *Font, txt string) *Button {
+	btn.Text = NewText(fnt)
+	btn.Text.SetText(txt)
 	return btn
 }
 
@@ -61,9 +61,8 @@ func (btn *Button) Draw(mx, my int) *image.RGBA {
 
 	btn.drawIcon()
 
-	if btn.Text.text != "" {
+	if btn.Text != nil && btn.Text.text != "" {
 		txt := btn.Text.Draw(mx, my)
-		// XXX allow to modify text alignment
 
 		// left-aligned
 		b := txt.Bounds()

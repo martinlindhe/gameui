@@ -24,6 +24,7 @@ type Font struct {
 	spacing      float64
 	font         *truetype.Font
 	drawer       *font.Drawer
+	color        color.Color
 	cachedPrints map[string]*image.RGBA
 }
 
@@ -43,6 +44,7 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 	fnt.size = size
 	fnt.dpi = dpi
 	fnt.spacing = 1
+	fnt.color = col
 	fnt.cachedPrints = make(map[string]*image.RGBA)
 
 	fnt.drawer = &font.Drawer{

@@ -9,7 +9,8 @@ import (
 
 // BenchmarkDrawText-2     	200000000	         7.36 ns/op   (mbp-2010)
 func BenchmarkDrawText(b *testing.B) {
-	txt := NewText(6, White)
+	fnt, _ := NewFont(defaultFontName, 6, 72, White)
+	txt := NewText(fnt)
 	txt.SetText("HEJ")
 	for n := 0; n < b.N; n++ {
 		txt.Draw(0, 0)
@@ -18,7 +19,8 @@ func BenchmarkDrawText(b *testing.B) {
 
 // BenchmarkDrawChangingText-4     10000000               262 ns/op (elitebook)
 func BenchmarkDrawChangingText(b *testing.B) {
-	txt := NewText(6, White)
+	fnt, _ := NewFont(defaultFontName, 6, 72, White)
+	txt := NewText(fnt)
 	for n := 0; n < b.N; n++ {
 		s := fmt.Sprintf("hej %d", n%8)
 		txt.SetText(s)
@@ -27,7 +29,8 @@ func BenchmarkDrawChangingText(b *testing.B) {
 }
 
 func TestTextOnly(t *testing.T) {
-	txt := NewText(6, White)
+	fnt, _ := NewFont(defaultFontName, 6, 72, White)
+	txt := NewText(fnt)
 
 	ex := []string{
 		"            ",
@@ -41,7 +44,8 @@ func TestTextOnly(t *testing.T) {
 		"            ",
 		"            ",
 	}
-	txt.setFont(tinyFontName)
+	tinyFont, _ := NewFont(tinyFontName, 6, 72, White)
+	txt.SetFont(tinyFont)
 	txt.SetText("HEJ")
 	assert.Equal(t, "HEJ", txt.GetText())
 	assert.Equal(t, 12, txt.GetWidth())

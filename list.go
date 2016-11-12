@@ -32,8 +32,8 @@ func (lst *List) addChild(c Component) {
 }
 
 // AddLine ...
-func (lst *List) AddLine(l Line, fnc func()) {
-	h := NewText(float64(lst.rowHeight), l.Color())
+func (lst *List) AddLine(l Line, fnt *Font, fnc func()) {
+	h := NewText(fnt)
 	h.OnClick = fnc
 	h.SetText(l.Name())
 	h.Position = Point{X: 0, Y: len(lst.children) * lst.rowHeight}

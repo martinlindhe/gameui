@@ -3,6 +3,8 @@ package ui
 import (
 	"image/color"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestWindow(t *testing.T) {
@@ -13,9 +15,11 @@ func TestWindow(t *testing.T) {
 	wnd.SetBorderColor(color.White)
 	wnd.HideCloseButton()
 
-	btn := NewButton(20, 14).SetText("HI")
+	tinyFont, err := NewFont(tinyFontName, 11, 72, White)
+	assert.Equal(t, nil, err)
+
+	btn := NewButton(20, 14).SetText(tinyFont, "HI")
 	btn.SetBorderColor(White)
-	btn.Text.setFont(tinyFontName)
 	btn.Position = Point{X: 5, Y: 3}
 	wnd.AddChild(btn)
 

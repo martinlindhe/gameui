@@ -2,38 +2,27 @@ package ui
 
 import (
 	"image"
-	"image/color"
 	"log"
 )
 
 // Text is a line of text (UI component)
 type Text struct {
 	component
-	text  string
-	size  float64
-	dpi   float64
-	color color.Color
-	font  *Font
+	text string
+	font *Font
 }
 
 // NewText ...
-func NewText(size float64, color color.Color) *Text {
+func NewText(font *Font) *Text {
 	txt := Text{}
-	txt.size = size
-	txt.color = color
-	txt.dpi = 72
-
-	if err := txt.setFont(defaultFontName); err != nil {
-		log.Println("NewText err", err)
-		return nil
-	}
+	txt.font = font
 	return &txt
 }
 
-func (txt *Text) setFont(fontName string) error {
-	var err error
-	txt.font, err = NewFont(fontName, txt.size, txt.dpi, txt.color)
-	return err
+// SetFont sets the font to use
+func (txt *Text) SetFont(font *Font) {
+	txt.font = font
+	txt.isClean = false
 }
 
 // SetText ...

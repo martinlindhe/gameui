@@ -16,8 +16,8 @@ func CheckUI(ui *UI) bool {
 			}
 		}
 		if txt, ok := c.(*Text); ok {
-			if txt.size < 3 {
-				log.Println("CheckUI warning: text size too small:", txt.size)
+			if txt.font.size < 3 {
+				log.Println("CheckUI warning: text size too small:", txt.font.size)
 			}
 		}
 	}

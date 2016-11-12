@@ -15,7 +15,9 @@ func BenchmarkUI(b *testing.B) {
 	btn.Position = Point{X: 5, Y: 3}
 	ui.AddComponent(btn)
 
-	txt := NewText(6, White)
+	fnt, _ := NewFont(defaultFontName, 6, 72, White)
+
+	txt := NewText(fnt)
 	txt.SetText("HELLO")
 	txt.Position = Point{X: 0, Y: 0}
 	ui.AddComponent(txt)
@@ -35,14 +37,21 @@ func TestUI(t *testing.T) {
 	btn.Position = Point{X: 5, Y: 3}
 	ui.AddComponent(btn)
 
-	txt := NewText(6, White)
-	txt.setFont(tinyFontName)
+	defaultFont, err := NewFont(defaultFontName, 6, 72, White)
+	assert.Equal(t, nil, err)
+
+	tinyFont, err := NewFont(tinyFontName, 6, 72, White)
+	assert.Equal(t, nil, err)
+
+	txt := NewText(defaultFont)
+	txt.SetFont(tinyFont)
 	txt.SetText("HELLO")
 	txt.Show()
 	assert.Equal(t, false, txt.IsHidden())
 	ui.AddComponent(txt)
 
-	hidden := NewText(6, White)
+	fnt, _ := NewFont(defaultFontName, 6, 72, White)
+	hidden := NewText(fnt)
 	hidden.SetText("INVISIBLE")
 	hidden.Hide()
 	assert.Equal(t, true, hidden.IsHidden())

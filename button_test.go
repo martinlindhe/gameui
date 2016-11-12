@@ -3,6 +3,8 @@ package ui
 import (
 	"image"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -38,8 +40,11 @@ func TestButtonWithText(t *testing.T) {
 	w, h := 20, 10
 	btn := NewButton(w, h)
 	btn.SetBorderColor(White)
-	btn.Text.setFont(tinyFontName)
-	btn.SetText("HEJ")
+
+	tinyFont, err := NewFont(tinyFontName, 7, 72, White)
+	assert.Equal(t, nil, err)
+
+	btn.SetText(tinyFont, "HEJ")
 
 	// make sure same frame is delivered each time
 	for i := 0; i < 10; i++ {
