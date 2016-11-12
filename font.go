@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	defaultFontName = assetPath("_resources/font/open_dyslexic/OpenDyslexic3-Regular.ttf")
-	tinyFontName    = assetPath("_resources/font/tiny/tiny.ttf")
+	defaultFontName = "_resources/font/open_dyslexic/OpenDyslexic3-Regular.ttf"
+	tinyFontName    = "_resources/font/tiny/tiny.ttf"
 )
 
 // Font is a font resource

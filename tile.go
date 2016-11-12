@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"fmt"
 	"image"
 	"image/draw"
 	"log"
@@ -11,7 +12,8 @@ import (
 func LoadTiles(imgFile string, tileWidth, tileHeight int) []*image.RGBA {
 	img, err := OpenImage(imgFile)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("error:", err)
+		return nil
 	}
 
 	b := img.Bounds()
