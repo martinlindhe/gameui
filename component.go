@@ -3,7 +3,6 @@ package ui
 import (
 	"image"
 	"image/draw"
-	"log"
 )
 
 // Component represents any type of UI component
@@ -30,7 +29,6 @@ type component struct {
 
 func (c *component) Click(mouse Point) bool {
 	if c.OnClick == nil {
-		log.Println("OnClick == nil for clicked component")
 		return false
 	}
 	c.OnClick()
