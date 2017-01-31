@@ -27,11 +27,10 @@ func (grp *Group) Draw(mx, my int) *image.RGBA {
 		return nil
 	}
 	if grp.isClean {
-		if !grp.isChildrenClean() {
-			grp.isClean = false
-		} else {
+		if grp.isChildrenClean() {
 			return grp.Image
 		}
+		grp.isClean = false
 	}
 	grp.initImage()
 

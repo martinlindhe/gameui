@@ -48,11 +48,10 @@ func (lst *List) Draw(mx, my int) *image.RGBA {
 		return nil
 	}
 	if lst.isClean {
-		if !lst.isChildrenClean() {
-			lst.isClean = false
-		} else {
+		if lst.isChildrenClean() {
 			return lst.Image
 		}
+		lst.isClean = false
 	}
 	lst.initImage()
 

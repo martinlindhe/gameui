@@ -116,11 +116,10 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 		return nil
 	}
 	if wnd.isClean {
-		if !wnd.isChildrenClean() {
-			wnd.isClean = false
-		} else {
+		if wnd.isChildrenClean() {
 			return wnd.Image
 		}
+		wnd.isClean = false
 	}
 	wnd.initImage()
 
