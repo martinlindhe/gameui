@@ -19,7 +19,7 @@ type IconGroup struct {
 // IconGroupObject is something that is contained in the icon group
 type IconGroupObject interface {
 	Name() string
-	Icon() *image.RGBA
+	Icon() image.Image
 	Click()
 	ID() uint64
 }

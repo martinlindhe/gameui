@@ -15,7 +15,7 @@ type obj struct {
 func (o obj) Name() string {
 	return o.name
 }
-func (o obj) Icon() *image.RGBA {
+func (o obj) Icon() image.Image {
 	return o.icon
 }
 func (o obj) ID() uint64 {

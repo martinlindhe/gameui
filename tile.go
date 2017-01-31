@@ -9,7 +9,7 @@ import (
 )
 
 // LoadTiles ...
-func LoadTiles(imgFile string, tileWidth, tileHeight int) []*image.RGBA {
+func LoadTiles(imgFile string, tileWidth, tileHeight int) (res []image.Image) {
 	img, err := OpenImage(imgFile)
 	if err != nil {
 		fmt.Println("error:", err)
@@ -30,8 +30,6 @@ func LoadTiles(imgFile string, tileWidth, tileHeight int) []*image.RGBA {
 		log.Fatalf("image height %d is not evenly divisable by tile height %d", imgHeight, tileHeight)
 	}
 
-	tiles := []*image.RGBA{}
-
 	// slice up image into tiles
 	for row := 0; row < int(rows); row++ {
 		for col := 0; col < int(cols); col++ {
@@ -45,8 +43,8 @@ func LoadTiles(imgFile string, tileWidth, tileHeight int) []*image.RGBA {
 			r := sr.Sub(sr.Min).Add(image.Point{0, 0})
 			draw.Draw(dst, r, img, sr.Min, draw.Src)
 
-			tiles = append(tiles, dst)
+			res = append(res, dst)
 		}
 	}
-	return tiles
+	return
 }
