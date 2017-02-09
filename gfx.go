@@ -40,7 +40,7 @@ func OpenImage(filename string) (image.Image, error) {
 		return nil, err
 	}
 	defer file.Close()
-	img, err := decodeImage(file)
+	img, err := DecodeImage(file)
 	if err != nil {
 		return nil, err
 	}
@@ -56,8 +56,8 @@ func RequireImage(filename string) image.Image {
 	return img
 }
 
-// decodeImage reads an image from r
-func decodeImage(r io.Reader) (image.Image, error) {
+// DecodeImage reads an image from r
+func DecodeImage(r io.Reader) (image.Image, error) {
 	img, _, err := image.Decode(r)
 	return img, err
 }
