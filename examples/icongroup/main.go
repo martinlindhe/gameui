@@ -40,7 +40,7 @@ func (o obj) Name() string {
 func (o obj) ID() uint64 {
 	return o.id
 }
-func (o obj) Icon() *image.RGBA {
+func (o obj) Icon() image.Image {
 	return o.icon
 }
 func (o obj) Click() {
