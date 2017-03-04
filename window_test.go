@@ -9,6 +9,8 @@ import (
 func TestWindow(t *testing.T) {
 	w, h := 30, 20
 	wnd := NewWindow(w, h, "")
+	wnd.SetTitle("")
+	wnd.HideTitle()
 	wnd.SetTitleColor(Black)
 	wnd.SetBackgroundColor(Black)
 	wnd.SetBorderColor(White)

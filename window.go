@@ -36,19 +36,7 @@ func NewWindow(width, height int, titleText string) *Window {
 	wnd.titleColor = windowTitleColor
 
 	if titleText != "" {
-		fnt, err := NewFont(defaultFontName, 10, 72, White)
-		if err != nil {
-			log.Println("ERROR:", err)
-			return nil
-		}
-		title := NewText(fnt)
-		title.Position = Point{X: 1, Y: 0}
-		wnd.title = title
-		wnd.title.SetText(titleText)
-		wnd.addChild(title)
-
-		wnd.titlebarHeight = wnd.title.GetHeight() + 1
-		wnd.childLeftPad = 1
+		wnd.SetTitle(titleText)
 	}
 
 	close := NewButton(wnd.titlebarHeight, wnd.titlebarHeight)
@@ -91,7 +79,22 @@ func (wnd *Window) HideTitle() {
 
 // SetTitle ...
 func (wnd *Window) SetTitle(s string) *Window {
+	if s == "" {
+		return wnd
+	}
+	fnt, err := NewFont(defaultFontName, 10, 72, White)
+	if err != nil {
+		log.Println("ERROR:", err)
+		return wnd
+	}
+	title := NewText(fnt)
+	title.Position = Point{X: 1, Y: 0}
+	wnd.title = title
 	wnd.title.SetText(s)
+	wnd.addChild(title)
+
+	wnd.titlebarHeight = wnd.title.GetHeight() + 1
+	wnd.childLeftPad = 1
 	return wnd
 }
 

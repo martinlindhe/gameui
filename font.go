@@ -61,15 +61,13 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 // Print draws text using the font
 func (fnt *Font) Print(text string) (*image.RGBA, error) {
 	if text == "" {
-		log.Println("ERROR: font.Print with no text")
+		log.Println("ERROR: fnt.Print with no text")
 	}
-
+	if fnt.size == 0 {
+		log.Println("ERROR: fnt.size == 0")
+	}
 	if val, ok := fnt.cachedPrints[text]; ok {
 		return val, nil
-	}
-
-	if fnt.size == 0 {
-		panic("fnt.size == 0")
 	}
 
 	dim := fnt.findDimension(text)

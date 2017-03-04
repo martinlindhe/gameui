@@ -8,7 +8,15 @@ import (
 func TestBarOnly(t *testing.T) {
 	w, h := 32, 5
 	bar := NewBar(w, h)
-	bar.SetValue(50)
+	bar.SetValue(49)
+	bar.IncValue(1)
+	bar.SetVisibility(true)
+	if bar.GetValue() != 50 {
+		t.Error("Unexpected value")
+	}
+
+	bar.SetBorderColor(barBorderColor)
+	bar.SetFillColor(barFillColor)
 
 	// make sure same frame is delivered each time
 	for i := 0; i < 10; i++ {
