@@ -85,6 +85,7 @@ func (bar *Bar) GetValue() int {
 // Draw redraws internal buffer
 func (bar *Bar) Draw(mx, my int) *image.RGBA {
 	if bar.isHidden {
+		bar.isClean = true
 		return nil
 	}
 	if bar.isClean {

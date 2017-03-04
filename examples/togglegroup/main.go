@@ -28,16 +28,14 @@ func main() {
 	grp.Position = ui.Point{
 		X: (width / 2) - (grp.Dimension.Width / 2),
 		Y: (height / 2) - (grp.Dimension.Height / 2)}
-	grp.Show()
 	gui.AddComponent(grp)
 
-	exit := ui.NewText(font12).SetText("press space to toggle visible")
-	exit.Position = ui.Point{X: 0, Y: 0}
-	grp.AddChild(exit)
+	txt := ui.NewText(font12).SetText("press space to toggle visible")
+	txt.Position = ui.Point{X: 0, Y: 0}
+	grp.AddChild(txt)
 	gui.AddComponent(fps)
 
 	gui.AddKeyFunc(ui.KeySpace, func() error {
-
 		if grp.IsHidden() {
 			grp.Show()
 		} else {

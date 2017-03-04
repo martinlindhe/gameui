@@ -16,6 +16,7 @@ type Text struct {
 func NewText(font *Font) *Text {
 	txt := Text{}
 	txt.font = font
+	txt.isClean = true
 	return &txt
 }
 
@@ -31,6 +32,7 @@ func (txt *Text) SetText(s string) *Text {
 		txt.isClean = false
 		txt.text = s
 	}
+	txt.isHidden = txt.text == ""
 	return txt
 }
 
@@ -58,6 +60,7 @@ func (txt *Text) GetHeight() int {
 // Draw redraws internal buffer
 func (txt *Text) Draw(mx, my int) *image.RGBA {
 	if txt.isHidden {
+		txt.isClean = true
 		return nil
 	}
 	if txt.isClean {

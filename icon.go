@@ -32,6 +32,7 @@ func (ico *Icon) SetIcon(img image.Image) {
 // Draw ...
 func (ico *Icon) Draw(mx, my int) *image.RGBA {
 	if ico.isHidden {
+		ico.isClean = true
 		return nil
 	}
 	return ico.icon

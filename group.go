@@ -24,6 +24,7 @@ func (grp *Group) AddChild(c Component) {
 // Draw redraws internal buffer
 func (grp *Group) Draw(mx, my int) *image.RGBA {
 	if grp.isHidden {
+		grp.isClean = true
 		return nil
 	}
 	if grp.isClean {

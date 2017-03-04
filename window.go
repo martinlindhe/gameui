@@ -116,13 +116,13 @@ func (wnd *Window) SetBorderColor(col color.Color) {
 // Draw redraws internal buffer
 func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	if wnd.isHidden {
+		wnd.isClean = true
 		return nil
 	}
 	if wnd.isClean {
 		if wnd.isChildrenClean() {
 			return wnd.Image
 		}
-		wnd.isClean = false
 	}
 	wnd.initImage()
 

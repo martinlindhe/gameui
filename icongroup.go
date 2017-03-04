@@ -56,6 +56,7 @@ func (grp *IconGroup) SetBorderColor(c color.Color) {
 // Draw redraws internal buffer
 func (grp *IconGroup) Draw(mx, my int) *image.RGBA {
 	if grp.isHidden {
+		grp.isClean = true
 		return nil
 	}
 	if grp.isClean {

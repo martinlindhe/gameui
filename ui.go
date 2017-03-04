@@ -56,11 +56,9 @@ func (ui *UI) AddComponent(o Component) {
 
 // Render returns a fresh frame of the GUI
 func (ui *UI) Render(mx, my int) image.Image {
-	if ui.isAllClean() {
+	if ui.IsClean() {
 		return ui.Scene
 	}
-
-	// clear scene
 	whole := image.Rect(0, 0, ui.Width, ui.Height)
 	draw.Draw(ui.Scene, whole, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
 
@@ -77,7 +75,8 @@ func (ui *UI) Render(mx, my int) image.Image {
 	return ui.Scene
 }
 
-func (ui *UI) isAllClean() bool {
+// IsClean returns true if all UI components are clean
+func (ui *UI) IsClean() bool {
 	for _, c := range ui.components {
 		if !c.IsClean() {
 			return false
