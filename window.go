@@ -1,10 +1,10 @@
 package ui
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
+	"log"
 )
 
 // Window is a window (UI component)
@@ -38,7 +38,7 @@ func NewWindow(width, height int, titleText string) *Window {
 	if titleText != "" {
 		fnt, err := NewFont(defaultFontName, 10, 72, White)
 		if err != nil {
-			fmt.Println("error:", err)
+			log.Println("ERROR:", err)
 			return nil
 		}
 		title := NewText(fnt)

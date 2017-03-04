@@ -5,6 +5,7 @@ import (
 	"image"
 	"image/color"
 	"io/ioutil"
+	"log"
 	"math"
 
 	"github.com/golang/freetype/truetype"
@@ -60,7 +61,7 @@ func NewFont(fontName string, size float64, dpi float64, col color.Color) (*Font
 // Print draws text using the font
 func (fnt *Font) Print(text string) (*image.RGBA, error) {
 	if text == "" {
-		fmt.Println("ERROR: font.Print with no text")
+		log.Println("ERROR: font.Print with no text")
 	}
 
 	if val, ok := fnt.cachedPrints[text]; ok {

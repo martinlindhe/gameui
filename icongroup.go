@@ -1,10 +1,10 @@
 package ui
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
+	"log"
 )
 
 // IconGroup is a tile-hased grid display of object icons
@@ -106,7 +106,7 @@ func (grp *IconGroup) drawIcons(mx, my int) {
 
 		img := o.Icon()
 		if img == nil {
-			fmt.Println("ERROR: UI IconGroup object", o.Name(), "lacks icon")
+			log.Println("ERROR: UI IconGroup object", o.Name(), "lacks icon")
 			continue
 		}
 		b := img.Bounds()

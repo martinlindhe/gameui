@@ -12,12 +12,12 @@ func CheckUI(ui *UI) bool {
 			}
 			allB := btn.Image.Bounds()
 			if allB.Max.X > btn.Dimension.Width || allB.Max.Y > btn.Dimension.Height {
-				log.Println("CheckUI warning: button.drawImage image is bigger than container button")
+				log.Println("warning: button.drawImage image is bigger than container button")
 			}
 		}
 		if txt, ok := c.(*Text); ok {
 			if txt.font.size < 3 {
-				log.Println("CheckUI warning: text size too small:", txt.font.size)
+				log.Println("warning: text size too small:", txt.font.size)
 			}
 		}
 	}

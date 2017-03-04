@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"fmt"
 	"image"
 	"image/draw"
 	"log"
@@ -12,7 +11,7 @@ import (
 func LoadTiles(imgFile string, tileWidth, tileHeight int) (res []image.Image) {
 	img, err := OpenImage(imgFile)
 	if err != nil {
-		fmt.Println("error:", err)
+		log.Println("ERROR:", err)
 		return nil
 	}
 

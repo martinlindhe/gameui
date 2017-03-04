@@ -1,10 +1,10 @@
 package ui
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
+	"log"
 	"math"
 )
 
@@ -49,11 +49,11 @@ func (bar *Bar) SetFillImage(img image.Image) {
 // SetValue accepts a value between 0-100
 func (bar *Bar) SetValue(v int) {
 	if v > 100 {
-		fmt.Println("warning: bar value is too high", v)
+		log.Println("warning: bar value is too high", v)
 		v = 100
 	}
 	if v < 0 {
-		fmt.Println("warning: bar value is too low", v)
+		log.Println("warning: bar value is too low", v)
 		v = 0
 	}
 	if bar.value == v {
