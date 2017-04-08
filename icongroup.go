@@ -29,7 +29,7 @@ const (
 )
 
 var (
-	icongroupBorderColor = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
+	icongroupBorderColor = color.RGBA{0x50, 0x50, 0x50, 192} // grey, 75% transparent
 )
 
 // NewIconGroup ...
@@ -38,6 +38,7 @@ func NewIconGroup(columns, rows, iconWidth, iconHeight int) *IconGroup {
 	componentWidth := (columns * iconWidth) + (pad * 2)
 	componentHeight := (rows * iconHeight) + (pad * 2)
 	grp := IconGroup{}
+	grp.backgroundColor = Transparent
 	grp.borderColor = icongroupBorderColor
 	grp.columns = columns
 	grp.rows = rows

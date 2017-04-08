@@ -62,7 +62,7 @@ func update(screen *ebiten.Image) error {
 	}
 
 	fps.SetText(fmt.Sprintf("%.1f", ebiten.CurrentFPS()))
-	frame, err := ebiten.NewImageFromImage(gui.Render(0, 0), ebiten.FilterNearest)
+	frame, err := ebiten.NewImageFromImage(gui.Render(gui.Input.X, gui.Input.Y), ebiten.FilterNearest)
 	if err != nil {
 		return err
 	}

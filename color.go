@@ -17,6 +17,8 @@ var (
 	Brown       = color.RGBA{139, 69, 19, 255}
 	Orange      = color.RGBA{255, 165, 0, 255}
 	Pink        = color.RGBA{255, 105, 180, 255}
+	DarkGrey    = color.RGBA{169, 169, 169, 255}
+	LightGrey   = color.RGBA{211, 211, 211, 255}
 	Transparent = color.Transparent
 	Opaque      = color.Opaque
 )

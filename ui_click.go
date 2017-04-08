@@ -6,7 +6,7 @@ func (ui *UI) handleClick() {
 		return
 	}
 	mouse := Point{X: ui.Input.X, Y: ui.Input.Y}
-	for _, c := range ui.components {
+	for _, c := range ui.children {
 		if c.IsHidden() {
 			continue
 		}

@@ -1,6 +1,8 @@
 package ui
 
-import "image"
+import (
+	"image"
+)
 
 // Group is a container of more components, similar to a transparent Window
 type Group struct {
@@ -10,15 +12,15 @@ type Group struct {
 // NewGroup creates a new Group
 func NewGroup(width, height int) *Group {
 	grp := Group{}
+	grp.backgroundColor = Transparent
 	grp.Dimension.Width = width
 	grp.Dimension.Height = height
 	return &grp
 }
 
-// AddChild adds a child component to the Group
+// AddChild adds a child to the group
 func (grp *Group) AddChild(c Component) {
-	grp.isClean = false
-	grp.children = append(grp.children, c)
+	grp.addChild(c)
 }
 
 // Draw redraws internal buffer
@@ -27,15 +29,19 @@ func (grp *Group) Draw(mx, my int) *image.RGBA {
 		grp.isClean = true
 		return nil
 	}
-	if grp.isClean {
-		if grp.isChildrenClean() {
-			return grp.Image
+	// Limitation of current impl:
+	// we cannot skip if children is clean because tooltip for children won't update then
+	/*
+		if grp.isClean {
+			if grp.isChildrenClean() {
+				return grp.Image
+			}
+			grp.isClean = false
 		}
-		grp.isClean = false
-	}
+	*/
 	grp.initImage()
 
-	grp.drawChildren(mx, my)
+	grp.drawChildren(mx-grp.Position.X, my-grp.Position.Y)
 
 	grp.isClean = true
 	return grp.Image

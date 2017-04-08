@@ -18,7 +18,7 @@ type Bar struct {
 }
 
 var (
-	barBorderColor = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
+	barBorderColor = color.RGBA{0x50, 0x50, 0x50, 192} // grey, 75% transparent
 	barFillColor   = Yellow
 )
 
@@ -26,6 +26,7 @@ var (
 func NewBar(width, height int) *Bar {
 	bar := Bar{}
 	bar.borderColor = barBorderColor
+	bar.backgroundColor = Transparent
 	bar.fillColor = barFillColor
 	bar.Dimension = Dimension{Width: width, Height: height}
 	return &bar

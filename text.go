@@ -15,6 +15,7 @@ type Text struct {
 // NewText ...
 func NewText(font *Font) *Text {
 	txt := Text{}
+	txt.backgroundColor = Transparent
 	txt.font = font
 	txt.isClean = true
 	return &txt
@@ -33,6 +34,18 @@ func (txt *Text) SetText(s string) *Text {
 		txt.text = s
 	}
 	txt.isHidden = txt.text == ""
+
+	img, err := txt.font.Print(txt.text)
+	if err != nil {
+		log.Println("Print err", err)
+		return nil
+	}
+
+	b := img.Bounds()
+	txt.Image = img
+	txt.Dimension.Width = b.Max.X
+	txt.Dimension.Height = b.Max.Y
+
 	return txt
 }
 
@@ -63,22 +76,5 @@ func (txt *Text) Draw(mx, my int) *image.RGBA {
 		txt.isClean = true
 		return nil
 	}
-	if txt.isClean {
-		return txt.Image
-	}
-	if txt.text == "" {
-		return nil
-	}
-	img, err := txt.font.Print(txt.text)
-	if err != nil {
-		log.Println("Print err", err)
-		return nil
-	}
-
-	b := img.Bounds()
-	txt.Image = img
-	txt.Dimension.Width = b.Max.X
-	txt.Dimension.Height = b.Max.Y
-	txt.isClean = true
-	return img
+	return txt.Image
 }

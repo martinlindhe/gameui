@@ -68,6 +68,6 @@ func testCompareRender(t *testing.T, expected, got []string) {
 		})
 		fmt.Print(diff)
 
-		t.FailNow()
+		t.Fail()
 	}
 }

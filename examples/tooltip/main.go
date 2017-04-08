@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	_ "image/png"
 	"log"
 	"time"
 
@@ -19,8 +18,6 @@ const (
 var (
 	gui     *ui.UI
 	fps     *ui.Text
-	hp      *ui.Bar
-	hp2     *ui.Bar
 	mana    *ui.Bar
 	lastInc time.Time
 )
@@ -38,34 +35,44 @@ func init() {
 		return ui.GracefulExitError{}
 	})
 
-	heart, err := ui.OpenImage("_resources/tile/7x7_heart.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	hp = ui.NewBar(width-2, 7+2)
-	hp.SetValue(0)
-	hp.SetFillImage(heart)
-	hp.Position = ui.Point{X: width/2 - hp.Dimension.Width/2, Y: 20}
-	gui.AddComponent(hp)
-
-	hp2 = ui.NewBar(width-2, 7)
-	hp2.SetValue(0)
-	hp2.SetFillColor(ui.Red)
-	hp2.Position = ui.Point{X: width/2 - hp.Dimension.Width/2, Y: 30}
-	gui.AddComponent(hp2)
-
 	mana = ui.NewBar(width-2, 16)
 	mana.SetValue(25)
 	mana.SetFillColor(ui.Blue)
-	mana.Position = ui.Point{X: width/2 - hp.Dimension.Width/2, Y: height - 16 - 20}
+	mana.Position = ui.Point{X: 0, Y: (height / 2) + (height / 4)}
+	mana.SetTooltip(fmt.Sprintf("mana = %d", mana.GetValue()))
 	gui.AddComponent(mana)
+
+	grpWidth := 100
+	grp := ui.NewGroup(grpWidth, 100)
+	grp.Position = ui.Point{X: (width / 2) - (grpWidth / 2), Y: 10}
+	bar1 := ui.NewBar(grpWidth, 10)
+	bar1.Position = ui.Point{X: 0, Y: 0}
+	bar1.SetValue(10)
+	bar1.SetFillColor(ui.Red)
+	bar1.SetTooltip("bar 1")
+	grp.AddChild(bar1)
+
+	bar2 := ui.NewBar(grpWidth, 10)
+	bar2.Position = ui.Point{X: 0, Y: 15}
+	bar2.SetValue(20)
+	bar2.SetFillColor(ui.Green)
+	bar2.SetTooltip("bar 2")
+	grp.AddChild(bar2)
+
+	bar3 := ui.NewBar(grpWidth, 10)
+	bar3.Position = ui.Point{X: 0, Y: 30}
+	bar3.SetValue(40)
+	bar3.SetFillColor(ui.Yellow)
+	bar3.SetTooltip("bar 3")
+	grp.AddChild(bar3)
+
+	gui.AddComponent(grp)
 
 	lastInc = time.Now()
 }
 
 func main() {
-	if err := ebiten.Run(update, width, height, scale, "Bars (UI Demo)"); err != nil {
+	if err := ebiten.Run(update, width, height, scale, "Tooltip (UI Demo)"); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -80,10 +87,8 @@ func update(screen *ebiten.Image) error {
 	expired := time.Now().Add(-1 * time.Second)
 	if lastInc.Before(expired) {
 		lastInc = time.Now()
-
-		hp.IncValue(1)
-		hp2.IncValue(1)
 		mana.IncValue(2)
+		mana.SetTooltip(fmt.Sprintf("mana = %d", mana.GetValue()))
 	}
 
 	frame, err := ebiten.NewImageFromImage(gui.Render(gui.Input.X, gui.Input.Y), ebiten.FilterNearest)

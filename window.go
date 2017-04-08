@@ -10,19 +10,18 @@ import (
 // Window is a window (UI component)
 type Window struct {
 	component
-	titlebarHeight  int
-	childLeftPad    int
-	titleColor      color.Color
-	backgroundColor color.Color
-	borderColor     color.Color
-	title           *Text
-	close           *Button
+	titlebarHeight int
+	childLeftPad   int
+	titleColor     color.Color
+	borderColor    color.Color
+	title          *Text
+	close          *Button
 }
 
 var (
-	windowBgColor     = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 25% transparent
+	windowBgColor     = color.RGBA{0x50, 0x50, 0x50, 192} // grey, 25% transparent
 	windowBorderColor = color.RGBA{0x40, 0x40, 0x40, 192} // white, 25% transparent
-	windowTitleColor  = color.RGBA{0x50, 0x50, 0x50, 192} //gray
+	windowTitleColor  = color.RGBA{0x50, 0x50, 0x50, 192} // grey
 )
 
 // NewWindow creates a new window with height of `height` + height of title bar
@@ -49,7 +48,13 @@ func NewWindow(width, height int, titleText string) *Window {
 	return &wnd
 }
 
-// AddChild adds a child component to the window, adjusting position
+// AddChild adds a child to the window
+func (wnd *Window) AddChild(c Component) {
+	wnd.addChild(c)
+}
+
+// XXX:
+/*
 func (wnd *Window) AddChild(c Component) {
 	if val, ok := c.(Positioner); ok {
 		pos := val.GetPosition()
@@ -59,11 +64,7 @@ func (wnd *Window) AddChild(c Component) {
 	}
 	wnd.addChild(c)
 }
-
-func (wnd *Window) addChild(c Component) {
-	wnd.isClean = false
-	wnd.children = append(wnd.children, c)
-}
+*/
 
 // HideCloseButton ...
 func (wnd *Window) HideCloseButton() {
@@ -101,11 +102,6 @@ func (wnd *Window) SetTitle(s string) *Window {
 // SetTitleColor ...
 func (wnd *Window) SetTitleColor(col color.Color) {
 	wnd.titleColor = col
-}
-
-// SetBackgroundColor ...
-func (wnd *Window) SetBackgroundColor(col color.Color) {
-	wnd.backgroundColor = col
 }
 
 // SetBorderColor ...

@@ -2,7 +2,9 @@
 
 package ui
 
-import "github.com/hajimehoshi/ebiten"
+import (
+	"github.com/hajimehoshi/ebiten"
+)
 
 // Input ...
 type Input struct {

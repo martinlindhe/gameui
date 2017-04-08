@@ -15,12 +15,13 @@ type Button struct {
 }
 
 var (
-	buttonBorderColor = color.RGBA{0x50, 0x50, 0x50, 192} // gray, 75% transparent
+	buttonBorderColor = color.RGBA{0x50, 0x50, 0x50, 192} // grey, 75% transparent
 )
 
 // NewButton ...
 func NewButton(width, height int) *Button {
 	btn := Button{}
+	btn.backgroundColor = Transparent
 	btn.borderColor = buttonBorderColor
 	btn.Dimension.Width = width
 	btn.Dimension.Height = height

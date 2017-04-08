@@ -8,24 +8,22 @@ import (
 
 // UI represents an instance of the UI
 type UI struct {
-	Width, Height int
-	WindowTitle   string
-	Scene         *image.RGBA
-	components    []Component
-	Input         Input
-	keyFuncs      map[Key]func() error
+	component
+	WindowTitle  string
+	Input        Input
+	keyFuncs     map[Key]func() error
+	prevX, prevY int
 }
 
 // New creates a new UI instance
 func New(width, height int) *UI {
 	rect := image.Rect(0, 0, width, height)
 	ui := UI{
-		Width:       width,
-		Height:      height,
 		WindowTitle: "ui window",
-		Scene:       image.NewRGBA(rect),
+		keyFuncs:    make(map[Key]func() error),
 	}
-	ui.keyFuncs = make(map[Key]func() error)
+	ui.Dimension = Dimension{Width: width, Height: height}
+	ui.Image = image.NewRGBA(rect)
 	return &ui
 }
 
@@ -51,33 +49,31 @@ func (ui *UI) SetWindowTitle(s string) {
 
 // AddComponent adds a component to the ui
 func (ui *UI) AddComponent(o Component) {
-	ui.components = append(ui.components, o)
+	ui.addChild(o)
 }
 
-// Render returns a fresh frame of the GUI
+// Render returns a fresh frame of the GUI. mx, my is absolute mouse position
 func (ui *UI) Render(mx, my int) image.Image {
-	if ui.IsClean() {
-		return ui.Scene
-	}
-	whole := image.Rect(0, 0, ui.Width, ui.Height)
-	draw.Draw(ui.Scene, whole, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
-
-	for _, c := range ui.components {
-		img := c.Draw(mx, my)
-		if img == nil {
-			continue
+	if ui.isChildrenClean() {
+		if mx == ui.prevX && my == ui.prevY {
+			return ui.Image
 		}
-		r := c.GetBounds()
-		c.Hover(mx >= r.Min.X && mx <= r.Max.X && my >= r.Min.Y && my <= r.Max.Y)
-
-		draw.Draw(ui.Scene, r, img, image.ZP, draw.Over)
+		if (mx < 0 || mx > ui.Dimension.Width) || (my < 0 || my > ui.Dimension.Height) {
+			// cursor outside window will not change hover state
+			return ui.Image
+		}
 	}
-	return ui.Scene
+	ui.prevX = mx
+	ui.prevY = my
+	whole := image.Rect(0, 0, ui.Dimension.Width, ui.Dimension.Height)
+	draw.Draw(ui.Image, whole, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
+	ui.drawChildren(mx, my)
+	return ui.Image
 }
 
 // IsClean returns true if all UI components are clean
 func (ui *UI) IsClean() bool {
-	for _, c := range ui.components {
+	for _, c := range ui.children {
 		if !c.IsClean() {
 			return false
 		}

@@ -16,6 +16,7 @@ func NewIcon(img image.Image) *Icon {
 	ico := Icon{}
 	ico.SetIcon(img)
 	b := ico.icon.Bounds()
+	ico.backgroundColor = Transparent
 	ico.Dimension.Width = b.Max.X
 	ico.Dimension.Height = b.Max.Y
 	return &ico

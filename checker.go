@@ -5,7 +5,7 @@ import "log"
 // CheckUI performs some sanity checks on the UI instance in order to detect programmatic errors
 // returns true if checks passed
 func CheckUI(ui *UI) bool {
-	for _, c := range ui.components {
+	for _, c := range ui.children {
 		if btn, ok := c.(*Button); ok {
 			if btn.Image == nil {
 				continue

@@ -6,7 +6,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// BenchmarkUI-4                   500000000                3.52 ns/op (elitebook)
 func BenchmarkUI(b *testing.B) {
 	w, h := 20, 10
 	ui := New(w, h)
@@ -71,7 +70,6 @@ func TestUI(t *testing.T) {
 		"     ##########     ",
 		"                    ",
 	}
-	testCompareRender(t, ex, renderAsText(ui.Render(0, 0)))
 	testCompareRender(t, ex, renderAsText(ui.Render(0, 0)))
 
 	txt.SetText("BEEP")
