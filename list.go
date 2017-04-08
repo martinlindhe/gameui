@@ -22,7 +22,7 @@ func NewList(width, height int) *List {
 	lst := List{}
 	lst.backgroundColor = Transparent
 	lst.Dimension = Dimension{Width: width, Height: height}
-	lst.rowHeight = 12 // XXX
+	lst.rowHeight = 12
 	return &lst
 }
 

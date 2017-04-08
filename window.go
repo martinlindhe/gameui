@@ -53,19 +53,6 @@ func (wnd *Window) AddChild(c Component) {
 	wnd.addChild(c)
 }
 
-// XXX:
-/*
-func (wnd *Window) AddChild(c Component) {
-	if val, ok := c.(Positioner); ok {
-		pos := val.GetPosition()
-		pos.X += wnd.childLeftPad
-		pos.Y += wnd.titlebarHeight
-		val.SetPosition(pos)
-	}
-	wnd.addChild(c)
-}
-*/
-
 // HideCloseButton ...
 func (wnd *Window) HideCloseButton() {
 	wnd.close.Hide()

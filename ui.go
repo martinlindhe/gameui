@@ -68,7 +68,32 @@ func (ui *UI) Render(mx, my int) image.Image {
 	whole := image.Rect(0, 0, ui.Dimension.Width, ui.Dimension.Height)
 	draw.Draw(ui.Image, whole, &image.Uniform{color.Transparent}, image.ZP, draw.Src)
 	ui.drawChildren(mx, my)
+	ui.drawTooltips(mx, my)
 	return ui.Image
+}
+
+// mx, my is absolute mouse position
+func (ui *UI) drawTooltips(mx, my int) {
+	for _, child := range ui.children {
+		if grp, ok := child.(*Group); ok {
+			for _, gchild := range grp.children {
+				ui.drawTooltip(gchild, mx, my, mx-grp.Position.X, my-grp.Position.Y)
+			}
+		}
+		ui.drawTooltip(child, mx, my, mx, my)
+	}
+}
+
+func (ui *UI) drawTooltip(child Component, mx, my, relx, rely int) {
+	r := child.GetBounds()
+	child.Hover(relx >= r.Min.X && relx <= r.Max.X && rely >= r.Min.Y && rely <= r.Max.Y)
+
+	tooltip := child.Tooltip()
+	if child.IsMouseOver() && tooltip != nil {
+		tooltip.Move(mx, my)
+		tr := tooltip.GetBounds()
+		draw.Draw(ui.Image, tr, tooltip.Draw(relx, rely), image.ZP, draw.Over)
+	}
 }
 
 // IsClean returns true if all UI components are clean

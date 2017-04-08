@@ -116,18 +116,9 @@ func (c *component) RemoveAllChildren() {
 func (c *component) drawChildren(mx, my int) {
 	for _, child := range c.children {
 		r := child.GetBounds()
-		child.Hover(mx >= r.Min.X && mx <= r.Max.X && my >= r.Min.Y && my <= r.Max.Y)
-
 		img := child.Draw(mx, my)
 		if img != nil {
 			draw.Draw(c.Image, r, img, image.ZP, draw.Over)
-		}
-
-		tooltip := child.Tooltip()
-		if child.IsMouseOver() && tooltip != nil {
-			tooltip.Move(mx, my)
-			tr := tooltip.GetBounds()
-			draw.Draw(c.Image, tr, tooltip.Draw(mx, my), image.ZP, draw.Over)
 		}
 	}
 }

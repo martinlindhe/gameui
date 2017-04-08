@@ -42,7 +42,7 @@ func init() {
 	mana.SetTooltip(fmt.Sprintf("mana = %d", mana.GetValue()))
 	gui.AddComponent(mana)
 
-	grpWidth := 100
+	grpWidth := 40
 	grp := ui.NewGroup(grpWidth, 100)
 	grp.Position = ui.Point{X: (width / 2) - (grpWidth / 2), Y: 10}
 	bar1 := ui.NewBar(grpWidth, 10)
