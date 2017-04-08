@@ -41,11 +41,12 @@ func (txt *Text) SetText(s string) *Text {
 		return nil
 	}
 
-	b := img.Bounds()
 	txt.Image = img
-	txt.Dimension.Width = b.Max.X
-	txt.Dimension.Height = b.Max.Y
-
+	if img != nil {
+		b := img.Bounds()
+		txt.Dimension.Width = b.Max.X
+		txt.Dimension.Height = b.Max.Y
+	}
 	return txt
 }
 
