@@ -50,6 +50,12 @@ func NewWindow(width, height int, titleText string) *Window {
 
 // AddChild adds a child to the window
 func (wnd *Window) AddChild(c Component) {
+	if val, ok := c.(Positioner); ok {
+		pos := val.GetPosition()
+		pos.X += wnd.childLeftPad
+		pos.Y += wnd.titlebarHeight
+		val.SetPosition(pos)
+	}
 	wnd.addChild(c)
 }
 
