@@ -64,7 +64,7 @@ func (bar *Bar) SetValue(v int) {
 	bar.value = v
 }
 
-// IncValue increases value by `i` up to 100
+// IncValue increases value by `i` up to 100 and returns the new value
 func (bar *Bar) IncValue(i int) int {
 	val := bar.value + i
 	if val > 100 {

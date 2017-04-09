@@ -39,10 +39,13 @@ func (btn *Button) SetIcon(img image.Image) {
 	btn.isClean = false
 }
 
-// SetText ...
-func (btn *Button) SetText(fnt *Font, txt string) *Button {
+// SetText sets the button text
+func (btn *Button) SetText(fnt *Font, s string) *Button {
+	if btn.Text != nil && s == btn.Text.text {
+		return btn
+	}
 	btn.Text = NewText(fnt)
-	btn.Text.SetText(txt)
+	btn.Text.SetText(s)
 	return btn
 }
 

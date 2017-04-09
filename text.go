@@ -12,7 +12,7 @@ type Text struct {
 	font *Font
 }
 
-// NewText ...
+// NewText creates a new Text instance
 func NewText(font *Font) *Text {
 	txt := Text{}
 	txt.backgroundColor = Transparent
@@ -27,12 +27,14 @@ func (txt *Text) SetFont(font *Font) {
 	txt.isClean = false
 }
 
-// SetText ...
+// SetText sets the text
 func (txt *Text) SetText(s string) *Text {
-	if s != txt.text {
-		txt.isClean = false
-		txt.text = s
+	if s == txt.text {
+		return txt
 	}
+
+	txt.isClean = false
+	txt.text = s
 	txt.isHidden = txt.text == ""
 
 	img, err := txt.font.Print(txt.text)
@@ -50,7 +52,7 @@ func (txt *Text) SetText(s string) *Text {
 	return txt
 }
 
-// GetText ...
+// GetText returns the text
 func (txt *Text) GetText() string {
 	return txt.text
 }

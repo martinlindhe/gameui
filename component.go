@@ -73,6 +73,9 @@ func (c *component) GetBounds() image.Rectangle {
 
 // SetTooltip sets the tooltip
 func (c *component) SetTooltip(s string) {
+	if c.tooltip != nil && c.tooltip.Text.text == s {
+		return
+	}
 	tinyFont, _ := NewFont(defaultFontName, 10, 72, White)
 
 	dim := tinyFont.findDimension(s)
