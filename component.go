@@ -16,6 +16,7 @@ type Component interface {
 	IsHidden() bool
 	Click(Point) bool
 	IsMouseOver() bool
+	IsDraggable() bool
 	Tooltip() *Button
 }
 
@@ -24,6 +25,7 @@ type component struct {
 	isMouseOver     bool
 	isClean         bool
 	isHidden        bool
+	isDraggable     bool
 	Dimension       Dimension
 	Position        Point
 	Image           *image.RGBA
@@ -52,6 +54,11 @@ func (c *component) Click(mouse Point) bool {
 	return true
 }
 
+// SetDraggable toggles the ability to drag the window
+func (c *component) SetDraggable(enabled bool) {
+	c.isDraggable = enabled
+}
+
 // IsClean returns false if component needs redraw
 func (c *component) IsClean() bool {
 	return c.isClean
@@ -63,6 +70,10 @@ func (c *component) IsHidden() bool {
 
 func (c *component) IsMouseOver() bool {
 	return c.isMouseOver
+}
+
+func (c *component) IsDraggable() bool {
+	return c.isDraggable
 }
 
 func (c *component) GetBounds() image.Rectangle {

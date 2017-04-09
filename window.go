@@ -59,19 +59,19 @@ func (wnd *Window) AddChild(c Component) {
 	wnd.addChild(c)
 }
 
-// HideCloseButton ...
+// HideCloseButton hides the close button
 func (wnd *Window) HideCloseButton() {
 	wnd.close.Hide()
 }
 
-// HideTitle ...
+// HideTitle hides the window title
 func (wnd *Window) HideTitle() {
 	if wnd.title != nil {
 		wnd.title.Hide()
 	}
 }
 
-// SetTitle ...
+// SetTitle sets the window title
 func (wnd *Window) SetTitle(s string) *Window {
 	if s == "" {
 		return wnd
@@ -92,12 +92,12 @@ func (wnd *Window) SetTitle(s string) *Window {
 	return wnd
 }
 
-// SetTitleColor ...
+// SetTitleColor sets the window title color
 func (wnd *Window) SetTitleColor(col color.Color) {
 	wnd.titleColor = col
 }
 
-// SetBorderColor ...
+// SetBorderColor sets the window border color
 func (wnd *Window) SetBorderColor(col color.Color) {
 	wnd.borderColor = col
 }
@@ -108,7 +108,7 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 		wnd.isClean = true
 		return nil
 	}
-	if wnd.isClean {
+	if wnd.isClean && !wnd.isDraggable {
 		if wnd.isChildrenClean() {
 			return wnd.Image
 		}
@@ -124,14 +124,19 @@ func (wnd *Window) Draw(mx, my int) *image.RGBA {
 	// draw titlebar rect
 	if wnd.title != nil && !wnd.title.isHidden {
 		titleRect := image.Rect(0, 0, wnd.Dimension.Width, wnd.titlebarHeight)
-		draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Over)
+		draw.Draw(wnd.Image, titleRect, &image.Uniform{wnd.titleColor}, image.ZP, draw.Src)
 	}
+
+	wnd.drawChildren(mx, my)
 
 	// draw outline
 	outlineRect := image.Rect(0, 0, wnd.Dimension.Width-1, wnd.Dimension.Height-1)
 	DrawRect(wnd.Image, outlineRect, wnd.borderColor)
 
-	wnd.drawChildren(mx, my)
+	// XXX draggable: if mouse is pressed and in titlebar rect, move it
+	if wnd.isDraggable {
+		// XXX if click is on title rect
+	}
 
 	wnd.isClean = true
 	return wnd.Image
@@ -149,7 +154,7 @@ func (wnd *Window) Click(mouse Point) bool {
 	return false
 }
 
-// TitlebarHeight ...
+// TitlebarHeight returns the titlebar height
 func (wnd *Window) TitlebarHeight() int {
 	return wnd.titlebarHeight
 }

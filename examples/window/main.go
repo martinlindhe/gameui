@@ -36,6 +36,8 @@ func (l line) Text() string {
 }
 
 func init() {
+	window.SetDraggable(true)
+
 	list.SetRowHeight(14)
 
 	gui = ui.New(width, height)

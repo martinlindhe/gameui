@@ -36,6 +36,7 @@ func (ui *UI) AddKeyFunc(key Key, fnc func() error) {
 func (ui *UI) Update() error {
 	ui.Input.updateMouse()
 	ui.handleClick()
+	ui.handleDrag()
 	if err := ui.handleKeypress(); err != nil {
 		return err
 	}
