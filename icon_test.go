@@ -44,7 +44,7 @@ func TestUIWithIconOnly(t *testing.T) {
 
 	// make sure same frame is delivered each time
 	for i := 0; i < 10; i++ {
-		im := ui.Render(0, 0)
+		im := ui.Render()
 		testCompareRender(t, []string{
 			"# #      ",
 			"         ",

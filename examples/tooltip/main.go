@@ -109,7 +109,7 @@ func update(screen *ebiten.Image) error {
 	rect := image.Rect(0, 0, gui.Dimension.Width, gui.Dimension.Height)
 	frame := image.NewRGBA(rect)
 	draw.Draw(frame, rect, background, image.ZP, draw.Src)
-	draw.Draw(frame, rect, gui.Render(gui.Input.X, gui.Input.Y), image.ZP, draw.Over)
+	draw.Draw(frame, rect, gui.Render(), image.ZP, draw.Over)
 
 	eframe, err := ebiten.NewImageFromImage(frame, ebiten.FilterNearest)
 	if err != nil {

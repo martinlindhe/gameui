@@ -86,7 +86,7 @@ func update(screen *ebiten.Image) error {
 		mana.IncValue(2)
 	}
 
-	frame, err := ebiten.NewImageFromImage(gui.Render(gui.Input.X, gui.Input.Y), ebiten.FilterNearest)
+	frame, err := ebiten.NewImageFromImage(gui.Render(), ebiten.FilterNearest)
 	if err != nil {
 		return err
 	}

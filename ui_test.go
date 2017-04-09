@@ -22,7 +22,7 @@ func BenchmarkUI(b *testing.B) {
 	ui.AddComponent(txt)
 
 	for n := 0; n < b.N; n++ {
-		ui.Render(0, 0)
+		ui.Render()
 	}
 }
 
@@ -70,7 +70,7 @@ func TestUI(t *testing.T) {
 		"     ##########     ",
 		"                    ",
 	}
-	testCompareRender(t, ex, renderAsText(ui.Render(0, 0)))
+	testCompareRender(t, ex, renderAsText(ui.Render()))
 
 	txt.SetText("BEEP")
 	ex2 := []string{
@@ -85,7 +85,7 @@ func TestUI(t *testing.T) {
 		"     ##########     ",
 		"                    ",
 	}
-	testCompareRender(t, ex2, renderAsText(ui.Render(0, 0)))
+	testCompareRender(t, ex2, renderAsText(ui.Render()))
 }
 
 func TestUIClick(t *testing.T) {

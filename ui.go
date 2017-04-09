@@ -53,7 +53,9 @@ func (ui *UI) AddComponent(o Component) {
 }
 
 // Render returns a fresh frame of the GUI. mx, my is absolute mouse position
-func (ui *UI) Render(mx, my int) image.Image {
+func (ui *UI) Render() image.Image {
+	mx := ui.Input.X
+	my := ui.Input.Y
 	if ui.isChildrenClean() {
 		if mx == ui.prevX && my == ui.prevY {
 			return ui.Image
