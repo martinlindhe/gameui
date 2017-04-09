@@ -2,7 +2,6 @@ package ui
 
 import (
 	"image"
-	"image/color"
 )
 
 // List holds a number of rows of text, each is clickable (UI component)
@@ -13,8 +12,7 @@ type List struct {
 
 // Line defines the interface for lines of text usable with the List object
 type Line interface {
-	Name() string
-	Color() color.Color
+	Text() string
 }
 
 // NewList ...
@@ -24,6 +22,11 @@ func NewList(width, height int) *List {
 	lst.Dimension = Dimension{Width: width, Height: height}
 	lst.rowHeight = 12
 	return &lst
+}
+
+// SetRowHeight sets the list row height
+func (lst *List) SetRowHeight(n int) {
+	lst.rowHeight = n
 }
 
 // addChild ...
@@ -36,7 +39,7 @@ func (lst *List) addChild(c Component) {
 func (lst *List) AddLine(l Line, fnt *Font, fnc func()) {
 	h := NewText(fnt)
 	h.OnClick = fnc
-	h.SetText(l.Name())
+	h.SetText(l.Text())
 	h.Position = Point{X: 0, Y: len(lst.children) * lst.rowHeight}
 	h.Dimension = Dimension{Width: lst.Dimension.Width, Height: lst.rowHeight}
 	lst.addChild(h)

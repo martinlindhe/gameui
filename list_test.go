@@ -8,16 +8,13 @@ import (
 )
 
 type myItem struct {
-	name  string
-	color color.Color
+	text string
 }
 
-func (o myItem) Name() string {
-	return o.name
+func (o myItem) Text() string {
+	return o.text
 }
-func (o myItem) Color() color.Color {
-	return o.color
-}
+
 func TestListOnly(t *testing.T) {
 
 	grp := NewList(70, 30)
@@ -25,10 +22,10 @@ func TestListOnly(t *testing.T) {
 	fnt, err := NewFont(defaultFontName, 12, 72, color.White)
 	assert.Equal(t, nil, err)
 
-	o1 := myItem{name: "ITEM 1"}
+	o1 := myItem{text: "ITEM 1"}
 	grp.AddLine(o1, fnt, func() {})
 
-	o2 := myItem{name: "ITEM 2"}
+	o2 := myItem{text: "ITEM 2"}
 	grp.AddLine(o2, fnt, func() {})
 
 	// make sure same frame is delivered each time
