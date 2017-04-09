@@ -4,7 +4,7 @@ import "log"
 
 // click handles click events for all components
 func (ui *UI) handleClick() {
-	if !ui.Input.StateForMouse(MouseButtonLeft) {
+	if !ui.Input.NewStateForMouse(MouseButtonLeft) {
 		return
 	}
 	mouse := Point{X: ui.Input.X, Y: ui.Input.Y}
@@ -14,6 +14,7 @@ func (ui *UI) handleClick() {
 		}
 		if mouse.In(c.GetBounds()) {
 			if c.Click(mouse) {
+				log.Println("Click handled")
 				ui.Input.ConsumeStateForMouse(MouseButtonLeft)
 			}
 			return
@@ -22,7 +23,7 @@ func (ui *UI) handleClick() {
 }
 
 func (ui *UI) handleDrag() {
-	if !ui.Input.StateForMouse(MouseButtonLeft) {
+	if !ui.Input.ContinuedStateForMouse(MouseButtonLeft) {
 		return
 	}
 	mouse := Point{X: ui.Input.X, Y: ui.Input.Y}
@@ -30,12 +31,14 @@ func (ui *UI) handleDrag() {
 		if c.IsHidden() {
 			continue
 		}
-		if c.IsDraggable() && mouse.In(c.GetBounds()) {
-			log.Println("dragging...")
-			c.Move(ui.Input.X, ui.Input.Y)
-
-			//ui.Input.ConsumeStateForMouse(MouseButtonLeft)
-			return
+		b := c.GetBounds()
+		if c.IsDraggable() {
+			if mouse.In(b) {
+				log.Println("dragging...", b)
+				c.Move(ui.Input.X-b.Min.X, ui.Input.Y-b.Min.Y)
+				return
+			}
+			// log.Println("draggable but mouse is outside")
 		}
 	}
 }

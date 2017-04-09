@@ -23,9 +23,14 @@ func (i *Input) WasPressed(key Key) bool {
 	return i.keyStates[key] != 0
 }
 
-// StateForMouse ...
-func (i *Input) StateForMouse(mouse MouseButton) bool {
+// NewStateForMouse returns true if state was triggered
+func (i *Input) NewStateForMouse(mouse MouseButton) bool {
 	return i.mouseStates[mouse] == 1
+}
+
+// ContinuedStateForMouse returns true if state is not false
+func (i *Input) ContinuedStateForMouse(mouse MouseButton) bool {
+	return i.mouseStates[mouse] != 0
 }
 
 // ConsumeStateForMouse makes the mouse state been consumed, so click-thru doesn't happen
@@ -53,7 +58,5 @@ func (i *Input) updateMouse() {
 		}
 		i.mouseStates[mouse]++
 	}
-	mx, my := ebiten.CursorPosition()
-	i.X = mx
-	i.Y = my
+	i.X, i.Y = ebiten.CursorPosition()
 }
