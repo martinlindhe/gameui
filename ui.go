@@ -13,6 +13,8 @@ type UI struct {
 	Input        Input
 	keyFuncs     map[Key]func() error
 	prevX, prevY int
+	dragX, dragY int
+	dragStarting bool
 }
 
 // New creates a new UI instance
